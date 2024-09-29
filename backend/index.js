@@ -26,7 +26,8 @@ app.use("/api",ecoRoutes)
 
 try {
     // MongoDB URI with localhost (creates the DB automatically when data is inserted)
-    await mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce")
+    // await mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce")
+    await mongoose.connect(process.env.MONGO_URI);
     app.listen(PORT,()=>console.log(`Server running on port ${PORT}`))
 }
 catch(err){
