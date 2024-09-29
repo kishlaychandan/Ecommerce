@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../axiosConfig";
 import { Link, useNavigate } from "react-router-dom";
 
 function ForgetPassword() {
@@ -14,7 +14,7 @@ function ForgetPassword() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/user/forgetPassword",
+        "/user/forgetPassword",
         { email }
       );
       alert("Password reset link sent to your email");
@@ -29,7 +29,7 @@ function ForgetPassword() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/verifyOtp",
+        "/user/verifyOtp",
         { email, otp }
       );
       alert(response.data.message);
@@ -43,7 +43,7 @@ function ForgetPassword() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/changePassword",
+        "/user/changePassword",
         { email, password }
       );
       alert(response.data.message);
