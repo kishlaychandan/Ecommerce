@@ -7,7 +7,7 @@ import productRouter from "./routes/productRoutes.js"
 import cookieParser from "cookie-parser"
 import { sendMail } from "./services/sendMails.js"
 
-const PORT=process.env.PORT || 5000
+const PORT=process.env.PORT || 3000;
 const app=express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
