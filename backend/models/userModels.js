@@ -22,6 +22,20 @@ const userFileSchema = new mongoose.Schema({
         type:String,
         required:true  
     },
+    otp:{
+        type:String,
+        default:null
+    },
+    isVerified:{
+        type:Boolean,
+        default:false
+    },
+    wishlist:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"products"
+        }
+    ]
 },
 
 {

@@ -6,7 +6,8 @@ export function generateToken(user){
         {
             userId:user._id,
             userEmail:user.email,
-            isVerfied:true,
+            role:user.role,
+            isVerified:true
         },
         process.env.SECRET,
         {expiresIn:"1h"}
