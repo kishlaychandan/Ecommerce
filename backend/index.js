@@ -4,27 +4,45 @@ import "dotenv/config"
 import mongoose from "mongoose"
 import ecoRoutes from "./routes/ecomRoutes.js"
 import productRouter from "./routes/productRoutes.js"
+import couponRouter from "./routes/couponRouter.js"
 import cookieParser from "cookie-parser"
 import { sendMail } from "./services/sendMails.js"
+import authRouter from "./routes/authRoutes.js"
+import cartRouter from "./routes/cartRoutes.js"
+import expressRateLimit from "express-rate-limit"
+import aboutRouter from "./routes/aboutRouter.js"
+import faqRouter from "./routes/faqRoutes.js"
+import OrderRouter from "./routes/orderRouter.js"
 
 const PORT=process.env.PORT || 3000;
 const app=express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+
+// const limiter=expressRateLimit({
+//     windowMs:15*60*1000,
+//     max:100,
+// })
 const corsOptions={
-    // origin:"http://localhost:5173",
-    origin:"https://ecommerce-two-jade.vercel.app/",
+    origin:"http://localhost:5173",
     credentials:true,
     method:["GET","POST","PUT","DELETE","OPTIONS","PATCH"],
     allowHeaders:["Authorization"],
 }
 app.use(cors(corsOptions));
 app.use(cookieParser());
+// app.use(limiter)
 
+app.use("/api/check", authRouter);
 app.use("/api/product",productRouter)
 app.use("/api",ecoRoutes)
-
+app.use("/api/coupon",couponRouter)
+app.use("/api/cart",cartRouter)
+app.use("/api/about",aboutRouter)
+app.use('/api/faqs', faqRouter);
+app.use('/api/orders', OrderRouter)
+app.use('/api/coupons',couponRouter)
 try {
     // MongoDB URI with localhost (creates the DB automatically when data is inserted)
     // await mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce")

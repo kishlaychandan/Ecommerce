@@ -1,25 +1,28 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary } from "cloudinary"; 
 import "dotenv/config";
-export async function uploadToCloudinary(req) {
-  console.log("uploading to cloudinary");
-  
-  // console.log(process.env);
-  cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+export async function uploadToCloudinary(file) {
+  console.log("Uploading to Cloudinary...");
+
   try {
     // Upload image to Cloudinary
-    const result = await cloudinary.uploader.upload(req.file.path, {
+    const result = await cloudinary.uploader.upload(file.path, {
       folder: "ecommerce",
+      resource_type: "auto",
     });
-    console.log("uploaded to cloudinary done....");
+    
+    console.log("Upload to Cloudinary done...");
     console.log(result.secure_url);
     
-    return result.secure_url;
+    return result.secure_url; // Return the secure URL
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error uploading image to Cloudinary" });
+    console.error("Cloudinary upload error:", error);
+    throw new Error("Error uploading image to Cloudinary"); // Throw an error to handle in the controller
   }
 }

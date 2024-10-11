@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../Login/axiosConfig";
+import axios from "../../axiosConfig";
 
 function Review({ productId, user }) {
   const [rating, setRating] = useState(1); // Default rating value

@@ -1,6 +1,6 @@
 // ... existing imports
 import React, { useState, useEffect } from 'react';
-import axios from '../../axiosConfig';
+import axios from '../../../../axiosConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from './Modal'; // Ensure Modal is imported
 
@@ -65,19 +65,19 @@ function ViewListing() {
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
-            <th className="p-3 border-b">S NO.</th>
-            <th className="p-3 border-b">Name</th>
-            <th className="p-3 border-b">Price</th>
-            <th className="p-3 border-b">Actions</th>
+            <th className="border p-3 border-gray-300 ">S NO.</th>
+            <th className="border p-3 border-gray-300">Name</th>
+            <th className="border p-3 border-gray-300">Price</th>
+            <th className="border p-3 border-gray-300">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className=''>
           {productData.map((product, index) => (
-            <tr key={product._id}>
-              <td className="p-3 border-b">{index + 1}</td>
-              <td className="p-3 border-b cursor-pointer" onClick={() => navigate(`/admin/product/${product._id}`)}>{product.name}</td>
-              <td className="p-3 border-b">{product.price}</td>
-              <td className="p-3 border-b">
+            <tr key={product._id} className="hover:bg-gray-100 border-gray-500">
+              <td className="p-3 border text-center">{index + 1}</td>
+              <td className="p-3 border text-center" >{product.name}</td>
+              <td className="p-3 border text-center">{product.price}</td>
+              <td className="p-3 border flex justify-center">
                 <button className="bg-yellow-500 text-white p-1 rounded-md mr-2" onClick={() => handleUpdateClick(product)}>Update</button>
                 <button id={product._id} onClick={deleteProduct} className="bg-red-500 text-white p-1 rounded-md">Delete</button>
               </td>

@@ -1,0 +1,8 @@
+{
+    "serviceworker": {
+      "src": "path/to/service-worker.js",
+      "scope": "/",
+      "type": "module"
+    }
+  }
+  

@@ -9,7 +9,6 @@ dotenv.config();
 export async function registeruser(req, res) {
   try {
     let { firstName, lastName, email, password, role } = req.body;
-
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
     password = hashedPassword;
@@ -35,7 +34,8 @@ export async function loginuser(req, res) {
     // console.log(req.body);
 
     const { email, password, role } = req.body;
-
+    console.log(email, password, role);
+    
     const checkUser = await userModel.findOne({ email }).exec();
     // console.log(checkUser);
 
@@ -46,8 +46,12 @@ export async function loginuser(req, res) {
     // if (!check) {
     //   return res.status(400).json({ message: "Wrong password" });
     // }
+    console.log(checkUser.role, role);
+    
 
     if (!checkUser || !check || checkUser.role !== role) {
+      console.log("wrong credentials");
+      
       return res
         .status(401)
         .json({ message: "User not found, Invalid credentials" });
@@ -103,6 +107,10 @@ export async function logoutuser(req, res) {
 //is user logged in
 
 export async function isUserLoggedIn(req, res) {
+  // console.log(req);
+  res.json({ user: req.user });
+}
+export async function isAdminLoggedIn(req, res) {
   // console.log(req);
   res.json({ user: req.user });
 }
@@ -185,3 +193,61 @@ export async function changePassword(req, res) {
     console.log(err.message);
   }
 }
+
+export async function getUserDetail(req, res) {
+  const {userId}=req.body
+  console.log("inside get user detail");
+  
+  console.log(userId);
+  
+  try {
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    return res.status(200).json({ user });
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
+
+
+export async function getAllUsers (req, res) {
+  try {
+    console.log('Fetching users...');
+    
+    const users = await userModel.find({ role: 'user' }); // Fetch only users, not admins
+    const total = await userModel.countDocuments({ role: 'user' }); // Total count for pagination
+
+    res.json({ users, total });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Delete a user
+export async function deleteUser (req, res) {
+  const { userId } = req.params;
+
+  try {
+    console.log("inside delete user");
+    
+    const deletedUser = await userModel.findByIdAndDelete(userId);
+    
+    if (!deletedUser) {
+      console.log("User not found");
+      
+      return res.status(404).json({ message: 'User not found' });
+    }
+    else{
+      console.log("user found to delete"); 
+    }
+    console.log("user deleted successfully",deletedUser);
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
