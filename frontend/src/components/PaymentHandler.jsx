@@ -9,6 +9,12 @@
 //   const [discountedPrice, setDiscountedPrice] = useState(total);
 //   const [publicCoupons, setPublicCoupons] = useState([]);
 //   const [appliedCoupon, setAppliedCoupon] = useState("");
+//   const [shippingDetails, setShippingDetails] = useState({
+//     address: "",
+//     city: "",
+//     postalCode: "",
+//     country: "",
+//   });
 
 //   // Fetch public coupons when the component mounts
 //   useEffect(() => {
@@ -30,26 +36,36 @@
 //   }, [discount, total]);
 
 //   const handlePayment = async () => {
+//     if (!shippingDetails.address) {
+//       alert("Please enter your shipping address.");
+//       return;
+//     }
+
 //     if (!discountedPrice || discountedPrice <= 0) {
 //       alert("Invalid payment amount.");
 //       return;
 //     }
 
+//     try {
+//       // Optionally, create an order with 'Pending' status before payment
+//       // This depends on your business logic
+//     } catch (error) {
+//       console.error("Error before initiating payment:", error);
+//     }
+
 //     const options = {
-//       key: "rzp_test_rZUOMEi4ogeBfp",
-//       amount: discountedPrice * 1000,
+//       key: "rzp_test_rZUOMEi4ogeBfp", // Replace with your Razorpay key
+//       amount: discountedPrice * 1000, // Razorpay expects amount in paise
 //       currency: "INR",
 //       name: "Your Shop Name",
-//       description: "Order Payment", 
-//       image: "https://via.placeholder.com/150", 
+//       description: "Order Payment",
+//       image: "https://via.placeholder.com/150",
 //       handler: async (paymentResponse) => {
 //         try {
-//           console.log("paymentResponse",paymentResponse);
-//           console.log("paymentResponse pID:",paymentResponse.razorpay_payment_id);
-          
+//           // Create the order after successful payment
 //           await createOrder(paymentResponse.razorpay_payment_id);
-//           // setCart([]); 
-//           onSuccess(); 
+//           setCart([]);
+//           onSuccess();
 //           alert("Payment successful! Thank you for your order.");
 //         } catch (error) {
 //           console.error("Error creating order:", error.message);
@@ -57,15 +73,15 @@
 //         }
 //       },
 //       prefill: {
-//         name: "Customer Name", 
-//         email: "customer@example.com", 
-//         contact: "9999999999", 
+//         name: "Customer Name",
+//         email: "customer@example.com",
+//         contact: "9999999999",
 //       },
 //       notes: {
-//         address: "Customer Address", 
+//         address: "Customer Address",
 //       },
 //       theme: {
-//         color: "#F37254", 
+//         color: "#F37254",
 //       },
 //     };
 
@@ -84,9 +100,10 @@
 //       products,
 //       totalAmount: Math.round(discountedPrice),
 //       paymentId,
+//       shippingDetails,
+//       notes: "Order placed via Razorpay payment.",
 //     });
-//     console.log("response",response);
-//     setCart([]);
+//     console.log("Order created:", response.data);
 //   };
 
 //   // Apply the coupon (public or private)
@@ -99,25 +116,40 @@
 //     }
 
 //     try {
+//       console.log("couponCode",couponCode);
+      
 //       const response = await axios.post("/coupons/apply", { code: couponCode });
-//       setDiscount(response.data.discount); 
-//       setAppliedCoupon(couponCode); 
+//       // setDiscount(response.data.discount); 
+// //       setAppliedCoupon(couponCode); 
+//       console.log(response.data.discount);
+
+      
+//       setDiscount(response.data.discount);
+//       setAppliedCoupon(couponCode);
 //       alert(`Coupon applied! Discount: ${response.data.discount}%`);
 //     } catch (error) {
 //       alert("Invalid coupon code. Please try again.");
 //       setDiscount(0);
+//       setAppliedCoupon("");
 //       console.error("Coupon apply error:", error);
 //     }
 //   };
 
 //   const handlePublicCouponSelect = (e) => {
 //     const selectedCouponCode = e.target.value;
-//     setCouponCode(selectedCouponCode); 
+//     setCouponCode(selectedCouponCode);
+//     console.log(e.target.value);
+    
+//   };
+
+//   const handleShippingChange = (e) => {
+//     const { name, value } = e.target;
+//     setShippingDetails((prev) => ({ ...prev, [name]: value }));
 //   };
 
 //   return (
 //     <div>
-      
+//       <h2 className="text-lg font-semibold">Apply Coupon</h2>
 //       <label className="block text-sm font-medium text-gray-700">
 //         Select a Public Coupon
 //       </label>
@@ -152,6 +184,44 @@
 //         </button>
 //       </div>
 
+//       {/* Shipping Details */}
+//       <div className="mt-6">
+//         <h2 className="text-lg font-semibold">Shipping Details</h2>
+//         <input
+//           type="text"
+//           name="address"
+//           value={shippingDetails.address}
+//           onChange={handleShippingChange}
+//           placeholder="Address"
+//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//           required
+//         />
+//         <input
+//           type="text"
+//           name="city"
+//           value={shippingDetails.city}
+//           onChange={handleShippingChange}
+//           placeholder="City"
+//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//         />
+//         <input
+//           type="text"
+//           name="postalCode"
+//           value={shippingDetails.postalCode}
+//           onChange={handleShippingChange}
+//           placeholder="Postal Code"
+//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//         />
+//         <input
+//           type="text"
+//           name="country"
+//           value={shippingDetails.country}
+//           onChange={handleShippingChange}
+//           placeholder="Country"
+//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//         />
+//       </div>
+
 //       {/* Display applied coupon and prices */}
 //       <div className="mt-4">
 //         {appliedCoupon && <p>Applied Coupon: {appliedCoupon}</p>}
@@ -161,7 +231,7 @@
 
 //       <button
 //         onClick={handlePayment}
-//         className="btn btn-primary bg-green-600 p-2 rounded-lg mt-4"
+//         className="btn btn-primary bg-green-600 p-2 rounded-lg mt-4 w-full"
 //       >
 //         Proceed to Payment
 //       </button>
@@ -173,12 +243,14 @@
 
 
 // components/PaymentHandler.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "../axiosConfig";
 import { useCart } from "../CartContext";
+import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
 
 const PaymentHandler = ({ total, onSuccess }) => {
   const { cart, setCart } = useCart();
+  const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [discountedPrice, setDiscountedPrice] = useState(total);
@@ -291,14 +363,13 @@ const PaymentHandler = ({ total, onSuccess }) => {
     }
 
     try {
-      console.log("couponCode",couponCode);
-      
+      console.log("couponCode", couponCode);
+
       const response = await axios.post("/coupons/apply", { code: couponCode });
       // setDiscount(response.data.discount); 
-//       setAppliedCoupon(couponCode); 
+      // setAppliedCoupon(couponCode); 
       console.log(response.data.discount);
 
-      
       setDiscount(response.data.discount);
       setAppliedCoupon(couponCode);
       alert(`Coupon applied! Discount: ${response.data.discount}%`);
@@ -314,7 +385,6 @@ const PaymentHandler = ({ total, onSuccess }) => {
     const selectedCouponCode = e.target.value;
     setCouponCode(selectedCouponCode);
     console.log(e.target.value);
-    
   };
 
   const handleShippingChange = (e) => {
@@ -323,15 +393,27 @@ const PaymentHandler = ({ total, onSuccess }) => {
   };
 
   return (
-    <div>
-      <h2 className="text-lg font-semibold">Apply Coupon</h2>
-      <label className="block text-sm font-medium text-gray-700">
+    <div
+      className={`p-6 rounded-lg shadow-md ${
+        isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+      }`}
+    >
+      <h2 className="text-lg font-semibold mb-4">Apply Coupon</h2>
+      <label
+        className={`block text-sm font-medium ${
+          isDarkMode ? "text-gray-300" : "text-gray-700"
+        }`}
+      >
         Select a Public Coupon
       </label>
       <select
         value={couponCode}
         onChange={handlePublicCouponSelect}
-        className="mt-1 p-2 w-full border border-gray-300 rounded-lg"
+        className={`mt-1 p-2 w-full border rounded-lg ${
+          isDarkMode
+            ? "bg-gray-700 border-gray-600 text-white"
+            : "bg-white border-gray-300 text-gray-900"
+        }`}
       >
         <option value="">-- Select a Coupon --</option>
         {publicCoupons.map((coupon) => (
@@ -349,11 +431,19 @@ const PaymentHandler = ({ total, onSuccess }) => {
           value={couponCode}
           onChange={(e) => setCouponCode(e.target.value)}
           placeholder="Enter coupon code (public or private)"
-          className="p-2 w-full border border-gray-300 rounded-lg"
+          className={`p-2 w-full border rounded-lg ${
+            isDarkMode
+              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+          }`}
         />
         <button
           onClick={handleApplyCoupon}
-          className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg"
+          className={`mt-2 px-4 py-2 rounded-lg ${
+            isDarkMode
+              ? "bg-blue-600 hover:bg-blue-700 text-white"
+              : "bg-blue-500 hover:bg-blue-600 text-white"
+          }`}
         >
           Apply Coupon
         </button>
@@ -361,14 +451,18 @@ const PaymentHandler = ({ total, onSuccess }) => {
 
       {/* Shipping Details */}
       <div className="mt-6">
-        <h2 className="text-lg font-semibold">Shipping Details</h2>
+        <h2 className="text-lg font-semibold mb-2">Shipping Details</h2>
         <input
           type="text"
           name="address"
           value={shippingDetails.address}
           onChange={handleShippingChange}
           placeholder="Address"
-          className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+          className={`p-2 w-full border rounded-lg mt-2 ${
+            isDarkMode
+              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+          }`}
           required
         />
         <input
@@ -377,7 +471,11 @@ const PaymentHandler = ({ total, onSuccess }) => {
           value={shippingDetails.city}
           onChange={handleShippingChange}
           placeholder="City"
-          className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+          className={`p-2 w-full border rounded-lg mt-2 ${
+            isDarkMode
+              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+          }`}
         />
         <input
           type="text"
@@ -385,7 +483,11 @@ const PaymentHandler = ({ total, onSuccess }) => {
           value={shippingDetails.postalCode}
           onChange={handleShippingChange}
           placeholder="Postal Code"
-          className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+          className={`p-2 w-full border rounded-lg mt-2 ${
+            isDarkMode
+              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+          }`}
         />
         <input
           type="text"
@@ -393,20 +495,44 @@ const PaymentHandler = ({ total, onSuccess }) => {
           value={shippingDetails.country}
           onChange={handleShippingChange}
           placeholder="Country"
-          className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+          className={`p-2 w-full border rounded-lg mt-2 ${
+            isDarkMode
+              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+          }`}
         />
       </div>
 
       {/* Display applied coupon and prices */}
       <div className="mt-4">
-        {appliedCoupon && <p>Applied Coupon: {appliedCoupon}</p>}
-        <p>Original Price: ₹{total.toFixed(2)}</p>
-        <p>Discounted Price: ₹{discountedPrice.toFixed(2)}</p>
+        {appliedCoupon && (
+          <p className={isDarkMode ? "text-gray-300" : "text-gray-700"}>
+            Applied Coupon: {appliedCoupon}
+          </p>
+        )}
+        <p
+          className={`${
+            isDarkMode ? "text-gray-300" : "text-gray-700"
+          } mt-2`}
+        >
+          Original Price: ₹{total.toFixed(2)}
+        </p>
+        <p
+          className={`${
+            isDarkMode ? "text-gray-300" : "text-gray-700"
+          } mt-1`}
+        >
+          Discounted Price: ₹{discountedPrice.toFixed(2)}
+        </p>
       </div>
 
       <button
         onClick={handlePayment}
-        className="btn btn-primary bg-green-600 p-2 rounded-lg mt-4 w-full"
+        className={`btn btn-primary p-2 rounded-lg mt-4 w-full ${
+          isDarkMode
+            ? "bg-green-700 hover:bg-green-800 text-white"
+            : "bg-green-600 hover:bg-green-700 text-white"
+        }`}
       >
         Proceed to Payment
       </button>

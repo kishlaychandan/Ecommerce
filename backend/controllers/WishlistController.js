@@ -61,18 +61,23 @@ export async function removeFromWishList(req, res) {
 export async function getWishlist(req, res) {
     const userId = req.user._id; // Get the user's ID from the authentication middleware
     // console.log("getwishlistRESP", userId);
+    console.log("inside get wishlist",userId);
+    
 
     try {
         const user = await userModel.findById(userId);
 
+        console.log("user wishlist");
+        
         if (!user) {
             console.log("User not found");
-            
+   
         }
         else{
             // console.log("user found");
             // console.log("user wishlist",user.wishlist);
-
+            console.log("user wishlist",);
+            
             res.status(200).json({ message: "Wishlist fetched successfully", wishlist: user.wishlist });
             
         }

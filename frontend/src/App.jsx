@@ -19,6 +19,7 @@ import About from "./pages/About";
 import EditAbout from "./components/EditAbout";
 import Faq from "./pages/Faq";
 import EditFaq from "./components/EditFaq";
+import { ThemeProvider } from "./ThemeContext";
 
 import { CartProvider } from './CartContext';
 import Checkout from "./pages/Checkout";
@@ -28,7 +29,6 @@ import RegisteredUsers from "./components/Login/Admin/RegisteredUsers";
 import Orders from "./pages/Orders";
 import AdminOrders from "./pages/AdminOrders";
 import AdminProtectedRoute from "./AdminProtectedRoute";
-
 export const userContext = createContext();
 export const adminContext = createContext();
 export const cartContext = createContext();
@@ -100,6 +100,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ThemeProvider>
       <userContext.Provider value={{ isUserLoggedIn, setIsUserLoggedin, isAdminLoggedIn, setIsAdminLoggedIn }}>
         {/* <cartContext.Provider
           value={{
@@ -171,6 +172,7 @@ function App() {
         {/* </cartContext.Provider> */}
         </CartProvider>
       </userContext.Provider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
