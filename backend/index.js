@@ -24,13 +24,14 @@ app.use(express.urlencoded({extended:true}))
 //     windowMs:15*60*1000,
 //     max:100,
 // })
-const corsOptions={
+const corsOptions = {
     // origin:"http://localhost:5173",
-    origin:"https://ecommerce-two-jade.vercel.app/",
-    credentials:true,
-    method:["GET","POST","PUT","DELETE","OPTIONS","PATCH"],
-    allowHeaders:["Authorization"],
-}
+    origin: "https://ecommerce-two-jade.vercel.app", // Remove the trailing slash
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Authorization"],
+};
+
 app.use(cors(corsOptions));
 app.use(cookieParser());
 // app.use(limiter)
