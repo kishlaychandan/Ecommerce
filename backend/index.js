@@ -26,10 +26,18 @@ app.use(express.urlencoded({extended:true}))
 // })
 const corsOptions = {
     // origin:"http://localhost:5173",
-    origin: "https://ecommerce-two-jade.vercel.app", // Remove the trailing slash
+    // origin: "https://ecommerce-two-jade.vercel.app", // Remove the trailing slash
+    origin: function (origin, callback) {
+        const allowedOrigins = ["https://ecommerce-two-jade.vercel.app", "http://localhost:5173"];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ["Authorization"],
+    allowedHeaders: ["Authorization", "Content-Type"],
 };
 
 app.use(cors(corsOptions));
