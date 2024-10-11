@@ -25,7 +25,8 @@ app.use(express.urlencoded({extended:true}))
 //     max:100,
 // })
 const corsOptions={
-    origin:"http://localhost:5173",
+    // origin:"http://localhost:5173",
+    origin:"https://ecommerce-two-jade.vercel.app/",
     credentials:true,
     method:["GET","POST","PUT","DELETE","OPTIONS","PATCH"],
     allowHeaders:["Authorization"],
