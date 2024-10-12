@@ -55,7 +55,11 @@ export async function loginuser(req, res) {
       return res
         .status(401)
         .json({ message: "User not found, Invalid credentials" });
+    }else{
+      console.log("correct credentials");
     }
+    console.log("now generating token");
+    
 
     //create token
     // console.log("token: ", generateToken(checkUser));
