@@ -63,7 +63,7 @@ export async function loginuser(req, res) {
 
     //create token
     // console.log("token: ", generateToken(checkUser));
-    const token = generateToken(checkUser);
+    const token = await generateToken(checkUser);
     // console.log("token: ", token);
 
     //login user in
@@ -87,6 +87,8 @@ export async function loginuser(req, res) {
       .json({
         message: "login successful",
       });
+      console.log("login done");
+      
   } catch (err) {
     res.status(500).json({ message: err });
   }
