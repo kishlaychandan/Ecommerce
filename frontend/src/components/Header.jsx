@@ -264,7 +264,7 @@ function Header() {
   async function logout() {
     try {
       const response = await axios.post("/user/logout", {});
-      if (response.statusText === "OK") {
+      if (response.status===200||response.statusText === "OK" ) {
         console.log("logged out");
         setIsUserLoggedin(false);
         navigate("/login");
