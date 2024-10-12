@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import axios from "../../../axiosConfig";
+import { userContext } from "../../../App";
 import Dashboard from "./Dashboard/Dashboard";
 import ViewListing from "./ViewListing/ViewListing";
 import AddProduct from "./AddProduct/AddProduct";
@@ -8,12 +11,11 @@ import EditAbout from "../../EditAbout";
 import EditFaq from "../../EditFaq";
 import AdminCoupon from "../../AdminCoupon";
 import EditReview from "./EditReview";
-import axios from "../../../axiosConfig";
 import RegisteredUsers from "./RegisteredUsers";
-import { useNavigate } from "react-router-dom";
 import AdminOrders from "../../../pages/AdminOrders";
-import { userContext } from "../../../App";
-import { useContext } from "react";
+
+const ProfileUpdate = () => <h1 className="text-2xl">Profile Update</h1>;
+const ChangePassword = () => <h1 className="text-2xl">Change Password</h1>;
 
 const AdminDashboard = () => {
   const { isAdminLoggedIn, setIsAdminLoggedIn } = useContext(userContext);
@@ -21,6 +23,12 @@ const AdminDashboard = () => {
   const [activeComponent, setActiveComponent] = useState("Dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isAdminSettingOpen, setIsAdminSettingOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isAdminLoggedIn) {
+      navigate("/admin"); // Redirect if not logged in
+    }
+  }, [isAdminLoggedIn, navigate]);
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -50,38 +58,18 @@ const AdminDashboard = () => {
         return <Dashboard />;
     }
   };
-  async function checkAdminLoggedIn() {
-    try {
-      const response = await axios.get("/user/adminLoggedIn");
-      if (response.statusText === "OK") {
-        console.log("Admin is logged in");
-        setIsAdminLoggedIn(true);
-        navigate("/admin/dashboard");
-      }
-      else{
-        navigate("/admin");
-      }
-    } catch (err) {
-      console.log("Error checking login status: " + err);
-    }
-  }
-  async function handleLogout() {
-    try {
-      console.log("inside handle logout");
 
+  const handleLogout = async () => {
+    try {
       const response = await axios.post("/user/logout", {});
-      console.log("got resp");
-
-      console.log(response);
-      if (response.statusText === 200) {
-        console.log("logged out");
+      if (response.status === 200) {
         setIsAdminLoggedIn(false);
         navigate("/admin");
       }
     } catch (err) {
-      console.log(err.message);
+      console.log("Error during logout:", err.message);
     }
-  }
+  };
 
   return (
     <div className="flex h-screen">
@@ -141,6 +129,7 @@ const AdminDashboard = () => {
               )}
             </li>
 
+            {/* Other Menu Items */}
             <li className="py-2">
               <button
                 onClick={() => setActiveComponent("AddProducts")}
@@ -207,7 +196,7 @@ const AdminDashboard = () => {
             </li>
             <li className="py-2">
               <button
-                onClick={() => handleLogout()}
+                onClick={handleLogout}
                 className="w-full text-left py-2 px-4 bg-gray-700 rounded hover:bg-gray-600"
               >
                 Logout
@@ -221,7 +210,7 @@ const AdminDashboard = () => {
       {!isSidebarOpen && (
         <div className="absolute top-4 left-4 z-20">
           <button
-            onClick={() => setIsSidebarOpen(true)} // Open button
+            onClick={() => setIsSidebarOpen(true)}
             className="text-2xl text-white bg-gray-800 p-2 rounded"
           >
             <FaBars />
@@ -237,23 +226,14 @@ const AdminDashboard = () => {
       >
         <div className="navbar flex justify-between items-center text-white bg-slate-800 pl-6 pr-6 p-2">
           <h1 className="text-3xl">Admin Home</h1>
-          <button className="text-3xl" onClick={handleLogout}>Logout</button>
+          <button className="text-3xl" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
         <div className="p-6">{renderComponent()}</div>
       </div>
     </div>
   );
 };
-
-// Sample components for each page
-// const DashboardContent = () => <h1 className="text-2xl">Dashboard Content</h1>;
-// const AddProducts = () => <h1 className="text-2xl">Add Product</h1>;
-// const ViewListing = () => <h1 className="text-2xl">View Listing</h1>;
-// const RegisteredUsers = () => <h1 className="text-2xl">Registered Users</h1>;
-// const ViewReviews = () => <Review/>;
-// const AboutUs = () => <h1 className="text-2xl">About Us</h1>;
-// const ContactUs = () => <h1 className="text-2xl">Contact Us</h1>;
-const ProfileUpdate = () => <h1 className="text-2xl">Profile Update</h1>;
-const ChangePassword = () => <h1 className="text-2xl">Change Password</h1>;
 
 export default AdminDashboard;
