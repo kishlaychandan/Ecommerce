@@ -48,7 +48,7 @@ function AdminLogin() {
       console.log(response.status);
       console.log(response.request.status);
       
-      if (response.request.status === 200 && response.statusText === "OK") {
+      if (response.request.status === 200 || response.statusText === "OK") {
         console.log("Admin logged in");
         setIsAdminLoggedIn(true);
         setIsUserLoggedin(false);
