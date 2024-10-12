@@ -45,7 +45,7 @@ function AdminLogin() {
       });
       console.log("Response: hanle submit");
       console.log(response);
-      if (response.status === "200") {
+      if (response.status=="200") {
         console.log("Admin logged in");
         setIsAdminLoggedIn(true);
         setIsUserLoggedin(false);
