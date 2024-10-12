@@ -8,18 +8,22 @@ async function authMiddleware(req, res, next) {
         
 
         const { auth_token }=req.cookies;
+        console.log("auth-token",auth_token);
+        console.log("gets auth token wait for check 1");
+        
+
         const decodedToken = jwt.verify(auth_token, process.env.SECRET);
         // console.log("decodedToken",decodedToken);
-        console.log("check1");
+        console.log("check1, wait for check 2");
         
         const loggedInUser=await userModel.findById(decodedToken.userId);
         if(!loggedInUser){
-            console.log("check2");
+            console.log("check2, ait for check 3");
             
             return res.status(401).json({message:"user not found"});
         }
         else{
-            console.log("check2");
+            console.log("check2, wait for check 3");
         }
         if(loggedInUser.role=="user"){
             console.log("user role found");
