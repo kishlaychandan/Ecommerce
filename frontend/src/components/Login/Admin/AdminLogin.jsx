@@ -45,8 +45,11 @@ function AdminLogin() {
       });
 
       console.log("Response: hanle submit",response);
-      console.log(response.status);
-      console.log(response.request.status);
+      console.log("response.status",response.status);
+      console.log("response.request.status",response.request.status);
+      console.log(response.request.status === 200);
+      console.log(response.statusText === "OK");
+      
       
       if (response.request.status === 200 || response.statusText === "OK") {
         console.log("Admin logged in");
