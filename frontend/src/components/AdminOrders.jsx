@@ -14,7 +14,7 @@ const AdminOrders = () => {
       const params = { page, limit: 3 };
       if (status) params.status = status;
 
-      const response = await axios.get("/orders", { params });
+      const response = await axios.get("/orders/all", { params });
 console.log("response", response);
 
       console.log("response", response.data);

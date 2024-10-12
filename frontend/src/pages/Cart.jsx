@@ -114,16 +114,16 @@ import React, { useEffect, useContext } from "react";
 import axios from "../axiosConfig";
 import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
+import { ThemeContext } from "../ThemeContext"; 
 
 function Cart() {
     const navigate = useNavigate();
     const { cart, setCart, fetchCartAndWishlist } = useCart();
-    const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
+    const { isDarkMode } = useContext(ThemeContext); 
 
     useEffect(() => {
         fetchCartAndWishlist();
-    }, []); // This will run whenever the cart changes
+    }, []); 
 
     // Check if cart is an array
     if (!Array.isArray(cart)) {
@@ -151,7 +151,6 @@ function Cart() {
             });
             console.log("response", response.data.cart.products);
             
-            // Assuming the API returns the updated cart array
             setCart(response.data.cart.products);
         } catch (err) {
             console.error("Error incrementing product quantity:", err.message);
@@ -163,7 +162,6 @@ function Cart() {
             const response = await axios.post("/cart/decrement", {
                 productId: product.product._id,
             });
-            // Assuming the API returns the updated cart array
             setCart(response.data.cart.products);
         } catch (err) {
             console.error("Error decrementing product quantity:", err.message);

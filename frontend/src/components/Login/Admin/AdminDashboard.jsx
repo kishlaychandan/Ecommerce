@@ -12,8 +12,8 @@ import EditFaq from "../../EditFaq";
 import AdminCoupon from "../../AdminCoupon";
 import EditReview from "./EditReview";
 import RegisteredUsers from "./RegisteredUsers";
-import AdminOrders from "../../../pages/AdminOrders";
-
+import AdminOrders from "../../AdminOrders";
+import SalesChart from "./SalesChart";
 const ProfileUpdate = () => <h1 className="text-2xl">Profile Update</h1>;
 const ChangePassword = () => <h1 className="text-2xl">Change Password</h1>;
 
@@ -34,6 +34,8 @@ const AdminDashboard = () => {
     switch (activeComponent) {
       case "Dashboard":
         return <Dashboard />;
+        case "sales":
+          return <SalesChart />;
       case "AddProducts":
         return <AddProduct />;
       case "ViewListing":
@@ -96,6 +98,14 @@ const AdminDashboard = () => {
                 className="w-full text-left py-2 px-4 bg-gray-700 rounded hover:bg-gray-600"
               >
                 Dashboard
+              </button>
+            </li>
+            <li className="py-2">
+              <button
+                onClick={() => setActiveComponent("sales")}
+                className="w-full text-left py-2 px-4 bg-gray-700 rounded hover:bg-gray-600"
+              >
+                Sales Chart
               </button>
             </li>
 

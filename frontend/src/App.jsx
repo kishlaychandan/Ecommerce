@@ -27,8 +27,9 @@ import AdminCoupon from "./components/AdminCoupon";
 import EditReview from "./components/Login/Admin/EditReview";
 import RegisteredUsers from "./components/Login/Admin/RegisteredUsers";
 import Orders from "./pages/Orders";
-import AdminOrders from "./pages/AdminOrders";
+import AdminOrders from "./components/AdminOrders";
 import AdminProtectedRoute from "./AdminProtectedRoute";
+import SalesChart from "./components/Login/Admin/SalesChart";
 export const userContext = createContext();
 export const adminContext = createContext();
 export const cartContext = createContext();
@@ -115,6 +116,7 @@ function App() {
         <CartProvider >
           {!isAdminLoggedIn && <Header />}
           <Routes>
+            <Route path="/s" element={<SalesChart />} />
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<SingleProduct />} />
             <Route path="/login" element={<Login />} />

@@ -9,7 +9,7 @@ async function authMiddleware(req, res, next) {
 
         const { auth_token }=req.cookies;
         console.log("auth-token",auth_token);
-        console.log("gets auth token wait for check 1");
+        console.log("gets auth token wait for check ");
         
 
         const decodedToken = jwt.verify(auth_token, process.env.SECRET);

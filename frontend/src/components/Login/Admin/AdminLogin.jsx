@@ -25,7 +25,7 @@ function AdminLogin() {
   async function checkAdminLoggedIn() {
     try {
       const response = await axios.get("/user/adminLoggedIn");
-      if (response.statusText === "OK") {
+      if (response.request.status === 200 || response.statusText === "OK") {
         console.log("Admin is logged in");
         setIsAdminLoggedIn(true);
         navigate("/admin/dashboard");

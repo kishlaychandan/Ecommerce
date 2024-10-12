@@ -44,7 +44,7 @@ const productSchema = new mongoose.Schema({
     }],
     totalRatings: {
         type: Number,
-        default: 0
+        default: 4
     },
     addedBy: {
         type: mongoose.Types.ObjectId,

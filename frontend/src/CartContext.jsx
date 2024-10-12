@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
                 axios.get("/cart"),
                 axios.get("/cart/wishlist"),
             ]);
-            console.log("cart", cartResponse.data.products);
+            // console.log("cart", cartResponse.data.products);
             
             setCart(cartResponse.data.products);
             setWishlist(wishlistResponse.data.wishlist);
@@ -59,7 +59,7 @@ export const CartProvider = ({ children }) => {
     const addToWishlist = async (singleProduct) => {
         try {
             await axios.post("/cart/addToWishlist", { productId: singleProduct._id });
-            fetchCartAndWishlist(); // Refresh wishlist after adding
+            fetchCartAndWishlist(); 
         } catch (err) {
             console.error("Error adding product to wishlist:", err);
         }

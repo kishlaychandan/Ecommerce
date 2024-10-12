@@ -302,9 +302,9 @@ const PaymentHandler = ({ total, onSuccess }) => {
 
     const options = {
       key: "rzp_test_rZUOMEi4ogeBfp", // Replace with your Razorpay key
-      amount: discountedPrice * 1000, // Razorpay expects amount in paise
+      amount: discountedPrice * 100, // Razorpay expects amount in paise
       currency: "INR",
-      name: "Your Shop Name",
+      name: "Kishlay Shop",
       description: "Order Payment",
       image: "https://via.placeholder.com/150",
       handler: async (paymentResponse) => {

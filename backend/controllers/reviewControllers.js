@@ -1,6 +1,7 @@
 import { reviewModel } from "../models/reviewModel.js"; 
 import { uploadToCloudinary } from "../services/cloudinaryUpload.js"; 
 import mongoose, { Types } from "mongoose";
+import productModel from "../models/productModels.js";
 
 export async function createReview(req, res) {
   try {
@@ -34,6 +35,8 @@ export async function createReview(req, res) {
       images: imageUrls,
       videos: videoUrls,
     });
+
+
 
     res.status(201).json({ message: "Review created successfully", review: newReview });
   } catch (err) {

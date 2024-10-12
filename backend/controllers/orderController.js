@@ -31,7 +31,7 @@ export const createOrder = async (req, res) => {
 export const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user._id })
-      .populate("products.productId", "name price")
+      .populate("products.productId", "name price category")
       .sort({ createdAt: -1 });
     res.status(200).json(orders);
   } catch (error) {
@@ -52,7 +52,7 @@ export const getAllOrders = async (req, res) => {
         // Fetch all orders without pagination
         const orders = await Order.find(query)
             .populate("userId", "firstName lastName email") // Adjusted fields based on User model
-            .populate("products.productId", "name price")
+            .populate("products.productId", "name price category")
             .sort({ createdAt: -1 });
 
         // Send all orders in the response

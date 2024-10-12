@@ -18,7 +18,7 @@ OrderRouter.post("/createorder", authMiddleware, createOrder);
 OrderRouter.get("/myorders", authMiddleware, getUserOrders);
 
 // Get all orders (Admin) with pagination
-OrderRouter.get("/", adminMiddleware, getAllOrders);
+OrderRouter.get("/all", getAllOrders);
 
 // Update order status (Admin)
 OrderRouter.patch("/:id", adminMiddleware, updateOrderStatus);
