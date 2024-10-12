@@ -43,9 +43,9 @@ function AdminLogin() {
         password,
         role: "admin",
       });
-      console.log("Response: hanle submit");
-      console.log(response);
-      if (response.status=="200") {
+      console.log("Response: hanle submit",response);
+      // console.log(response);
+      if (response.status === 200 && response.statusText === "OK") {
         console.log("Admin logged in");
         setIsAdminLoggedIn(true);
         setIsUserLoggedin(false);
