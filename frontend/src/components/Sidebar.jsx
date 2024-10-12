@@ -366,7 +366,7 @@ const Sidebar = ({ onApplyFilters }) => {
               >
                 <option value="">Select</option>
                 <option value="price">Price</option>
-                <option value="rating">Rating</option>
+                <option value="totalRatings">Rating</option>
                 <option value="name">Name</option>
               </select>
             </div>

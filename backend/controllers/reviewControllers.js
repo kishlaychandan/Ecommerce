@@ -5,6 +5,8 @@ import productModel from "../models/productModels.js";
 
 export async function createReview(req, res) {
   try {
+    console.log("inside create review");
+    
     const { productId } = req.params; 
     const { rating, comment } = req.body; 
 
@@ -27,6 +29,8 @@ export async function createReview(req, res) {
       }
     }
 
+    console.log("check 1");
+    
     const newReview = await reviewModel.create({
       product: productId,
       user: req.user._id,
@@ -35,10 +39,26 @@ export async function createReview(req, res) {
       images: imageUrls,
       videos: videoUrls,
     });
+    console.log("review created successfully", newReview);
+    
 
+    console.log("check 2");
+  
+    console.log("try to find average rating of product");
+    
+    const reviews = await reviewModel.find({ product: productId });
+    const totalRatings = reviews.reduce((acc, review) => acc + review.rating, 0);
+    const averageRating = totalRatings / reviews.length;
 
-
-    res.status(201).json({ message: "Review created successfully", review: newReview });
+    // Update the product's total rating
+    console.log("try to find total rating of product");
+    
+    const product = await productModel.findByIdAndUpdate(productId, { totalRatings: averageRating });
+    console.log("updated product successfully", product);
+    
+    console.log("review created successfully", newReview, averageRating);
+    
+    res.status(201).json({ message: "Review created successfully", review: newReview, averageRating });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: err.message });
@@ -47,6 +67,8 @@ export async function createReview(req, res) {
 
 // Function to get reviews by product ID
 export const getReviewsByProductId = async (req, res) => {
+  console.log("inside get reviews by product id");
+  
   const { productId } = req.params;
 
   if (!Types.ObjectId.isValid(productId)) {

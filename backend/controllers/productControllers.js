@@ -64,8 +64,18 @@ export async function getAllProducts(req, res) {
     }
 
     if (req.query.rating) {
-        query.rating = { $gte: parseFloat(req.query.rating) };  // Assuming 'rating' is a numerical field (0-5)
+        const ratingValue = Number(req.query.rating); // Ensure it's a number
+        if (!isNaN(ratingValue)) {
+            console.log("Rating value:", ratingValue);
+            query.totalRatings = { $gte: ratingValue }; // Compare as a number
+        } else {
+            console.log("Invalid rating value:", ratingValue);
+            return res.status(400).json({ message: "Invalid rating value" });
+        }
     }
+    // if (req.query.rating) {
+    //     query.rating = { $gte: req.query.rating };
+    // }
 
     // Filtering by price
     if (req.query.priceMin || req.query.priceMax) {
@@ -87,7 +97,12 @@ export async function getAllProducts(req, res) {
     }
 
     try {
+        console.log("query: ", query);
+        
         const products = await productModel.find(query).sort(sortArg);
+        // db.products.find({ totalRatings: { $gte: 2 } }).pretty();
+
+        console.log("products", products);
         res.status(200).json({ products, message: "Products fetched successfully" });
     } catch (err) {
         res.status(500).json({ message: err.message });
