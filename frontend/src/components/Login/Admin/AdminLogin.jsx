@@ -43,13 +43,20 @@ function AdminLogin() {
         password,
         role: "admin",
       });
+
       console.log("Response: hanle submit",response);
-      // console.log(response);
-      if (response.status === 200 && response.statusText === "OK") {
+      console.log(response.status);
+      console.log(response.request.status);
+      
+      if (response.request.status === 200 && response.statusText === "OK") {
         console.log("Admin logged in");
         setIsAdminLoggedIn(true);
         setIsUserLoggedin(false);
         navigate("/admin/dashboard");
+      }
+      else{
+        console.log("if not work not redirect");
+        
       }
       setErrorMessage(""); // Clear any previous error messages
     } catch (err) {
