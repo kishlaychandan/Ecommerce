@@ -280,7 +280,7 @@ function Header() {
   return (
     <header
       className={`z-50 sticky top-0 p-5 w-full py-5 flex items-center justify-between ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-purple-600 text-gray-800"
+        isDarkMode ? "bg-gray-900 text-white" : "bg-[#6037ac] text-[#db7b40]"
       }`}
     >
       {/* Left Side Logo */}
@@ -305,9 +305,10 @@ function Header() {
                 isActive("/shop")
                   ? "text-yellow-300 underline decoration-dotted"
                   : ""
-              } hover:text-yellow-300`}
+              } hover:text-yellow-300 font-bold`}
+              
             >
-              Shop
+              SHOP
             </Link>
           </li>
           <li>
@@ -317,9 +318,9 @@ function Header() {
                 isActive("/about")
                   ? "text-yellow-300 underline decoration-dotted"
                   : ""
-              } hover:text-yellow-300`}
+              } hover:text-yellow-300 font-bold`}
             >
-              About us
+              ABOUT US
             </Link>
           </li>
           <li>
@@ -329,7 +330,7 @@ function Header() {
                 isActive("/faq")
                   ? "text-yellow-300 underline decoration-dotted"
                   : ""
-              } hover:text-yellow-300`}
+              } hover:text-yellow-300 font-bold`}
             >
               FAQ
             </Link>
@@ -341,9 +342,9 @@ function Header() {
                 isActive("/contact")
                   ? "text-yellow-300 underline decoration-dotted"
                   : ""
-              } hover:text-yellow-300`}
+              } hover:text-yellow-300 font-bold`}
             >
-              Contact us
+              CONTACT US
             </Link>
           </li>
         </ul>
@@ -356,7 +357,7 @@ function Header() {
           onClick={toggleTheme}
           className={`p-2 rounded-full ${
             isDarkMode ? "bg-gray-700 text-white" : "bg-gray-300 text-gray-900"
-          }`}
+          } font-bold`}
         >
           {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
         </button>
@@ -373,25 +374,25 @@ function Header() {
         </li>
         {isUserLoggedIn && (
           <li className="py-2">
-            <Link to="/orders">Orders</Link>
+            <Link to="/orders">ORDERS</Link>
           </li>
         )}
 
         {!isUserLoggedIn && (
           <li>
-            <Link to="/register">Register</Link>
+            <Link to="/register">REGISTER</Link>
           </li>
         )}
         <li>
           {isUserLoggedIn ? (
-            <button onClick={logout}>Logout</button>
+            <button onClick={logout}>LOGOUT</button>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login">LOGIN</Link>
           )}
         </li>
         {!isUserLoggedIn && (
           <li className="py-2">
-            <Link to="/admin">Admin</Link>
+            <Link to="/admin">ADMIN</Link>
           </li>
         )}
       </ul>
@@ -419,7 +420,7 @@ function Header() {
                     : ""
                 }`}
               >
-                Shop
+                SHOP
               </Link>
             </li>
             <li className="py-2">
@@ -431,7 +432,7 @@ function Header() {
                     : ""
                 }`}
               >
-                Contact us
+                CONTACT US
               </Link>
             </li>
             <li className="py-2">
@@ -443,7 +444,7 @@ function Header() {
                     : ""
                 }`}
               >
-                About us
+                ABOUT US
               </Link>
             </li>
             <li className="py-2">
@@ -464,23 +465,23 @@ function Header() {
               </Link>
             </li>
             <li className="py-2">
-              <Link to="/wishlist">Wishlist</Link>
+              <Link to="/wishlist">WISHLIST</Link>
             </li>
             {!isUserLoggedIn && (
               <li className="py-2">
-                <Link to="/register">Register</Link>
+                <Link to="/register">REGISTER</Link>
               </li>
             )}
             <li className="py-2">
               {isUserLoggedIn ? (
                 <button onClick={logout}>Logout</button>
               ) : (
-                <Link to="/login">Login</Link>
+                <Link to="/login">LOGIN</Link>
               )}
             </li>
             {!isUserLoggedIn && (
               <li className="py-2">
-                <Link to="/admin">Admin</Link>
+                <Link to="/admin">ADMIN</Link>
               </li>
             )}
           </ul>
