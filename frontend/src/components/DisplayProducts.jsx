@@ -91,7 +91,7 @@ function DisplayProducts({ products }) {
                 isDarkMode ? "text-white" : "text-gray-900"
               }`}
             >
-              {`$${product.price.toFixed(2)}`}
+              {`₹${product.price.toFixed(2)}`}
             </p>
           </div>
           <div className="px-4 pb-4 w-full flex items-center justify-center">
