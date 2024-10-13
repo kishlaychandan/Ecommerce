@@ -296,7 +296,7 @@ function SingleProduct() {
                   <p><em>Price: </em>₹ {singleProduct.price}</p>
                   <p>Description: {singleProduct.description}</p>
                   <p>Brand: {singleProduct.brand}</p>
-                  <p>In Stock: {singleProduct.inStock}</p>
+                  <p>In Stock: {singleProduct.inStock ? "Yes" : "No"}</p>
                   <p>Inventory: {singleProduct.inventory}</p>
                 </div>
 
