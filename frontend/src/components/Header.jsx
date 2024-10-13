@@ -285,7 +285,7 @@ function Header() {
     >
       {/* Left Side Logo */}
       <h1 className="text-3xl">
-        <Link to="/">FREE KA DUKAN</Link>
+        <Link to="/"> SHOPPING ZONE</Link>
       </h1>
 
       {/* Hamburger Icon for Mobile */}
@@ -300,9 +300,9 @@ function Header() {
         <ul className="flex items-center gap-8">
           <li>
             <Link
-              to="/"
+              to="/shop"
               className={`${
-                isActive("/")
+                isActive("/shop")
                   ? "text-yellow-300 underline decoration-dotted"
                   : ""
               } hover:text-yellow-300`}
@@ -412,9 +412,9 @@ function Header() {
             </button>
             <li className="py-2">
               <Link
-                to="/"
+                to="/shop"
                 className={`${
-                  isActive("/")
+                  isActive("/shop")
                     ? "text-yellow-300 underline decoration-dotted"
                     : ""
                 }`}

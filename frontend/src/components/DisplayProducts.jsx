@@ -75,6 +75,7 @@ function DisplayProducts({ products }) {
             <p className={`${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
               Brand: <span className="font-medium">{product.brand}</span>
             </p>
+            <p>Rating: {product.totalRatings}</p>
             <p className={`${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
               In Stock:{" "}
               <span

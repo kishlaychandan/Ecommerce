@@ -7,11 +7,12 @@ import BannerCarousel from "../components/BannerCarousel";
 function Home() {
   // return <Products />;
   const { isUserLoggedIn } = useContext(userContext);
+  const page="home";
   // console.log(isUserLoggedIn);
   return (
     <>
       {/* <Sidebar /> */}
-      <Products />
+      <Products page={page}/>
     </>
   );
 }

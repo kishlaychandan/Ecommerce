@@ -30,6 +30,8 @@ import Orders from "./pages/Orders";
 import AdminOrders from "./components/AdminOrders";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import SalesChart from "./components/Login/Admin/SalesChart";
+import Shop from "./pages/Shop";
+
 export const userContext = createContext();
 export const adminContext = createContext();
 export const cartContext = createContext();
@@ -118,6 +120,7 @@ function App() {
           <Routes>
             <Route path="/s" element={<SalesChart />} />
             <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/product/:id" element={<SingleProduct />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

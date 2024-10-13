@@ -87,7 +87,7 @@ import BannerCarousel from "./BannerCarousel";
 import Sidebar from "./Sidebar";
 import { ThemeContext } from "../ThemeContext";  // Import ThemeContext
 
-function Products() {
+function Products({page}) {
   const { isDarkMode } = useContext(ThemeContext);  // Get isDarkMode from context
   const [products, setProducts] = useState([]);  // Original products
   const [filteredProducts, setFilteredProducts] = useState([]); // Filtered products
@@ -135,11 +135,19 @@ function Products() {
 
   return (
     <div className={`w-full flex ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
-      <Sidebar onApplyFilters={applyFilters} />
+      {page === "shop"?(
+        <Sidebar onApplyFilters={applyFilters} />
+      ):
+        ""
+      }
       
       <div className="w-full flex justify-center items-center">
         <div className="w-full flex justify-center flex-wrap">
-          <BannerCarousel />
+          {page === "home" ? (
+            <BannerCarousel />
+          ) : (
+            ""
+          )}
           {error ? (
             <p className="text-red-500"> {error} </p>
           ) : filteredProducts.length > 0 ? (
