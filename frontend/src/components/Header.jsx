@@ -500,7 +500,7 @@ function Header() {
               )}
             </li>
             {!isUserLoggedIn && (
-              <li className="py-2">
+              <li className="py-2" onClick={() => setIsOpen(false)}>
                 <Link to="/admin" className={`${
                   isActive("/admin")
                     ? "text-yellow-300 underline decoration-dotted"
