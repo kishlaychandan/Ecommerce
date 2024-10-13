@@ -17,7 +17,7 @@ function Footer() {
             <p className="mt-2">Your Company Address, City, State</p>
           </div>
 
-          <div className="flex justify-center md:justify-end mb-4 md:mb-0">
+          <div className="flex justify-center md:justify-end mb-4 md:mb-0 text-center">
             <ul className="flex space-x-4">
               <li>
                 <a href="/about" className="hover:text-gray-400 text-center">
