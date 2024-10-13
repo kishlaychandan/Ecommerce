@@ -464,11 +464,11 @@ function Header() {
                 <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
               </Link>
             </li>
-            <li className="py-2">
+            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
               <Link to="/wishlist">WISHLIST</Link>
             </li>
             {!isUserLoggedIn && (
-              <li className="py-2">
+              <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
                 <Link to="/register">REGISTER</Link>
               </li>
             )}
