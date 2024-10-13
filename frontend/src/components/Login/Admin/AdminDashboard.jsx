@@ -74,7 +74,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-x-hidden">
       {/* Sidebar */}
       <div
         className={`${
