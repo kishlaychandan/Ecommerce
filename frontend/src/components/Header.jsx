@@ -411,7 +411,7 @@ function Header() {
             >
               {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
             </button>
-            <li className="py-2" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
               <Link
                 to="/shop"
                 className={`${
@@ -423,7 +423,7 @@ function Header() {
                 SHOP
               </Link>
             </li>
-            <li className="py-2">
+            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
               <Link
                 to="/contact"
                 className={`${
@@ -435,7 +435,7 @@ function Header() {
                 CONTACT US
               </Link>
             </li>
-            <li className="py-2">
+            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
               <Link
                 to="/about"
                 className={`${
@@ -447,7 +447,7 @@ function Header() {
                 ABOUT US
               </Link>
             </li>
-            <li className="py-2">
+            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
               <Link
                 to="/faq"
                 className={`${
@@ -459,7 +459,7 @@ function Header() {
                 FAQ
               </Link>
             </li>
-            <li className="py-2">
+            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
               <Link to="/cart">
                 <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
               </Link>
@@ -472,7 +472,7 @@ function Header() {
                 <Link to="/register">REGISTER</Link>
               </li>
             )}
-            <li className="py-2">
+            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
               {isUserLoggedIn ? (
                 <button onClick={logout}>Logout</button>
               ) : (
