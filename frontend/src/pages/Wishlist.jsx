@@ -209,7 +209,7 @@ const Wishlist = () => {
   return (
     <div className={` mx-auto p-4 flex-col w-screen justify-center items-center ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       <h2 className="text-3xl font-semibold mb-6 text-center">Your Wishlist</h2>
-      <ul className="w-full flex justify-center gap-6">
+      <ul className="w-full flex justify-center gap-6 flex-wrap">
         {wishlistProducts.map((item) => (
           <li
             key={item._id}
