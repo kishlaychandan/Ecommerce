@@ -49,53 +49,61 @@ const RegisteredUsers = () => {
   const totalPages = Math.ceil(totalUsers / usersPerPage); // Calculate total pages
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg">
+    <div className="p-6 bg-white shadow-md rounded-lg w-full">
       <h2 className="text-2xl font-bold mb-4">Registered Users</h2>
 
       {loading ? (
         <p>Loading users...</p>
       ) : (
-        <table className="min-w-full border border-gray-300">
-          <thead>
-            <tr className="bg-gray-300 text-center">
-              <th className="border p-3">#</th>
-              <th className="border p-3">Name</th>
-              <th className="border p-3">Email</th>
-              <th className="border p-3">Role</th>
-              <th className="border p-3">Created At</th>
-              <th className="border p-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUsers.length > 0 ? (
-              currentUsers.map((user, index) => (
-                <tr key={user._id} className="border-b text-center">
-                  <td className="border p-2">{indexOfFirstUser + index + 1}</td>
-                  <td className="border p-2">{user.firstName} {user.lastName}</td>
-                  <td className="border p-2">{user.email}</td>
-                  <td className="border p-2">{user.role}</td>
-                  <td className="border p-2 ">{user.createdAt}</td>
-                  <td className="border p-2 flex justify-center">
-                    <button
-                      onClick={() => handleDeleteUser(user._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6" className="border p-2 text-center">No users found.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        //make table responsive
+        <div className="overflow-x-scroll">
+  <table className=" w-full border border-gray-300 overflow-x-scroll">
+    <thead className="">
+      <tr className="bg-gray-300 text-center">
+        <th className="border p-3">#</th>
+        <th className="border p-3">Name</th>
+        <th className="border p-3">Email</th>
+        <th className="border p-3">Role</th>
+        <th className="border p-3">Created At</th>
+        <th className="border p-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {currentUsers.length > 0 ? (
+        currentUsers.map((user, index) => (
+          <tr key={user._id} className="border-b text-center">
+            <td className="border p-2">{indexOfFirstUser + index + 1}</td>
+            <td className="border p-2">
+              {user.firstName} {user.lastName}
+            </td>
+            <td className="border p-2">{user.email}</td>
+            <td className="border p-2">{user.role}</td>
+            <td className="border p-2">{user.createdAt}</td>
+            <td className="border p-2 flex justify-center">
+              <button
+                onClick={() => handleDeleteUser(user._id)}
+                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="6" className="border p-2 text-center">
+            No users found.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
       )}
 
       {/* Pagination */}
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex justify-between items-center mt-4 w-full">
         <button 
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} 
           className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400" 
