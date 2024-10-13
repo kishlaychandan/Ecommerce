@@ -293,7 +293,7 @@ function SingleProduct() {
                 <div>
                   <h2 className="text-xl font-bold">{singleProduct.name}</h2>
                   <p><em>Category: </em>{singleProduct.category}</p>
-                  <p><em>Price: </em>{singleProduct.price}</p>
+                  <p><em>Price: </em>₹ {singleProduct.price}</p>
                   <p>Description: {singleProduct.description}</p>
                   <p>Brand: {singleProduct.brand}</p>
                   <p>In Stock: {singleProduct.inStock}</p>
