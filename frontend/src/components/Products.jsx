@@ -142,7 +142,7 @@ function Products({page}) {
       }
       
       <div className="w-full flex justify-center items-center">
-        <div className="w-full flex justify-center flex-wrap">
+        <div className="w-full flex justify-center flex-wrap overflow-x-hidden">
           {page === "home" ? (
             <BannerCarousel />
           ) : (
