@@ -21,7 +21,7 @@ import Faq from "./pages/Faq";
 import EditFaq from "./components/EditFaq";
 import { ThemeProvider } from "./ThemeContext";
 
-import { CartProvider } from './CartContext';
+import { CartProvider } from "./CartContext";
 import Checkout from "./pages/Checkout";
 import AdminCoupon from "./components/AdminCoupon";
 import EditReview from "./components/Login/Admin/EditReview";
@@ -37,7 +37,7 @@ export const adminContext = createContext();
 export const cartContext = createContext();
 
 async function fetchData() {
-  try { 
+  try {
     const response = await axios.get("/check/me", { validateStatus: false });
     // console.log("response", response);
     return response.status === 200 && response.data;
@@ -47,7 +47,7 @@ async function fetchData() {
 }
 
 async function fetchAdminData() {
-  try { 
+  try {
     const response = await axios.get("/check/admin", { validateStatus: false });
     // console.log("response", response);
     return response.status === 200 && response.data;
@@ -98,14 +98,26 @@ function App() {
 
   // Show loading message while checking authentication
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        Loading... Please wait. The Render site might take some time to restart if left
+        inactive for a while.
+      </div>
+    );
   }
 
   return (
     <BrowserRouter>
       <ThemeProvider>
-      <userContext.Provider value={{ isUserLoggedIn, setIsUserLoggedin, isAdminLoggedIn, setIsAdminLoggedIn }}>
-        {/* <cartContext.Provider
+        <userContext.Provider
+          value={{
+            isUserLoggedIn,
+            setIsUserLoggedin,
+            isAdminLoggedIn,
+            setIsAdminLoggedIn,
+          }}
+        >
+          {/* <cartContext.Provider
           value={{
             cart,
             setCart,
@@ -115,68 +127,68 @@ function App() {
             addToWishlist,
           }}
         > */}
-        <CartProvider >
-          {!isAdminLoggedIn && <Header />}
-          <Routes>
-            <Route path="/s" element={<SalesChart />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/product/:id" element={<SingleProduct />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgetPassword" element={<ForgetPassword />} />
-            <Route path="/products/:id" element={<SingleProduct />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/ao" element={<AdminOrders/>} />
-            <Route path="/order" element={<Orders />} />
-            {/* <Route path="/admin/editabout" element={<EditAbout />} /> */}
-            {/* <Route path="/admin/editfaq" element={<EditFaq />} /> */}
-            {/* <Route path="/AdminCoupon" element={<AdminCoupon />} />
+          <CartProvider>
+            {!isAdminLoggedIn && <Header />}
+            <Routes>
+              <Route path="/s" element={<SalesChart />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/product/:id" element={<SingleProduct />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgetPassword" element={<ForgetPassword />} />
+              <Route path="/products/:id" element={<SingleProduct />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/faq" element={<Faq />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/ao" element={<AdminOrders />} />
+              <Route path="/order" element={<Orders />} />
+              {/* <Route path="/admin/editabout" element={<EditAbout />} /> */}
+              {/* <Route path="/admin/editfaq" element={<EditFaq />} /> */}
+              {/* <Route path="/AdminCoupon" element={<AdminCoupon />} />
             <Route path="/editreview" element={<EditReview />} />
             <Route path="/reg" element={<RegisteredUsers />} /> */}
-            {/* <Route path="/addproduct" element={<AddProduct />} /> */}
-            <Route
-              path="/orders"
-              element={
-                <ProtectedRoute>
-                  <Orders />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/cart"
-              element={
-                <ProtectedRoute>
-                  <Cart />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/wishlist"
-              element={
-                <ProtectedRoute>
-                  <Wishlist />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/admin" element={<AdminLogin />} />
-            {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
-            <Route
-              path="/admin/dashboard"
-              element={
-                <AdminProtectedRoute>
-                  <AdminDashboard />
-                </AdminProtectedRoute>
-              }
-            />
-          </Routes>
-          {!isAdminLoggedIn && <Footer />}
-        {/* </cartContext.Provider> */}
-        </CartProvider>
-      </userContext.Provider>
+              {/* <Route path="/addproduct" element={<AddProduct />} /> */}
+              <Route
+                path="/orders"
+                element={
+                  <ProtectedRoute>
+                    <Orders />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/wishlist"
+                element={
+                  <ProtectedRoute>
+                    <Wishlist />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/admin" element={<AdminLogin />} />
+              {/* <Route path="/admin/dashboard" element={<AdminDashboard />} /> */}
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminDashboard />
+                  </AdminProtectedRoute>
+                }
+              />
+            </Routes>
+            {!isAdminLoggedIn && <Footer />}
+            {/* </cartContext.Provider> */}
+          </CartProvider>
+        </userContext.Provider>
       </ThemeProvider>
     </BrowserRouter>
   );
