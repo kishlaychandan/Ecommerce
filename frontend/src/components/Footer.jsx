@@ -20,22 +20,22 @@ function Footer() {
           <div className="flex justify-center md:justify-end mb-4 md:mb-0">
             <ul className="flex space-x-4">
               <li>
-                <a href="/about" className="hover:text-gray-400">
+                <a href="/about" className="hover:text-gray-400 text-center">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="/contact" className="hover:text-gray-400">
+                <a href="/contact" className="hover:text-gray-400 text-center">
                   Contact
                 </a>
               </li>
               <li>
-                <a href="/privacy" className="hover:text-gray-400">
+                <a href="/privacy" className="hover:text-gray-400 text-center">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="/terms" className="hover:text-gray-400">
+                <a href="/terms" className="hover:text-gray-400 text-center">
                   Terms of Service
                 </a>
               </li>
