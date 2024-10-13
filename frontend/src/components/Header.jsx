@@ -411,7 +411,7 @@ function Header() {
             >
               {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
             </button>
-            <li className="py-2">
+            <li className="py-2" onClick={() => setIsOpen(false)}>
               <Link
                 to="/shop"
                 className={`${
