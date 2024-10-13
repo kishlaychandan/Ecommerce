@@ -402,7 +402,7 @@ function Header() {
         <nav
           className={`absolute top-full left-0 w-full ${
             isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
-          } md:hidden`}
+          } md:hidden z-50`}
         >
           <ul className="flex flex-col items-center p-4">
             <button

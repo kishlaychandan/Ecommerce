@@ -245,7 +245,7 @@ const Sidebar = ({ onApplyFilters }) => {
       {/* Button to toggle sidebar visibility */}
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="m-2 rounded absolute top-15 left-2 z-50"
+        className="m-2 rounded absolute top-15 left-2 z-40"
       >
         {isOpen ? <IoIosCloseCircle size={50} className='spin'/> : <ImMenu2 size={50} />}
       </button>
