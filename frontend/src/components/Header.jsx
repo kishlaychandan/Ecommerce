@@ -411,7 +411,7 @@ function Header() {
             >
               {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
             </button>
-            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
               <Link
                 to="/shop"
                 className={`${
@@ -423,7 +423,7 @@ function Header() {
                 SHOP
               </Link>
             </li>
-            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
               <Link
                 to="/contact"
                 className={`${
@@ -435,7 +435,7 @@ function Header() {
                 CONTACT US
               </Link>
             </li>
-            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
               <Link
                 to="/about"
                 className={`${
@@ -447,7 +447,7 @@ function Header() {
                 ABOUT US
               </Link>
             </li>
-            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
               <Link
                 to="/faq"
                 className={`${
@@ -459,37 +459,53 @@ function Header() {
                 FAQ
               </Link>
             </li>
-            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
               <Link to="/cart" className={`${
-                  isActive("/faq")
+                  isActive("/cart")
                     ? "text-yellow-300 underline decoration-dotted"
                     : ""
                 }`}>
                 <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
               </Link>
             </li>
-            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
               <Link to="/wishlist" className={`${
-                  isActive("/faq")
+                  isActive("/wishlist")
                     ? "text-yellow-300 underline decoration-dotted"
                     : ""
                 }`}>WISHLIST</Link>
             </li>
             {!isUserLoggedIn && (
-              <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
-                <Link to="/register">REGISTER</Link>
+              <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
+                <Link to="/register" className={`${
+                  isActive("/register")
+                    ? "text-yellow-300 underline decoration-dotted"
+                    : ""
+                }`}>REGISTER</Link>
               </li>
             )}
-            <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
+            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
               {isUserLoggedIn ? (
-                <button onClick={logout}>Logout</button>
+                <button onClick={logout} className={`${
+                  isActive("/logout")
+                    ? "text-yellow-300 underline decoration-dotted"
+                    : ""
+                }`}>Logout</button>
               ) : (
-                <Link to="/login">LOGIN</Link>
+                <Link to="/login" className={`${
+                  isActive("/login")
+                    ? "text-yellow-300 underline decoration-dotted"
+                    : ""
+                }`}>LOGIN</Link>
               )}
             </li>
             {!isUserLoggedIn && (
               <li className="py-2">
-                <Link to="/admin">ADMIN</Link>
+                <Link to="/admin" className={`${
+                  isActive("/admin")
+                    ? "text-yellow-300 underline decoration-dotted"
+                    : ""
+                }`}>ADMIN</Link>
               </li>
             )}
           </ul>
