@@ -1,9 +1,13 @@
-// import React, { useState, useEffect } from "react";
+
+// // components/PaymentHandler.jsx
+// import React, { useState, useEffect, useContext } from "react";
 // import axios from "../axiosConfig";
 // import { useCart } from "../CartContext";
+// import { ThemeContext } from "../ThemeContext"; 
 
 // const PaymentHandler = ({ total, onSuccess }) => {
 //   const { cart, setCart } = useCart();
+//   const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
 //   const [couponCode, setCouponCode] = useState("");
 //   const [discount, setDiscount] = useState(0);
 //   const [discountedPrice, setDiscountedPrice] = useState(total);
@@ -35,6 +39,17 @@
 //     setDiscountedPrice(newPrice > 0 ? newPrice : 0);
 //   }, [discount, total]);
 
+//   async function clearCart() {
+//     console.log("Clearing cart...");
+    
+//     try {
+//       const response = await axios.delete("/cart/clear");
+//       console.log("Cart cleared successfully:", response.data);
+//       setCart([]);
+//     } catch (error) {
+//       console.error("Error clearing cart:", error);
+//     }
+//   }
 //   const handlePayment = async () => {
 //     if (!shippingDetails.address) {
 //       alert("Please enter your shipping address.");
@@ -55,16 +70,16 @@
 
 //     const options = {
 //       key: "rzp_test_rZUOMEi4ogeBfp", // Replace with your Razorpay key
-//       amount: discountedPrice * 1000, // Razorpay expects amount in paise
+//       amount: discountedPrice * 100, // Razorpay expects amount in paise
 //       currency: "INR",
-//       name: "Your Shop Name",
+//       name: "Kishlay Shop",
 //       description: "Order Payment",
 //       image: "https://via.placeholder.com/150",
 //       handler: async (paymentResponse) => {
 //         try {
 //           // Create the order after successful payment
 //           await createOrder(paymentResponse.razorpay_payment_id);
-//           setCart([]);
+//           // setCart([]);
 //           onSuccess();
 //           alert("Payment successful! Thank you for your order.");
 //         } catch (error) {
@@ -103,6 +118,13 @@
 //       shippingDetails,
 //       notes: "Order placed via Razorpay payment.",
 //     });
+//     if(response.status === 200){
+//       clearCart();
+//       setCart([])
+//     }
+//     else{
+//       console.log("Error creating order:", response.data);
+//     }
 //     console.log("Order created:", response.data);
 //   };
 
@@ -116,14 +138,13 @@
 //     }
 
 //     try {
-//       console.log("couponCode",couponCode);
-      
+//       console.log("couponCode", couponCode);
+
 //       const response = await axios.post("/coupons/apply", { code: couponCode });
 //       // setDiscount(response.data.discount); 
-// //       setAppliedCoupon(couponCode); 
+//       // setAppliedCoupon(couponCode); 
 //       console.log(response.data.discount);
 
-      
 //       setDiscount(response.data.discount);
 //       setAppliedCoupon(couponCode);
 //       alert(`Coupon applied! Discount: ${response.data.discount}%`);
@@ -139,7 +160,6 @@
 //     const selectedCouponCode = e.target.value;
 //     setCouponCode(selectedCouponCode);
 //     console.log(e.target.value);
-    
 //   };
 
 //   const handleShippingChange = (e) => {
@@ -148,15 +168,27 @@
 //   };
 
 //   return (
-//     <div>
-//       <h2 className="text-lg font-semibold">Apply Coupon</h2>
-//       <label className="block text-sm font-medium text-gray-700">
+//     <div
+//       className={`p-6 rounded-lg shadow-md ${
+//         isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+//       }`}
+//     >
+//       <h2 className="text-lg font-semibold mb-4">Apply Coupon</h2>
+//       <label
+//         className={`block text-sm font-medium ${
+//           isDarkMode ? "text-gray-300" : "text-gray-700"
+//         }`}
+//       >
 //         Select a Public Coupon
 //       </label>
 //       <select
 //         value={couponCode}
 //         onChange={handlePublicCouponSelect}
-//         className="mt-1 p-2 w-full border border-gray-300 rounded-lg"
+//         className={`mt-1 p-2 w-full border rounded-lg ${
+//           isDarkMode
+//             ? "bg-gray-700 border-gray-600 text-white"
+//             : "bg-white border-gray-300 text-gray-900"
+//         }`}
 //       >
 //         <option value="">-- Select a Coupon --</option>
 //         {publicCoupons.map((coupon) => (
@@ -174,11 +206,19 @@
 //           value={couponCode}
 //           onChange={(e) => setCouponCode(e.target.value)}
 //           placeholder="Enter coupon code (public or private)"
-//           className="p-2 w-full border border-gray-300 rounded-lg"
+//           className={`p-2 w-full border rounded-lg ${
+//             isDarkMode
+//               ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+//               : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+//           }`}
 //         />
 //         <button
 //           onClick={handleApplyCoupon}
-//           className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg"
+//           className={`mt-2 px-4 py-2 rounded-lg ${
+//             isDarkMode
+//               ? "bg-blue-600 hover:bg-blue-700 text-white"
+//               : "bg-blue-500 hover:bg-blue-600 text-white"
+//           }`}
 //         >
 //           Apply Coupon
 //         </button>
@@ -186,14 +226,18 @@
 
 //       {/* Shipping Details */}
 //       <div className="mt-6">
-//         <h2 className="text-lg font-semibold">Shipping Details</h2>
+//         <h2 className="text-lg font-semibold mb-2">Shipping Details</h2>
 //         <input
 //           type="text"
 //           name="address"
 //           value={shippingDetails.address}
 //           onChange={handleShippingChange}
 //           placeholder="Address"
-//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//           className={`p-2 w-full border rounded-lg mt-2 ${
+//             isDarkMode
+//               ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+//               : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+//           }`}
 //           required
 //         />
 //         <input
@@ -202,7 +246,11 @@
 //           value={shippingDetails.city}
 //           onChange={handleShippingChange}
 //           placeholder="City"
-//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//           className={`p-2 w-full border rounded-lg mt-2 ${
+//             isDarkMode
+//               ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+//               : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+//           }`}
 //         />
 //         <input
 //           type="text"
@@ -210,7 +258,11 @@
 //           value={shippingDetails.postalCode}
 //           onChange={handleShippingChange}
 //           placeholder="Postal Code"
-//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//           className={`p-2 w-full border rounded-lg mt-2 ${
+//             isDarkMode
+//               ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+//               : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+//           }`}
 //         />
 //         <input
 //           type="text"
@@ -218,20 +270,44 @@
 //           value={shippingDetails.country}
 //           onChange={handleShippingChange}
 //           placeholder="Country"
-//           className="p-2 w-full border border-gray-300 rounded-lg mt-2"
+//           className={`p-2 w-full border rounded-lg mt-2 ${
+//             isDarkMode
+//               ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+//               : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+//           }`}
 //         />
 //       </div>
 
 //       {/* Display applied coupon and prices */}
 //       <div className="mt-4">
-//         {appliedCoupon && <p>Applied Coupon: {appliedCoupon}</p>}
-//         <p>Original Price: ₹{total.toFixed(2)}</p>
-//         <p>Discounted Price: ₹{discountedPrice.toFixed(2)}</p>
+//         {appliedCoupon && (
+//           <p className={isDarkMode ? "text-gray-300" : "text-gray-700"}>
+//             Applied Coupon: {appliedCoupon}
+//           </p>
+//         )}
+//         <p
+//           className={`${
+//             isDarkMode ? "text-gray-300" : "text-gray-700"
+//           } mt-2`}
+//         >
+//           Original Price: ₹{total.toFixed(2)}
+//         </p>
+//         <p
+//           className={`${
+//             isDarkMode ? "text-gray-300" : "text-gray-700"
+//           } mt-1`}
+//         >
+//           Discounted Price: ₹{discountedPrice.toFixed(2)}
+//         </p>
 //       </div>
 
 //       <button
 //         onClick={handlePayment}
-//         className="btn btn-primary bg-green-600 p-2 rounded-lg mt-4 w-full"
+//         className={`btn btn-primary p-2 rounded-lg mt-4 w-full ${
+//           isDarkMode
+//             ? "bg-green-700 hover:bg-green-800 text-white"
+//             : "bg-green-600 hover:bg-green-700 text-white"
+//         }`}
 //       >
 //         Proceed to Payment
 //       </button>
@@ -241,16 +317,17 @@
 
 // export default PaymentHandler;
 
-
 // components/PaymentHandler.jsx
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import axios from "../axiosConfig";
 import { useCart } from "../CartContext";
-import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
+import { ThemeContext } from "../ThemeContext";
 
 const PaymentHandler = ({ total, onSuccess }) => {
   const { cart, setCart } = useCart();
-  const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
+  const { isDarkMode } = useContext(ThemeContext);
+  const navigate = useNavigate(); // Initialize navigate for redirection
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [discountedPrice, setDiscountedPrice] = useState(total);
@@ -263,7 +340,6 @@ const PaymentHandler = ({ total, onSuccess }) => {
     country: "",
   });
 
-  // Fetch public coupons when the component mounts
   useEffect(() => {
     const fetchPublicCoupons = async () => {
       try {
@@ -282,6 +358,16 @@ const PaymentHandler = ({ total, onSuccess }) => {
     setDiscountedPrice(newPrice > 0 ? newPrice : 0);
   }, [discount, total]);
 
+  const clearCart = async () => {
+    try {
+      await axios.delete("/cart/clear");
+      setCart([]);
+      console.log("Cart cleared successfully.");
+    } catch (error) {
+      console.error("Error clearing cart:", error);
+    }
+  };
+
   const handlePayment = async () => {
     if (!shippingDetails.address) {
       alert("Please enter your shipping address.");
@@ -293,13 +379,6 @@ const PaymentHandler = ({ total, onSuccess }) => {
       return;
     }
 
-    try {
-      // Optionally, create an order with 'Pending' status before payment
-      // This depends on your business logic
-    } catch (error) {
-      console.error("Error before initiating payment:", error);
-    }
-
     const options = {
       key: "rzp_test_rZUOMEi4ogeBfp", // Replace with your Razorpay key
       amount: discountedPrice * 100, // Razorpay expects amount in paise
@@ -309,11 +388,10 @@ const PaymentHandler = ({ total, onSuccess }) => {
       image: "https://via.placeholder.com/150",
       handler: async (paymentResponse) => {
         try {
-          // Create the order after successful payment
           await createOrder(paymentResponse.razorpay_payment_id);
-          setCart([]);
-          onSuccess();
+          clearCart(); // Clear the cart after payment
           alert("Payment successful! Thank you for your order.");
+          navigate("/order"); // Redirect to order page
         } catch (error) {
           console.error("Error creating order:", error.message);
           alert("Error creating order. Please try again.");
@@ -350,10 +428,10 @@ const PaymentHandler = ({ total, onSuccess }) => {
       shippingDetails,
       notes: "Order placed via Razorpay payment.",
     });
+
     console.log("Order created:", response.data);
   };
 
-  // Apply the coupon (public or private)
   const handleApplyCoupon = async () => {
     if (!couponCode) {
       alert("Please enter a coupon code.");
@@ -363,13 +441,7 @@ const PaymentHandler = ({ total, onSuccess }) => {
     }
 
     try {
-      console.log("couponCode", couponCode);
-
       const response = await axios.post("/coupons/apply", { code: couponCode });
-      // setDiscount(response.data.discount); 
-      // setAppliedCoupon(couponCode); 
-      console.log(response.data.discount);
-
       setDiscount(response.data.discount);
       setAppliedCoupon(couponCode);
       alert(`Coupon applied! Discount: ${response.data.discount}%`);
@@ -384,7 +456,6 @@ const PaymentHandler = ({ total, onSuccess }) => {
   const handlePublicCouponSelect = (e) => {
     const selectedCouponCode = e.target.value;
     setCouponCode(selectedCouponCode);
-    console.log(e.target.value);
   };
 
   const handleShippingChange = (e) => {
@@ -399,20 +470,11 @@ const PaymentHandler = ({ total, onSuccess }) => {
       }`}
     >
       <h2 className="text-lg font-semibold mb-4">Apply Coupon</h2>
-      <label
-        className={`block text-sm font-medium ${
-          isDarkMode ? "text-gray-300" : "text-gray-700"
-        }`}
-      >
-        Select a Public Coupon
-      </label>
       <select
         value={couponCode}
         onChange={handlePublicCouponSelect}
         className={`mt-1 p-2 w-full border rounded-lg ${
-          isDarkMode
-            ? "bg-gray-700 border-gray-600 text-white"
-            : "bg-white border-gray-300 text-gray-900"
+          isDarkMode ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"
         }`}
       >
         <option value="">-- Select a Coupon --</option>
@@ -425,87 +487,44 @@ const PaymentHandler = ({ total, onSuccess }) => {
       </select>
 
       <div className="mt-4">
-        {/* Input field for public/private coupon */}
         <input
           type="text"
           value={couponCode}
           onChange={(e) => setCouponCode(e.target.value)}
-          placeholder="Enter coupon code (public or private)"
-          className={`p-2 w-full border rounded-lg ${
-            isDarkMode
-              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+          placeholder="Enter coupon code"
+          className={`p-2 w-full border rounded-lg mt-2 ${
+            isDarkMode ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"
           }`}
         />
         <button
           onClick={handleApplyCoupon}
           className={`mt-2 px-4 py-2 rounded-lg ${
-            isDarkMode
-              ? "bg-blue-600 hover:bg-blue-700 text-white"
-              : "bg-blue-500 hover:bg-blue-600 text-white"
-          }`}
+            isDarkMode ? "bg-blue-600" : "bg-blue-500"
+          } text-white`}
         >
           Apply Coupon
         </button>
       </div>
 
-      {/* Shipping Details */}
       <div className="mt-6">
         <h2 className="text-lg font-semibold mb-2">Shipping Details</h2>
-        <input
-          type="text"
-          name="address"
-          value={shippingDetails.address}
-          onChange={handleShippingChange}
-          placeholder="Address"
-          className={`p-2 w-full border rounded-lg mt-2 ${
-            isDarkMode
-              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
-          }`}
-          required
-        />
-        <input
-          type="text"
-          name="city"
-          value={shippingDetails.city}
-          onChange={handleShippingChange}
-          placeholder="City"
-          className={`p-2 w-full border rounded-lg mt-2 ${
-            isDarkMode
-              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
-          }`}
-        />
-        <input
-          type="text"
-          name="postalCode"
-          value={shippingDetails.postalCode}
-          onChange={handleShippingChange}
-          placeholder="Postal Code"
-          className={`p-2 w-full border rounded-lg mt-2 ${
-            isDarkMode
-              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
-          }`}
-        />
-        <input
-          type="text"
-          name="country"
-          value={shippingDetails.country}
-          onChange={handleShippingChange}
-          placeholder="Country"
-          className={`p-2 w-full border rounded-lg mt-2 ${
-            isDarkMode
-              ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-              : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
-          }`}
-        />
+        {["address", "city", "postalCode", "country"].map((field) => (
+          <input
+            key={field}
+            type="text"
+            name={field}
+            value={shippingDetails[field]}
+            onChange={handleShippingChange}
+            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            className={`p-2 w-full border rounded-lg mt-2 ${
+              isDarkMode ? "bg-gray-700 border-gray-600" : "bg-white border-gray-300"
+            }`}
+          />
+        ))}
       </div>
 
       {/* Display applied coupon and prices */}
-      <div className="mt-4">
-        {appliedCoupon && (
+      <div className="mt-4">         {appliedCoupon && (
           <p className={isDarkMode ? "text-gray-300" : "text-gray-700"}>
             Applied Coupon: {appliedCoupon}
           </p>
@@ -529,10 +548,8 @@ const PaymentHandler = ({ total, onSuccess }) => {
       <button
         onClick={handlePayment}
         className={`btn btn-primary p-2 rounded-lg mt-4 w-full ${
-          isDarkMode
-            ? "bg-green-700 hover:bg-green-800 text-white"
-            : "bg-green-600 hover:bg-green-700 text-white"
-        }`}
+          isDarkMode ? "bg-green-700" : "bg-green-600"
+        } text-white`}
       >
         Proceed to Payment
       </button>

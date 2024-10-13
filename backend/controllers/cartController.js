@@ -114,3 +114,31 @@ export async function removeSingleProductFromCart(req, res) {
         res.status(500).json({ message: "Error removing product from cart" });
     }
 }
+
+// import cartModel from "../models/cartModel.js";
+
+export async function clearUserCart(req, res) {
+    console.log("inside clear user cart");
+    
+    const userId = req.user._id;
+
+    try {
+        const cart = await cartModel.findOne({ user: userId });
+
+        if (!cart) {
+            return res.status(404).json({ message: "Cart not found" });
+        }
+
+        // Clear the products array and reset total price
+        cart.products = [];
+        cart.totalPrice = 0;
+
+        await cart.save();
+
+        console.log("Cart cleared successfully",cart);
+        
+        res.status(200).json({ message: "Cart cleared successfully", cart });
+    } catch (err) {
+        res.status(500).json({ message: "Error clearing cart", error: err.message });
+    }
+}
