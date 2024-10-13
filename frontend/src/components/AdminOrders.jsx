@@ -95,7 +95,7 @@ console.log("response", response);
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-6xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">All Orders (Admin)</h1>
 
       {/* Filter by status */}
@@ -124,7 +124,7 @@ console.log("response", response);
             key={order._id}
             className="border p-6 rounded-lg mb-6 shadow-lg bg-white transition-transform transform hover:scale-105"
           >
-            <h2 className="text-2xl font-semibold">Order ID: {order._id}</h2>
+            <h2 className="text-2xl font-semibold">Order ID: <span className="text-[19px]">{order._id}</span></h2>
             <p>
               User: {order.userId.firstName} {order.userId.lastName} (
               {order.userId.email})

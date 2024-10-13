@@ -146,7 +146,7 @@ const AdminCoupon = () => {
                                     Expires: {new Date(coupon.expiresAt).toLocaleDateString()}
                                 </p>
                             </div>
-                            <div className="space-x-2">
+                            <div className="space-x-2 flex flex-wrap justify-center items-center gap-3 ">
                                 <button
                                     onClick={() => handleDelete(coupon._id)}
                                     className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition duration-300"

@@ -91,7 +91,7 @@ const EditReview = () => {
           ) : reviews.length > 0 ? (
             <div className="flex flex-wrap gap-4 justify-center">
               {reviews.map((review) => (
-                <div key={review._id} className="w-1/3 p-2 max-w-[320px]">
+                <div key={review._id} className="w-1/3 p-2 max-w-[320px] min-w-[260px]">
                   <div className="border border-gray-300 p-4 rounded-lg flex-col text-center justify-center items-center bg-gray-50 shadow-sm">
                     <p className="font-medium"><strong>User:</strong> {review.user?.name || 'Anonymous'}</p>
                     <p><strong>Rating:</strong> {review.rating} / 5</p>
