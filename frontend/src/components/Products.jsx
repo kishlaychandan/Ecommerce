@@ -134,7 +134,7 @@ function Products({page}) {
   };
 
   return (
-    <div className={`w-full flex ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+    <div className={`w-full flex ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'} overflow-x-hidden`}>
       {page === "shop"?(
         <Sidebar onApplyFilters={applyFilters} />
       ):
@@ -142,7 +142,7 @@ function Products({page}) {
       }
       
       <div className="w-full flex justify-center items-center">
-        <div className="w-full flex justify-center flex-wrap overflow-x-hidden">
+        <div className="w-full flex justify-center flex-wrap">
           {page === "home" ? (
             <BannerCarousel />
           ) : (
