@@ -460,12 +460,20 @@ function Header() {
               </Link>
             </li>
             <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
-              <Link to="/cart">
+              <Link to="/cart" className={`${
+                  isActive("/faq")
+                    ? "text-yellow-300 underline decoration-dotted"
+                    : ""
+                }`}>
                 <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
               </Link>
             </li>
             <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
-              <Link to="/wishlist">WISHLIST</Link>
+              <Link to="/wishlist" className={`${
+                  isActive("/faq")
+                    ? "text-yellow-300 underline decoration-dotted"
+                    : ""
+                }`}>WISHLIST</Link>
             </li>
             {!isUserLoggedIn && (
               <li className="py-2 transition-all duration-300" onClick={() => setIsOpen(false)}>
