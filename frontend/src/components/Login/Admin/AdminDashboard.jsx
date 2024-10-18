@@ -34,7 +34,7 @@ const AdminDashboard = () => {
     switch (activeComponent) {
       case "Dashboard":
         return <Dashboard />;
-        case "sales":
+      case "sales":
           return <SalesChart />;
       case "AddProducts":
         return <AddProduct />;
@@ -50,10 +50,10 @@ const AdminDashboard = () => {
         return <EditAbout />;
       case "coupon":
         return <AdminCoupon />;
-      case "ProfileUpdate":
-        return <ProfileUpdate />;
-      case "ChangePassword":
-        return <ChangePassword />;
+      // case "ProfileUpdate":
+      //   return <ProfileUpdate />;
+      // case "ChangePassword":
+      //   return <ChangePassword />;
       case "manageOrder":
         return <AdminOrders />;
       default:
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
             </li>
 
             {/* Admin Setting with Dropdown */}
-            <li className="py-2">
+            {/* <li className="py-2">
               <button
                 onClick={() => setIsAdminSettingOpen(!isAdminSettingOpen)}
                 className="w-full text-left py-2 px-4 bg-gray-700 rounded hover:bg-gray-600"
@@ -137,7 +137,7 @@ const AdminDashboard = () => {
                   </li>
                 </ul>
               )}
-            </li>
+            </li> */}
 
             {/* Other Menu Items */}
             <li className="py-2">
