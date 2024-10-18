@@ -115,6 +115,7 @@ import axios from "../axiosConfig";
 import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../ThemeContext"; 
+import ChatBots from "../components/ChatBot/ChatBots";
 
 function Cart() {
     const navigate = useNavigate();
@@ -170,6 +171,7 @@ function Cart() {
 
     return (
         <div className={`w-screen  mx-auto p-6 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+            <ChatBots />
             <h2 className="text-2xl font-bold mb-6">Your Cart</h2>
             {cart.map((product) => (
                 <div key={product.product._id} className={`flex items-center border-b py-4 ${isDarkMode ? 'border-gray-700' : 'border-gray-300'}`}>

@@ -95,6 +95,7 @@ import axios from "../axiosConfig";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../App";
+import ChatBots from "../components/ChatBot/ChatBots";
 
 function Login() {
   const searchParams = new URLSearchParams(window.location.search);
@@ -139,6 +140,7 @@ function Login() {
         backgroundPosition: 'center',
       }}
     >
+      <ChatBots/>
       <div className="bg-purple-500 bg-opacity-20 p-8 border border-gray-300 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-yellow-500 mb-6">
           Login

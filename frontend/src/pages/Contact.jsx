@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import ChatBots from "../components/ChatBot/ChatBots";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -64,6 +65,7 @@ const Contact = () => {
             "url('https://images.unsplash.com/photo-1645692396914-4ca9df38cce3?q=80&w=1779&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
         }}
       >
+        <ChatBots />
         <h1 className="text-4xl m-6 text-gray-300 font-bold text-center">
           CONTACT US
         </h1>

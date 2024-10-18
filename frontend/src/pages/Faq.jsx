@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axiosConfig"; // Adjust the path to your axios instance
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Importing icons for the arrow
+import ChatBots from "../components/ChatBot/ChatBots";
 
 const Faq = () => {
   const [faqs, setFaqs] = useState([]);
@@ -30,6 +31,7 @@ const Faq = () => {
         backgroundImage:
           "url('https://img.freepik.com/free-photo/wet-monstera-deliciosa-plant-leaves-garden_53876-139814.jpg?w=996&t=st=1728580486~exp=1728581086~hmac=b4c56713cbfe8ffe8efdd6a2514968b4fbccadf806b556bb80576f7c8fb65d45')",
       }}>
+        <ChatBots />
       <div className="bg-white shadow-2xl rounded-3xl max-w-4xl w-full mx-4 p-8">
         <h1 className="text-4xl font-extrabold text-center text-blue-600 mb-6">FREQUENTLY ASKED QUESTIONS</h1>
         <ul className="space-y-4">

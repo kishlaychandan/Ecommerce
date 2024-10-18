@@ -56,7 +56,7 @@ const RegisteredUsers = () => {
         <p>Loading users...</p>
       ) : (
         //make table responsive
-        <div className="w-full min-w-[400px] overflow-x-auto">
+        <div className="overflow-x-auto">
           <table className="table-auto border w-full">
             <thead>
               <tr className="bg-gray-300 text-center">

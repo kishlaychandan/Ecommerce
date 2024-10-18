@@ -3,6 +3,7 @@ import Products from "../components/Products";
 import Sidebar from "../components/Sidebar";
 import { userContext } from "../App";
 import BannerCarousel from "../components/BannerCarousel";
+import ChatBots from "../components/ChatBot/ChatBots";
 
 function Home() {
   // return <Products />;
@@ -12,6 +13,7 @@ function Home() {
   return (
     <>
       {/* <Sidebar /> */}
+      <ChatBots/>
       <Products page={page}/>
     </>
   );

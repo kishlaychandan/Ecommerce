@@ -1,0 +1,37 @@
+.chatbotContainer {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+    z-index: 1000;
+    /* width: 300px; */
+    transition: right 0.6s ease;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .chatbotIcon {
+    /* background-color: red; */
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    color: white;
+    padding: 10px;
+  }
+  .chatbotIcon .icon{
+    cursor: pointer;
+    background-color: rgb(89, 26, 205);
+    padding: 0.8rem;
+    margin: 0rem 1rem;
+    border-radius: 50%;
+  }
+  
+  .chatbotSegment {
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .chatbotIcon .icon{
+      margin: 0;
+    }
+    
+  }

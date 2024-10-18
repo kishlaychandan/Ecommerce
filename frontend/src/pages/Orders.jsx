@@ -71,6 +71,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "../axiosConfig";
 import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
+import ChatBots from "../components/ChatBot/ChatBots";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -103,6 +104,7 @@ const Orders = () => {
 
   return (
     <div className={`p-4 ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
+      <ChatBots/>
       <h1 className="text-2xl font-semibold mb-4">My Orders</h1>
       {orders.map((order) => (
         <div

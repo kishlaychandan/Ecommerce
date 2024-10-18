@@ -111,6 +111,7 @@
 
 import React, { useState } from 'react';
 import axios from '../axiosConfig';
+import ChatBots from '../components/ChatBot/ChatBots';
 
 function Register() {
     const [user, setUser] = useState({
@@ -157,6 +158,7 @@ function Register() {
                 backgroundPosition: 'center',
             }}
         >
+            <ChatBots/>
             <div className="bg-purple-500 bg-opacity-20 p-8 border border-gray-300 rounded-lg shadow-md w-full max-w-md">
                 {/* Display error messages */}
                 {errorMessage && (

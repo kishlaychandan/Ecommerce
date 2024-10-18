@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../AuthContext';
 import { userContext } from "../../../App";
 import { useContext } from 'react';
+import ChatBots from '../../ChatBot/ChatBots';
 function AdminLogin() {
   const { isAdminLoggedIn, setIsAdminLoggedIn, isUserLoggedIn, setIsUserLoggedin } = useContext(userContext);
   // const { isAdminLoggedIn, setIsAdminLoggedIn } = useAuth();
@@ -77,6 +78,7 @@ function AdminLogin() {
         backgroundPosition: 'center'
       }}
     >
+      <ChatBots/>
       <div className="bg-purple-600 rounded-lg shadow-lg p-8 max-w-md w-full"> {/* Purple background for form */}
         <h2 className="text-3xl font-bold text-center text-yellow-300  mb-6">Admin Login</h2>
         {errorMessage && ( // Conditionally render the error message
