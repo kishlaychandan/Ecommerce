@@ -93,7 +93,7 @@ function AdminLogin() {
               type="text"
               id="email"
               value={email}
-              placeholder="Enter your email"
+              placeholder="test email: kishlaychandan00@gmail.com"
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               required
@@ -105,7 +105,7 @@ function AdminLogin() {
               type="password"
               id="password"
               value={password}
-              placeholder="Enter your password"
+              placeholder="test password: 1234"
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               required
