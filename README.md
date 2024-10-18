@@ -5,7 +5,7 @@
 This is a comprehensive **E-Commerce Platform** that provides a seamless shopping experience, including features like product management, user authentication, coupon system, cart and wishlist management, order tracking, FAQs, and more. The application is built with **Node.js**, **Express**, and **MongoDB** as the backend stack.
 
 ---
-
+![Shopping Zone](image.png)
 ## Features
 
 - **User Management**  
