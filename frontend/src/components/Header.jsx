@@ -248,7 +248,8 @@ import { FaCartArrowDown, FaBars, FaTimes, FaHeart } from "react-icons/fa";
 import { ThemeContext } from "../ThemeContext";
 import { GiMoon } from "react-icons/gi";
 import { CiLight } from "react-icons/ci";
-
+import logo from "../assets/logo.png";
+import KAMAKHYA from "../assets/KAMAKHYA.png";
 function Header() {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
@@ -285,7 +286,7 @@ function Header() {
     >
       {/* Left Side Logo */}
       <h1 className="text-3xl">
-        <Link to="/"> SHOPPING ZONE</Link>
+        <Link to="/"><img src={KAMAKHYA} alt="" className="h-10"/>  </Link>
       </h1>
 
       {/* Hamburger Icon for Mobile */}
