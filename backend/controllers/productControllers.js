@@ -158,37 +158,48 @@ export async function deleteProduct(req,res){
     }   
 }
 
+
 export async function updateProduct(req, res) {
-    console.log("update product started");
+    console.log("Update product started");
     const { id } = req.params;
-    console.log("id : ",id);
+    console.log("Product ID: ", id);
+
     let { name, brand, category, price, description, inStock, inventory } = req.body;
 
+    // Ensure all fields are provided
     if (!name || !brand || !category || !price || !description || !inStock || !inventory) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
     try {
-        console.log("inside try of updated prod");
-        
+        console.log("Inside try block for updating product");
+
+        // Prepare the updated data object
         let updatedData = { name, brand, category, price, description, inStock, inventory };
 
+        // If a new file is uploaded, update the image URL
         if (req.file) {
-            const url = await uploadToCloudinary(req);
+            console.log("File found, uploading to Cloudinary...");
+            const url = await uploadToCloudinary(req.file);
             updatedData.url = url;
         }
 
+        // Find and update the product
         const updatedProduct = await productModel.findByIdAndUpdate(id, updatedData, { new: true });
 
         if (!updatedProduct) {
+            console.error("Product not found");
             return res.status(404).json({ message: "Product not found" });
         }
 
+        console.log("Product updated successfully");
         res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
     } catch (err) {
+        console.error("Error updating product:", err);
         res.status(500).json({ message: err.message });
     }
 }
+
 
 
 export async function addToWishList(req,res){
