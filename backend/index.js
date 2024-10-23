@@ -20,10 +20,13 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 
-// const limiter=expressRateLimit({
-//     windowMs:15*60*1000,
-//     max:100,
-// })
+const limiter=expressRateLimit({
+    windowMs:15*60*1000,
+    max:100,
+    message:"Too many requests from this IP, please try again after 15 minutes",
+    headers:true,
+})
+
 const corsOptions = {
     // origin:"http://localhost:5173",
     // origin: "https://ecommerce-two-jade.vercel.app", // Remove the trailing slash
@@ -42,7 +45,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
-// app.use(limiter)
+app.use(limiter)
 
 app.use("/api/check", authRouter);
 app.use("/api/product",productRouter)
