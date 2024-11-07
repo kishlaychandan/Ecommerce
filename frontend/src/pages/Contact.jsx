@@ -92,7 +92,7 @@ const Contact = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
+              className="w-full p-2 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
             />
             {errors.name && (
               <span className="text-red-500 text-sm">{errors.name}</span>
@@ -108,7 +108,7 @@ const Contact = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
+              className="w-full p-2 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
             />
             {errors.email && (
               <span className="text-red-500 text-sm">{errors.email}</span>
@@ -123,7 +123,7 @@ const Contact = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full h-36 p-3 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
+              className="w-full h-24 p-2 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
             />
             {errors.message && (
               <span className="text-red-500 text-sm">{errors.message}</span>
