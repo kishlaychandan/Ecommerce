@@ -251,7 +251,7 @@ const Sidebar = ({ onApplyFilters }) => {
       </button>
 
       {/* Sidebar container */}
-      <div className={`transition-all ${isOpen ? 'w-80 p-6' : 'w-0 overflow-hidden'} ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-black'} h-screen shadow-lg`}>
+      <div className={`transition-all ${isOpen ? 'min-w-[18rem] h-full p-6' : 'w-0 overflow-hidden'} ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-black'}shadow-lg`}>
         {isOpen && (
           <div>
             <h2 className="font-bold text-xl mb-4 mt-12">Filters</h2>
