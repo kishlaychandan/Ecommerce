@@ -239,7 +239,6 @@
 
 // export default Header;
 
-
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../App";
@@ -250,7 +249,9 @@ import { GiMoon } from "react-icons/gi";
 import { CiLight } from "react-icons/ci";
 import logo from "../assets/logo.png";
 import KAMAKHYA from "../assets/KAMAKHYA.png";
+import { useCart } from "../CartContext";
 function Header() {
+  const { cart, setCart, fetchCartAndWishlist } = useCart();
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const location = useLocation(); // To get the current route path
@@ -265,10 +266,12 @@ function Header() {
   async function logout() {
     try {
       const response = await axios.post("/user/logout", {});
-      if (response.status===200||response.statusText === "OK" ) {
+      if (response.status === 200 || response.statusText === "OK") {
         console.log("logged out");
         setIsUserLoggedin(false);
         navigate("/login");
+        // fetchCartAndWishlist();
+        setCart([]);
       }
     } catch (err) {
       console.log(err.message);
@@ -285,16 +288,11 @@ function Header() {
       }`}
     >
       {/* Left Side Logo */}
-      <h1 className="text-3xl">
-        <Link to="/"><img src={KAMAKHYA} alt="" className="h-10"/>  </Link>
+      <h1 className="max-w-[20vw] overflow-hidden">
+        <Link to="/">
+          <img src={KAMAKHYA} alt="" className="h-10 w-full" />{" "}
+        </Link>
       </h1>
-
-      {/* Hamburger Icon for Mobile */}
-      <div className="md:hidden flex items-center">
-        <button onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-        </button>
-      </div>
 
       {/* Desktop Navigation - Center */}
       <nav className="hidden md:flex flex-grow justify-center">
@@ -307,7 +305,6 @@ function Header() {
                   ? "text-yellow-300 underline decoration-dotted"
                   : ""
               } hover:text-yellow-300 font-bold`}
-              
             >
               SHOP
             </Link>
@@ -352,51 +349,68 @@ function Header() {
       </nav>
 
       {/* Right Side - Cart, Wishlist, Register, Login/Logout */}
-      <ul className="hidden md:flex items-center gap-6 justify-center">
-        {/* Dark and Light Mode Toggle */}
-        <button
-          onClick={toggleTheme}
-          className={`p-2 rounded-full ${
-            isDarkMode ? "bg-gray-700 text-white" : "bg-gray-300 text-gray-900"
-          } font-bold`}
-        >
-          {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
-        </button>
-
-        <li>
-          <Link to="/wishlist">
-            <FaHeart style={{ fontSize: "1.3rem" }} />
-          </Link>
-        </li>
-        <li>
-          <Link to="/cart">
-            <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
-          </Link>
-        </li>
-        {isUserLoggedIn && (
-          <li className="py-2">
-            <Link to="/orders">ORDERS</Link>
-          </li>
-        )}
-
-        {!isUserLoggedIn && (
+      <div className=" md:flex items-center gap-6 justify-center">
+        <div className="flex list-none  items-center gap-6 justify-center">
           <li>
-            <Link to="/register">REGISTER</Link>
+            <Link to="/wishlist">
+              <FaHeart style={{ fontSize: "1.3rem" }} />
+            </Link>
           </li>
-        )}
-        <li>
-          {isUserLoggedIn ? (
-            <button onClick={logout}>LOGOUT</button>
-          ) : (
-            <Link to="/login">LOGIN</Link>
+          <li>
+            <Link to="/cart" className="flex items-center gap-1 relative">
+              <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
+              {cart.length > 0 && (
+                <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold rounded-full px-1">
+                  {cart.length}
+                </span>
+              )}
+            </Link>
+          </li>
+          {/* Hamburger Icon for Mobile */}
+          <div className="md:hidden flex items-center">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            </button>
+          </div>
+        </div>
+        <ul className="hidden md:flex items-center gap-6 justify-center">
+          {/* Dark and Light Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`p-2 rounded-full ${
+              isDarkMode
+                ? "bg-gray-700 text-white"
+                : "bg-gray-300 text-gray-900"
+            } font-bold`}
+          >
+            {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
+          </button>
+
+          {isUserLoggedIn && (
+            <li className="py-2">
+              <Link to="/orders">ORDERS</Link>
+            </li>
           )}
-        </li>
-        {!isUserLoggedIn && (
-          <li className="py-2">
-            <Link to="/admin">ADMIN</Link>
+
+          {/* {!isUserLoggedIn && (
+            <li>
+              <Link to="/register">REGISTER</Link>
+            </li>
+          )} */}
+          <li>
+            {isUserLoggedIn ? (
+              <button onClick={logout}>LOGOUT</button>
+            ) : (
+              <Link to="/login">LOGIN</Link>
+            )}
           </li>
-        )}
-      </ul>
+          {!isUserLoggedIn && (
+            <li className="py-2">
+              <Link to="/admin">ADMIN</Link>
+            </li>
+          )}
+        </ul>
+      </div>
 
       {/* Mobile Navigation */}
       {isOpen && (
@@ -412,7 +426,10 @@ function Header() {
             >
               {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
             </button>
-            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
+            <li
+              className="py-2 transition-all duration-700"
+              onClick={() => setIsOpen(false)}
+            >
               <Link
                 to="/shop"
                 className={`${
@@ -424,7 +441,10 @@ function Header() {
                 SHOP
               </Link>
             </li>
-            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
+            <li
+              className="py-2 transition-all duration-700"
+              onClick={() => setIsOpen(false)}
+            >
               <Link
                 to="/contact"
                 className={`${
@@ -436,7 +456,10 @@ function Header() {
                 CONTACT US
               </Link>
             </li>
-            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
+            <li
+              className="py-2 transition-all duration-700"
+              onClick={() => setIsOpen(false)}
+            >
               <Link
                 to="/about"
                 className={`${
@@ -448,7 +471,10 @@ function Header() {
                 ABOUT US
               </Link>
             </li>
-            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
+            <li
+              className="py-2 transition-all duration-700"
+              onClick={() => setIsOpen(false)}
+            >
               <Link
                 to="/faq"
                 className={`${
@@ -460,53 +486,93 @@ function Header() {
                 FAQ
               </Link>
             </li>
-            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
-              <Link to="/cart" className={`${
+            {/* <li
+              className="py-2 transition-all duration-700"
+              onClick={() => setIsOpen(false)}
+            >
+              <Link
+                to="/cart"
+                className={`${
                   isActive("/cart")
                     ? "text-yellow-300 underline decoration-dotted"
                     : ""
-                }`}>
+                }`}
+              >
                 <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
               </Link>
             </li>
-            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
-              <Link to="/wishlist" className={`${
+            <li
+              className="py-2 transition-all duration-700"
+              onClick={() => setIsOpen(false)}
+            >
+              <Link
+                to="/wishlist"
+                className={`${
                   isActive("/wishlist")
                     ? "text-yellow-300 underline decoration-dotted"
                     : ""
-                }`}>WISHLIST</Link>
-            </li>
-            {!isUserLoggedIn && (
-              <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
-                <Link to="/register" className={`${
-                  isActive("/register")
-                    ? "text-yellow-300 underline decoration-dotted"
-                    : ""
-                }`}>REGISTER</Link>
+                }`}
+              >
+                WISHLIST
+              </Link>
+            </li> */}
+            {/* {!isUserLoggedIn && (
+              <li
+                className="py-2 transition-all duration-700"
+                onClick={() => setIsOpen(false)}
+              >
+                <Link
+                  to="/register"
+                  className={`${
+                    isActive("/register")
+                      ? "text-yellow-300 underline decoration-dotted"
+                      : ""
+                  }`}
+                >
+                  REGISTER
+                </Link>
               </li>
-            )}
-            <li className="py-2 transition-all duration-700" onClick={() => setIsOpen(false)}>
+            )} */}
+            <li
+              className="py-2 transition-all duration-700"
+              onClick={() => setIsOpen(false)}
+            >
               {isUserLoggedIn ? (
-                <button onClick={logout} className={`${
-                  isActive("/logout")
-                    ? "text-yellow-300 underline decoration-dotted"
-                    : ""
-                }`}>Logout</button>
+                <button
+                  onClick={logout}
+                  className={`${
+                    isActive("/logout")
+                      ? "text-yellow-300 underline decoration-dotted"
+                      : ""
+                  }`}
+                >
+                  Logout
+                </button>
               ) : (
-                <Link to="/login" className={`${
-                  isActive("/login")
-                    ? "text-yellow-300 underline decoration-dotted"
-                    : ""
-                }`}>LOGIN</Link>
+                <Link
+                  to="/login"
+                  className={`${
+                    isActive("/login")
+                      ? "text-yellow-300 underline decoration-dotted"
+                      : ""
+                  }`}
+                >
+                  LOGIN
+                </Link>
               )}
             </li>
             {!isUserLoggedIn && (
               <li className="py-2" onClick={() => setIsOpen(false)}>
-                <Link to="/admin" className={`${
-                  isActive("/admin")
-                    ? "text-yellow-300 underline decoration-dotted"
-                    : ""
-                }`}>ADMIN</Link>
+                <Link
+                  to="/admin"
+                  className={`${
+                    isActive("/admin")
+                      ? "text-yellow-300 underline decoration-dotted"
+                      : ""
+                  }`}
+                >
+                  ADMIN
+                </Link>
               </li>
             )}
           </ul>

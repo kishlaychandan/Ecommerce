@@ -96,8 +96,9 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 import ChatBots from "../components/ChatBot/ChatBots";
-
+import { useCart } from "../CartContext";
 function Login() {
+  const { cart, setCart, fetchCartAndWishlist } = useCart();
   const searchParams = new URLSearchParams(window.location.search);
   const [data, setData] = useState({
     email: "",
@@ -114,6 +115,7 @@ function Login() {
       const response = await axios.post("/user/login", { ...data });
       if (response.status === 200 && response.data.message === "login successful") {
         setIsUserLoggedin(true);
+        fetchCartAndWishlist();
         setIsAdminLoggedIn(false);
         searchParams.has("back_to")
           ? navigate(searchParams.getAll("back_to").join(""))
@@ -200,7 +202,7 @@ function Login() {
             }
             className="text-yellow-300 hover:underline"
           >
-            Don't have an account? Register
+            Don't have an account? <span className="text-blue-300 text-lg">Register</span>
           </Link>
         </div>
       </div>

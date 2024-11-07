@@ -31,6 +31,7 @@ import AdminOrders from "./components/AdminOrders";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import SalesChart from "./components/Login/Admin/SalesChart";
 import Shop from "./pages/Shop";
+import { MdOutlineRotateRight } from "react-icons/md";
 
 export const userContext = createContext();
 export const adminContext = createContext();
@@ -62,7 +63,7 @@ function App() {
   const [loading, setLoading] = useState(true); // Loading state
   // const [cart, setCart] = useState([]);
   // const [wishlist, setWishlist] = useState([]);
-
+  
   useEffect(() => {
     async function checkAuthStatus() {
       const response = await fetchData();
@@ -87,6 +88,7 @@ function App() {
     checkAdminAuthStatus();
     checkAuthStatus();
   }, []);
+  
 
   // function addToWishlist(productToAdd) {
   //   setWishlist([...wishlist, productToAdd]);
@@ -99,14 +101,22 @@ function App() {
   // Show loading message while checking authentication
   if (loading) {
     return (
-      <div>
-        Loading... Please wait. The Render site might take some time to restart if left
-        inactive for a while.
-      </div>
+      <>
+        <div className="flex flex-col items-center justify-center p-5 text-center">
+          <div className="animate-spin mb-4">
+            <MdOutlineRotateRight size={72} style={{ color: "blue" ,  }} />
+          </div>
+          <p>
+            Loading... Please wait. The Render site might take some time to
+            restart if left inactive for a while.
+          </p>
+        </div>
+      </>
     );
   }
 
   return (
+    <>
     <BrowserRouter>
       <ThemeProvider>
         <userContext.Provider
@@ -191,6 +201,7 @@ function App() {
         </userContext.Provider>
       </ThemeProvider>
     </BrowserRouter>
+    </>
   );
 }
 
