@@ -318,7 +318,7 @@ const Sidebar = ({ onApplyFilters }) => {
               </div>
 
               <div className="flex gap-4 items-center mt-2">
-                <span>{filters.priceMin}</span>
+                {/* <span>{filters.priceMin}</span> */}
                 <input
                   type="range"
                   name="priceMin"
@@ -337,7 +337,7 @@ const Sidebar = ({ onApplyFilters }) => {
                   onChange={handlePriceSliderChange}
                   className="w-full"
                 />
-                <span>{filters.priceMax}</span>
+                {/* <span>{filters.priceMax}</span> */}
               </div>
             </div>
 
