@@ -63,12 +63,12 @@ const BannerCarousel = () => {
 
       {/* Caption */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-md text-center">
-        <h2 className="text-lg md:text-xl font-semibold">
+        {/* <h2 className="text-lg md:text-xl font-semibold">
           Banner {currentSlide + 1}
-        </h2>
-        {/* <p className="text-sm md:text-base">
-          This is a description for Slide {currentSlide + 1}.
-        </p> */}
+        </h2> */}
+        <p className="text-sm md:text-base">
+          HYKI Magic Floor Cleaner.
+        </p>
       </div>
     </div>
   );
