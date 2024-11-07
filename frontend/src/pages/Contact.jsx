@@ -63,7 +63,7 @@ const Contact = () => {
       <div
         className="relative flex flex-col items-center justify-center w-full  min-h-screen p-6 bg-cover bg-center"
         style={{
-          backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to bottom, white,#6037ac)",
+          backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to right, white,#6037ac,#6037ac)",
        }}
       >
         <ChatBots />
