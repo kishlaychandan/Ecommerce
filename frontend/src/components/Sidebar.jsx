@@ -323,7 +323,7 @@ const Sidebar = ({ onApplyFilters }) => {
                   type="range"
                   name="priceMin"
                   min="0"
-                  max="1000"
+                  max="100000"
                   value={filters.priceMin}
                   onChange={handlePriceSliderChange}
                   className="w-full"
@@ -332,7 +332,7 @@ const Sidebar = ({ onApplyFilters }) => {
                   type="range"
                   name="priceMax"
                   min="0"
-                  max="1000"
+                  max="100000"
                   value={filters.priceMax}
                   onChange={handlePriceSliderChange}
                   className="w-full"
