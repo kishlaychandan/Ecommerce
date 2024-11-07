@@ -249,6 +249,7 @@ import { GiMoon } from "react-icons/gi";
 import { CiLight } from "react-icons/ci";
 import logo from "../assets/logo.png";
 import KAMAKHYA from "../assets/KAMAKHYA.png";
+import HYKI from "../assets/HYKI.png";
 import { useCart } from "../CartContext";
 function Header() {
   const { cart, setCart, fetchCartAndWishlist } = useCart();
@@ -290,7 +291,7 @@ function Header() {
       {/* Left Side Logo */}
       <h1 className="max-w-[20vw] overflow-hidden">
         <Link to="/">
-          <img src={KAMAKHYA} alt="" className="h-10 w-full" />{" "}
+          <img src={HYKI} alt="" className="h-10 w-full" />{" "}
         </Link>
       </h1>
 
