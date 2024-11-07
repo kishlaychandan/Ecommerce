@@ -66,9 +66,9 @@ const BannerCarousel = () => {
         <h2 className="text-lg md:text-xl font-semibold">
           Banner {currentSlide + 1}
         </h2>
-        <p className="text-sm md:text-base">
+        {/* <p className="text-sm md:text-base">
           This is a description for Slide {currentSlide + 1}.
-        </p>
+        </p> */}
       </div>
     </div>
   );
