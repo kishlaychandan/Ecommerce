@@ -251,6 +251,11 @@ import logo from "../assets/logo.png";
 import KAMAKHYA from "../assets/KAMAKHYA.png";
 import HYKI from "../assets/HYKI.png";
 import { useCart } from "../CartContext";
+import { FaSun } from "react-icons/fa";
+import { CiSun } from "react-icons/ci";
+import { IoSunny } from "react-icons/io5";
+import { RiSunLine } from "react-icons/ri";
+
 function Header() {
   const { cart, setCart, fetchCartAndWishlist } = useCart();
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
@@ -390,7 +395,7 @@ function Header() {
               }`}
             >
               {isDarkMode ? (
-                <CiLight size={16} className="text-black" />
+                <RiSunLine size={16} className="text-black" />
               ) : (
                 <GiMoon size={16} className="text-white" />
               )}

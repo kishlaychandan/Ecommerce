@@ -279,7 +279,7 @@ function SingleProduct() {
       <div className={`singleProduct pt-6 flex flex-col w-full justify-center items-center ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
         <div className="w-full md:w-1/2">
           {singleProduct && (
-            <div className={`singleProduct flex gap-4 flex-col md:flex-row p-4 rounded-lg items-center ${isDarkMode ? 'bg-gray-800' : 'bg-orange-300'}`}>
+            <div className={`singleProduct flex gap-4 flex-col md:flex-row p-4 rounded-lg items-center ${isDarkMode ? 'bg-gray-800' : 'bg-transparent border-300'}`}>
               {/* Image Section */}
               <div className="w-full md:w-1/2">
                 <img
@@ -330,25 +330,25 @@ function SingleProduct() {
                   {isUserLoggedIn ? (
                     isInCart ? (
                       <button
-                        className="bg-red-600 text-white p-2 rounded"
+                        className="bg-red-600 text-white p-2 pl-3 pr-3 rounded"
                         onClick={() => removeFromCart(singleProduct)}
                       >
-                        Remove from Cart
+                        Remove Cart
                       </button>
                     ) : (
                       <button
-                        className="bg-green-600 text-white p-2 rounded"
+                        className="bg-green-600 text-white p-2 pl-3 pr-3 rounded"
                         onClick={() => handleAddToCart(singleProduct)}
                       >
-                        Add to Cart
+                        Add Cart
                       </button>
                     )
                   ) : (
                     <button
-                      className="bg-green-600 text-white p-2 rounded"
+                      className="bg-green-600 text-white p-2 pl-3 pr-3 rounded"
                       onClick={() => navigate(`/login?back_to=/product/${singleProduct._id}`)}
                     >
-                      Add to Cart
+                      Add Cart
                     </button>
                   )}
                 </div>
