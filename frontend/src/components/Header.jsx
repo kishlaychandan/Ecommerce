@@ -352,6 +352,28 @@ function Header() {
       {/* Right Side - Cart, Wishlist, Register, Login/Logout */}
       <div className=" md:flex items-center gap-6 justify-center">
         <div className="flex list-none  items-center gap-6 justify-center">
+          {/* Dark and Light Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`relative w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${
+              isDarkMode ? "bg-gray-700" : "bg-gray-300"
+            }`}
+          >
+            <div
+              className={`w-4 h-4 rounded-full transform transition-transform duration-300 ${
+                isDarkMode
+                  ? "translate-x-6 bg-white"
+                  : "translate-x-0 bg-gray-900"
+              }`}
+            >
+              {isDarkMode ? (
+                <CiLight size={16} className="text-black" />
+              ) : (
+                <GiMoon size={16} className="text-white" />
+              )}
+            </div>
+          </button>
+
           <li>
             <Link to="/wishlist">
               <FaHeart style={{ fontSize: "1.3rem" }} />
@@ -375,18 +397,7 @@ function Header() {
           </div>
         </div>
         <ul className="hidden md:flex items-center gap-6 justify-center">
-          {/* Dark and Light Mode Toggle */}
-          <button
-            onClick={toggleTheme}
-            className={`p-2 rounded-full ${
-              isDarkMode
-                ? "bg-gray-700 text-white"
-                : "bg-gray-300 text-gray-900"
-            } font-bold`}
-          >
-            {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
-          </button>
-
+          
           {isUserLoggedIn && (
             <li className="py-2">
               <Link to="/orders">ORDERS</Link>
@@ -421,12 +432,7 @@ function Header() {
           } md:hidden z-50`}
         >
           <ul className="flex flex-col items-center p-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700"
-            >
-              {isDarkMode ? <CiLight size={24} /> : <GiMoon size={24} />}
-            </button>
+          
             <li
               className="py-2 transition-all duration-700"
               onClick={() => setIsOpen(false)}
