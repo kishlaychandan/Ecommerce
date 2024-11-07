@@ -29,12 +29,12 @@ const Faq = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center flex items-center justify-center"
+    <div className="min-h-screen w-full bg-cover bg-center flex items-center justify-center"
     style={{
       backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to bottom left, white,#6037ac,#6037ac)",
       }}>
         <ChatBots />
-      <div className={`shadow-2xl rounded-3xl max-w-4xl w-full mx-4 p-8 ${isDarkMode ? "text-white bg-gray-800" : "text-blue-600 bg-white"}`}>
+      <div className={`shadow-2xl rounded-3xl w-full mx-4 max-w-4xl p-8 ${isDarkMode ? "text-white bg-gray-800" : "text-blue-600 bg-white"}`}>
         <h1 className="text-4xl font-extrabold text-center  mb-6">FREQUENTLY ASKED QUESTIONS</h1>
         <ul className="space-y-4">
           {faqs.map((faq, index) => (

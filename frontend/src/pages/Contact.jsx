@@ -61,7 +61,7 @@ const Contact = () => {
     <>
       {/* <Navbar /> */}
       <div
-        className="relative flex flex-col items-center justify-center w-full min-h-screen p-6 bg-cover bg-center"
+        className="relative flex flex-col items-center justify-center w-full  min-h-screen p-6 bg-cover bg-center"
         style={{
           backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to bottom, white,#6037ac)",
        }}
@@ -72,7 +72,7 @@ const Contact = () => {
         </h1>
         <form
           onSubmit={handleSubmit}
-          className={`flex flex-col gap-4 w-full max-w-xl p-12 border border-gray-500 rounded-xl shadow-lg text-lg ${isDarkMode ? "text-white border-white bg-gray-900" : "text-gray-900 border-white"}`}
+          className={`flex flex-col gap-4 w-full max-w-3xl p-12 border border-gray-500 rounded-xl shadow-lg text-lg ${isDarkMode ? "text-white border-white bg-gray-900" : "text-gray-900 border-white"}`}
         >
           {submitted && (
             <p className="text-green-500 text-base text-center">
