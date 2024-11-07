@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import ChatBots from "../components/ChatBot/ChatBots";
-
+import { ThemeContext } from "../ThemeContext";
+import { useContext } from "react";
 const Contact = () => {
+  const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,17 +63,16 @@ const Contact = () => {
       <div
         className="relative flex flex-col items-center justify-center w-full min-h-screen p-6 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1645692396914-4ca9df38cce3?q=80&w=1779&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-        }}
+          backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to bottom, white,#6037ac)",
+       }}
       >
         <ChatBots />
-        <h1 className="text-4xl m-6 text-gray-300 font-bold text-center">
+        <h1 className={`text-5xl font-extrabold text-center p-6 ${isDarkMode ? "text-white" : "text-blue-700"}`}>
           CONTACT US
         </h1>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 w-full max-w-xl p-12 border border-gray-300 rounded-xl shadow-lg text-lg text-gray-400"
+          className={`flex flex-col gap-4 w-full max-w-xl p-12 border border-gray-500 rounded-xl shadow-lg text-lg ${isDarkMode ? "text-white border-white bg-gray-900" : "text-gray-900 border-white"}`}
         >
           {submitted && (
             <p className="text-green-500 text-base text-center">
@@ -81,8 +82,8 @@ const Contact = () => {
           {loading && (
             <p className="text-yellow-500 text-base text-center">Sending...</p>
           )}
-          <div className="flex flex-col ">
-            <label htmlFor="name" className="mb-1 text-gray-100 font-medium">
+          <div className={`flex flex-col `}>
+            <label htmlFor="name" className="mb-1 font-medium">
               Name:
             </label>
             <input
@@ -91,14 +92,14 @@ const Contact = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-200 rounded-lg text-base transition-all focus:border-blue-500 outline-none"
+              className="w-full p-3 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
             />
             {errors.name && (
               <span className="text-red-500 text-sm">{errors.name}</span>
             )}
           </div>
           <div className="flex flex-col">
-            <label htmlFor="email" className="mb-1 text-gray-100 font-medium">
+            <label htmlFor="email" className="mb-1  font-medium">
               Email:
             </label>
             <input
@@ -107,14 +108,14 @@ const Contact = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-200 rounded-lg text-base transition-all focus:border-blue-500 outline-none"
+              className="w-full p-3 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
             />
             {errors.email && (
               <span className="text-red-500 text-sm">{errors.email}</span>
             )}
           </div>
           <div className="flex flex-col">
-            <label htmlFor="message" className="mb-1 text-gray-100 font-medium">
+            <label htmlFor="message" className="mb-1 font-medium">
               Message:
             </label>
             <textarea
@@ -122,7 +123,7 @@ const Contact = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full h-36 p-3 border border-gray-200 rounded-lg text-base transition-all focus:border-blue-500 outline-none"
+              className="w-full h-36 p-3 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
             />
             {errors.message && (
               <span className="text-red-500 text-sm">{errors.message}</span>
