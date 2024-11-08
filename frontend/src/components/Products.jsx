@@ -164,7 +164,7 @@ function Products({ page }) {
           ) : (
             <>
               <div className="w-full flex flex-col justify-center items-center">
-                <div className="w-full animate-spin mb-1 flex items-center justify-center">
+                <div className="w-full animate-spin flex items-center justify-center">
                   <MdOutlineRotateRight size={45} style={{ color: "blue",paddingTop:"1px" }} />
                 </div>
                 <p className="text-orange-600">Loading products...</p>
