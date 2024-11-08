@@ -49,14 +49,14 @@ const RegisteredUsers = () => {
   const totalPages = Math.ceil(totalUsers / usersPerPage); // Calculate total pages
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-lg w-full">
+    <div className="p-3 bg-white shadow-md rounded-lg w-full">
       <h2 className="text-2xl font-bold mb-4">Registered Users</h2>
 
       {loading ? (
         <p>Loading users...</p>
       ) : (
         //make table responsive
-        <div className="overflow-x-auto">
+        <div className="overflow-x-scroll max-w-[18rem] sm:max-w-full md:max-w-full">
           <table className="table-auto border w-full">
             <thead>
               <tr className="bg-gray-300 text-center">
