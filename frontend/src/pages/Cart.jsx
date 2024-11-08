@@ -170,9 +170,9 @@ function Cart() {
     };
 
     return (
-        <div className={`w-screen  mx-auto p-6 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+        <div className={`max-w-4xl mx-auto p-6 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
             <ChatBots />
-            <h2 className="text-2xl font-bold mb-6">Your Cart</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">Your Cart</h2>
             {cart.map((product) => (
                 <div key={product.product._id} className={`flex items-center border-b py-4 ${isDarkMode ? 'border-gray-700' : 'border-gray-300'}`}>
                     <img

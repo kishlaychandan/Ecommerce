@@ -203,10 +203,10 @@ const Wishlist = () => {
   if (loading) {
     return (
       <div className="w-full flex flex-col justify-center items-center">
-        <div className="w-full p-4 animate-spin flex items-center justify-center">
+        <div className="w-full p-2 animate-spin flex items-center justify-center">
           <MdOutlineRotateRight
             size={45}
-            style={{ color: "blue", paddingTop: "1px" }}
+            style={{color: isDarkMode ? "white" : "blue", paddingTop: "1px"}}
           />
         </div>
         {/* <p className="text-orange-600">Loading products...</p> */}
@@ -220,7 +220,7 @@ const Wishlist = () => {
 
   return (
     <div
-      className={` mx-auto p-4 flex-col w-screen justify-center items-center ${
+      className={` mx-auto p-3 flex-col w-screen justify-center items-center ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
@@ -229,7 +229,7 @@ const Wishlist = () => {
         {wishlistProducts.map((item) => (
           <li
             key={item._id}
-            className={`rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${
+            className={`w-1/4 rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${
               isDarkMode ? "bg-gray-800" : "bg-white"
             }`}
           >
