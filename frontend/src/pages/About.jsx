@@ -28,7 +28,7 @@ function About() {
       }}
     >
       <ChatBots/>
-      <div className="bg-white shadow-2xl rounded-3xl max-w-4xl w-full mx-4 overflow-hidden relative z-10">
+      <div className="bg-white shadow-2xl rounded-3xl max-w-4xl w-full mx-3 overflow-hidden relative z-10">
         {/* <div className="bg-blue-600 text-white p-8 rounded-t-3xl"> */}
         {/* apply dark mode light mode */}
         <div className={`bg-${isDarkMode ? "gray-700" : "blue-600"} text-white p-8 rounded-t-3xl`}>
