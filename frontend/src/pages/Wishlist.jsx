@@ -220,7 +220,7 @@ const Wishlist = () => {
 
   return (
     <div
-      className={` mx-auto p-3 flex-col w-full justify-center items-center ${
+      className={`p-3 flex-col w-full justify-center items-center ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
@@ -229,7 +229,7 @@ const Wishlist = () => {
         {wishlistProducts.map((item) => (
           <li
             key={item._id}
-            className={`w-1/5 rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${
+            className={`w-1/5 min-w-[16rem] rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${
               isDarkMode ? "bg-gray-800" : "bg-white"
             }`}
           >
