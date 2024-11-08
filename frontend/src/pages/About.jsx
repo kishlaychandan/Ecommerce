@@ -22,7 +22,7 @@ function About() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center "
+      className="min-h-screen p-6 flex items-center justify-center bg-cover bg-center "
       style={{
         backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to bottom right, white,#6037ac,#6037ac)",
       }}
