@@ -120,7 +120,6 @@
 
 // export default Wishlist;
 
-
 import React, { useEffect, useState, useContext } from "react";
 import axios from "../axiosConfig";
 import { toast } from "react-toastify"; // for notifications
@@ -181,7 +180,9 @@ const Wishlist = () => {
 
   const addToCart = async (productId) => {
     try {
-      const response = await axios.post('/cart/addSingleProduct', { productId });
+      const response = await axios.post("/cart/addSingleProduct", {
+        productId,
+      });
       if (response.status === 200) {
         if (response.data.message === "Product already in cart") {
           console.log("Product already in cart");
@@ -199,7 +200,17 @@ const Wishlist = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-4">Loading...</div>;
+    return (
+      <div className="w-full flex flex-col justify-center items-center">
+        <div className="w-full p-4 animate-spin flex items-center justify-center">
+          <MdOutlineRotateRight
+            size={45}
+            style={{ color: "blue", paddingTop: "1px" }}
+          />
+        </div>
+        {/* <p className="text-orange-600">Loading products...</p> */}
+      </div>
+    );
   }
 
   if (wishlist.length === 0) {
@@ -207,13 +218,19 @@ const Wishlist = () => {
   }
 
   return (
-    <div className={` mx-auto p-4 flex-col w-screen justify-center items-center ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div
+      className={` mx-auto p-4 flex-col w-screen justify-center items-center ${
+        isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      }`}
+    >
       <h2 className="text-3xl font-semibold mb-6 text-center">Your Wishlist</h2>
       <ul className="w-full flex justify-center gap-6 flex-wrap">
         {wishlistProducts.map((item) => (
           <li
             key={item._id}
-            className={`rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}
+            className={`rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${
+              isDarkMode ? "bg-gray-800" : "bg-white"
+            }`}
           >
             <img
               src={item.url}
@@ -221,11 +238,41 @@ const Wishlist = () => {
               className="w-full h-48 object-cover rounded-t-lg"
             />
             <div className="p-2">
-              <h3 className={`text-xl font-medium mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{item.name}</h3>
-              <p className={`text-md mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>Price: <span className="text-red-600">${item.price}</span></p>
-              <p className={`text-sm mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Category: {item.category}</p>
-              <p className={`text-sm mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Brand: {item.brand}</p>
-              <p className={`text-xs mb-4 ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>{item.description}</p>
+              <h3
+                className={`text-xl font-medium mb-2 ${
+                  isDarkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                {item.name}
+              </h3>
+              <p
+                className={`text-md mb-2 ${
+                  isDarkMode ? "text-gray-400" : "text-gray-700"
+                }`}
+              >
+                Price: <span className="text-red-600">${item.price}</span>
+              </p>
+              <p
+                className={`text-sm mb-2 ${
+                  isDarkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
+                Category: {item.category}
+              </p>
+              <p
+                className={`text-sm mb-4 ${
+                  isDarkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
+                Brand: {item.brand}
+              </p>
+              <p
+                className={`text-xs mb-4 ${
+                  isDarkMode ? "text-gray-500" : "text-gray-500"
+                }`}
+              >
+                {item.description}
+              </p>
             </div>
             <div className="flex justify-between px-4 pb-4 gap-6">
               <button
@@ -236,7 +283,9 @@ const Wishlist = () => {
               </button>
               <button
                 onClick={() => addToCart(item._id)}
-                className={`text-white px-4 py-2 rounded-lg hover:bg-slate-500 transition ${isDarkMode ? 'bg-slate-400' : 'bg-slate-400'}`}
+                className={`text-white px-4 py-2 rounded-lg hover:bg-slate-500 transition ${
+                  isDarkMode ? "bg-slate-400" : "bg-slate-400"
+                }`}
               >
                 Add to Cart
               </button>
