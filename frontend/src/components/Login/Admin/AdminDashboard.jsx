@@ -235,7 +235,7 @@ const AdminDashboard = () => {
         }`}
       >
         <div className="navbar flex justify-between items-center text-white bg-slate-800 pl-12 pr-6 p-2">
-          <h1 className="md:text-2xl text-xl">Admin</h1>
+          <h1 className="md:text-2xl text-xl pl-6">Admin</h1>
           <button className="md:text-2xl text-xl" onClick={handleLogout}>
             Logout
           </button>
