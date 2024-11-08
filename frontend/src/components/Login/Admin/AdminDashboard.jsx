@@ -234,9 +234,9 @@ const AdminDashboard = () => {
           isSidebarOpen ? "ml-64" : "ml-0"
         }`}
       >
-        <div className="navbar flex justify-between items-center text-white bg-slate-800 pl-6 pr-6 p-2">
-          <h1 className="text-3xl">Admin Home</h1>
-          <button className="text-3xl" onClick={handleLogout}>
+        <div className="navbar flex justify-between items-center text-white bg-slate-800 pl-12 pr-6 p-2">
+          <h1 className="md:text-2xl text-xl">Admin</h1>
+          <button className="md:text-2xl text-xl" onClick={handleLogout}>
             Logout
           </button>
         </div>
