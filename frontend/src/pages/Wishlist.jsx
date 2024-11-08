@@ -278,17 +278,17 @@ const Wishlist = () => {
             <div className="flex justify-between px-4 pb-4 gap-6">
               <button
                 onClick={() => removeFromWishlist(item._id)}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                className="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition"
               >
                 Remove
               </button>
               <button
                 onClick={() => addToCart(item._id)}
-                className={`text-white px-4 py-2 rounded-lg hover:bg-slate-500 transition ${
+                className={`text-white px-3 py-2 rounded-lg hover:bg-slate-500 transition ${
                   isDarkMode ? "bg-slate-400" : "bg-slate-400"
                 }`}
               >
-                Add to Cart
+                Add Cart
               </button>
             </div>
           </li>
