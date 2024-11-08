@@ -9,7 +9,7 @@ function Footer() {
   return (
     <footer
       className={`py-6 w-full ${
-        isDarkMode ? "bg-gray-700 text-white" : "bg-[#6037ac] text-[#e88344]"
+        isDarkMode ? "bg-gray-700 text-white" : "bg-[#4A2293] text-[#e88344]"
       }`}
     >
       <div className="container mx-auto px-4">
