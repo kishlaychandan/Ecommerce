@@ -229,14 +229,14 @@ const Wishlist = () => {
         {wishlistProducts.map((item) => (
           <li
             key={item._id}
-            className={`w-1/5 min-w-[16rem] rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${
+            className={`w-1/5 min-w-[16rem] flex flex-col justify-between rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden relative ${
               isDarkMode ? "bg-gray-800" : "bg-white"
             }`}
           >
             <img
               src={item.url}
               alt={item.name}
-              className="w-full h-48 object-cover rounded-t-lg"
+              className="w-full h-48 object-fit rounded-t-lg"
             />
             <div className="p-2">
               <h3
