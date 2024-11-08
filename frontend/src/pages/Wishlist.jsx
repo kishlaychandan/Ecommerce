@@ -127,6 +127,7 @@ import { Link } from "react-router-dom"; // assuming you have a route for produc
 import { useCart } from "../CartContext";
 import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
 import { userContext } from "../App";
+import { MdOutlineRotateRight } from "react-icons/md";
 
 const Wishlist = () => {
   const { cart, setCart, wishlist, setWishlist } = useCart();
