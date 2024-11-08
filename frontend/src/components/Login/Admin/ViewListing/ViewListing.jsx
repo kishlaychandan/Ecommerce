@@ -58,11 +58,11 @@ function ViewListing() {
   
 
   return (
-    <div className="p-6 w-full flex flex-col justify-center items-center">
+    <div className="p-3 w-full flex flex-col justify-center items-center">
       <h1 className="text-2xl font-bold mb-4">Product Listing</h1>
 
       {/* Product Table */}
-      <table className=" bg-white border border-gray-300 w-full">
+      <table className=" bg-white border border-gray-300 overflow-x-scroll w-[18rem] sm:w-full md:w-full">
         <thead cla>
           <tr className="bg-gray-200">
             <th className="border p-3 border-gray-300 ">S NO.</th>
