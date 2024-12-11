@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import axios from '../Login/axiosConfig' 
+import { FaUserCircle } from "react-icons/fa";
 
 function Navbar() {
   const { isLoggedIn, setIsLoggedIn, isUserLoggedIn, setIsUserLoggedIn, isAdminLoggedIn, setIsAdminLoggedIn } = useAuth();
