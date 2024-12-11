@@ -233,9 +233,9 @@ function DisplayProducts({ products }) {
         {currentProducts.map((product) => (
           <div
             key={product._id}
-            className={` card w-64 min-h-[500px] rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 flex-col items-center justify-between ${
+            className={` card w-64 min-h-[450px] rounded-lg shadow-lg overflow-hidden transition-transform transform flex-col items-center justify-between ${
               isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-            } border ${isDarkMode ? "border-gray-700" : "border-gray-300"}`}
+            } border ${isDarkMode ? "border-gray-700" : "border-white"}`}
           >
             <Link to={`/products/${product._id}`} className="w-full">
               <img
@@ -252,21 +252,21 @@ function DisplayProducts({ products }) {
               >
                 {product.name}
               </h3>
-              <p
+              {/* <p
                 className={`italic ${
                   isDarkMode ? "text-gray-400" : "text-gray-600"
                 }`}
               >
                 Category: <span className="font-medium">{product.category}</span>
-              </p>
-              <p
+              </p> */}
+              {/* <p
                 className={`italic ${
                   isDarkMode ? "text-gray-400" : "text-gray-600"
                 }`}
               >
                 Brand: <span className="font-medium">{product.brand}</span>
-              </p>
-              <p className="font-medium flex items-center gap-2">Rating: <span>{renderStars(product.totalRatings)}</span></p> {/* Display stars here */}
+              </p> */}
+              <p className="font-medium flex items-center gap-2"><span>{renderStars(product.totalRatings)}</span></p> {/* Display stars here */}
               <p
                 className={`italic ${
                   isDarkMode ? "text-gray-400" : "text-gray-600"
