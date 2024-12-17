@@ -59,86 +59,174 @@ const Contact = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
       <div
-        className="relative flex flex-col items-center justify-center w-full  min-h-screen p-6 bg-cover bg-center"
-        style={{
-          backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to bottom right, white,#6037ac,#6037ac)",
-       }}
+        className={`relative flex flex-col items-center justify-center w-full min-h-screen p-6 bg-cover bg-center ${
+          isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+        }`}
       >
-        <ChatBots />
-        <h1 className={`text-5xl font-extrabold text-center p-6 ${isDarkMode ? "text-white" : "text-blue-700"}`}>
-          CONTACT US
-        </h1>
-        <form
-          onSubmit={handleSubmit}
-          className={`flex flex-col gap-4 w-full max-w-3xl p-12 border border-gray-500 rounded-xl shadow-lg text-lg ${isDarkMode ? "text-white border-white bg-gray-900" : "text-gray-900 border-white"}`}
+        {/* Google Map Section */}
+        <div
+          className={`w-full max-w-6xl mb-8 rounded-lg shadow-lg overflow-hidden ${
+            isDarkMode ? "border border-gray-700" : "border border-gray-300"
+          }`}
         >
-          {submitted && (
-            <p className="text-green-500 text-base text-center">
-              Thank you for your message!
-            </p>
-          )}
-          {loading && (
-            <p className="text-yellow-500 text-base text-center">Sending...</p>
-          )}
-          <div className={`flex flex-col `}>
-            <label htmlFor="name" className="mb-1 font-medium">
-              Name:
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
-            />
-            {errors.name && (
-              <span className="text-red-500 text-sm">{errors.name}</span>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="email" className="mb-1  font-medium">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
-            />
-            {errors.email && (
-              <span className="text-red-500 text-sm">{errors.email}</span>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="message" className="mb-1 font-medium">
-              Message:
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full h-24 p-2 border border-gray-700 text-black rounded-lg text-base transition-all focus:border-blue-500 outline-none"
-            />
-            {errors.message && (
-              <span className="text-red-500 text-sm">{errors.message}</span>
-            )}
-          </div>
-          <button
-            type="submit"
-            className="self-center py-3 px-6 bg-blue-500 text-white rounded-lg font-medium transition-all transform hover:bg-blue-700 hover:scale-105 focus:outline-none"
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3697.691502314736!2d77.58949647483884!3d12.832025487470682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6b22cb513a67%3A0x16752638e41c5ae7!2sHYKI!5e1!3m2!1sen!2sin!4v1734423073353!5m2!1sen!2sin"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            className={`${isDarkMode ? "filter grayscale" : ""}`}
+          ></iframe>
+          
+        </div>
+
+        {/* Contact Details and Form Section */}
+        <div
+          className={`w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 rounded-lg ${
+            isDarkMode ? "bg-gray-800" : "bg-gray-100"
+          }`}
+        >
+          {/* Left - Contact Info */}
+          <div
+            className={`flex flex-col gap-4 p-6 rounded-lg shadow-lg ${
+              isDarkMode
+                ? "text-gray-200 bg-gray-800 border border-gray-700"
+                : "text-gray-800 bg-white border border-gray-300"
+            }`}
           >
-            Send Message
-          </button>
-        </form>
+            <h2
+              className={`text-2xl font-semibold mb-4 ${
+                isDarkMode ? "text-teal-300" : "text-teal-600"
+              }`}
+            >
+              Location
+            </h2>
+            <p>
+              📍 <strong>Address:</strong> Kamakhya Enterprises Shamasundar
+              Singh layout, near Nageshwar Temple, Kalkere, Bannerghatta Road,
+              Bannerghatta, Karnataka 560083, India
+            </p>
+            <p>
+              📞 <strong>Phone:</strong> +917026202925
+            </p>
+            <p>
+              ✉️ <strong>Email:</strong>{" "}
+              <a
+                href="mailto:kamakhyaenterprises.srg @gmail.com"
+                className={`${
+                  isDarkMode
+                    ? "text-blue-400 hover:text-blue-300"
+                    : "text-blue-600 hover:text-blue-500"
+                }`}
+              >
+                info@example.com
+              </a>
+            </p>
+            <p>
+              🕒 <strong>Office Hours:</strong> Mon-Fri, 9AM - 5PM
+            </p>
+          </div>
+
+          {/* Right - Enquiry Form */}
+          <form
+            onSubmit={handleSubmit}
+            className={`flex flex-col gap-4 p-8 rounded-lg shadow-lg ${
+              isDarkMode
+                ? "text-gray-200 bg-gray-800 border border-gray-700"
+                : "text-gray-800 bg-gray-100 border border-gray-300"
+            }`}
+          >
+            <h2
+              className={`text-2xl font-semibold ${
+                isDarkMode ? "text-teal-300" : "text-teal-600"
+              }`}
+            >
+              Enquiry Here
+            </h2>
+            {submitted && (
+              <p className="text-green-400 text-base text-center">
+                Thank you for your message!
+              </p>
+            )}
+            {loading && (
+              <p className="text-yellow-400 text-base text-center">
+                Sending...
+              </p>
+            )}
+            <div className="flex flex-col">
+              <label htmlFor="name" className="mb-1 font-medium">
+                Name:
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className={`w-full p-2 rounded-lg text-base outline-none transition-all ${
+                  isDarkMode
+                    ? "bg-gray-700 text-white border border-gray-600 focus:border-blue-400"
+                    : "bg-gray-50 text-gray-800 border border-gray-300 focus:border-blue-500"
+                }`}
+              />
+              {errors.name && (
+                <span className="text-red-500 text-sm">{errors.name}</span>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="email" className="mb-1 font-medium">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className={`w-full p-2 rounded-lg text-base outline-none transition-all ${
+                  isDarkMode
+                    ? "bg-gray-700 text-white border border-gray-600 focus:border-blue-400"
+                    : "bg-gray-50 text-gray-800 border border-gray-300 focus:border-blue-500"
+                }`}
+              />
+              {errors.email && (
+                <span className="text-red-500 text-sm">{errors.email}</span>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="message" className="mb-1 font-medium">
+                Message:
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                className={`w-full h-24 p-2 rounded-lg text-base outline-none transition-all ${
+                  isDarkMode
+                    ? "bg-gray-700 text-white border border-gray-600 focus:border-blue-400"
+                    : "bg-gray-50 text-gray-800 border border-gray-300 focus:border-blue-500"
+                }`}
+              />
+              {errors.message && (
+                <span className="text-red-500 text-sm">{errors.message}</span>
+              )}
+            </div>
+            <button
+              type="submit"
+              className={`self-center py-3 px-6 rounded-lg font-medium transition-all transform hover:scale-105 focus:outline-none ${
+                isDarkMode
+                  ? "bg-teal-600 text-white hover:bg-teal-500"
+                  : "bg-teal-500 text-white hover:bg-teal-700"
+              }`}
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
       </div>
-      {/* <ChatBots />
-      <Footer /> */}
     </>
   );
 };

@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
 import { FaStar } from "react-icons/fa6"; // Import FaStar icon
-
+import { IoArrowForward } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5";
 function DisplayProducts({ products }) {
   const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
 
@@ -139,13 +140,13 @@ function DisplayProducts({ products }) {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`py-1 px-3 rounded ${
+          className={`py-2 px-3 rounded ${
             currentPage === 1
               ? "cursor-not-allowed bg-gray-300"
               : "bg-blue-500 hover:bg-blue-600 text-white"
           }`}
         >
-          Prev
+          <IoArrowBack/>
         </button>
 
         {/* Page numbers */}
@@ -168,13 +169,13 @@ function DisplayProducts({ products }) {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`py-1 px-3 rounded ${
+          className={`py-2 px-3 rounded ${
             currentPage === totalPages
               ? "cursor-not-allowed bg-gray-300"
               : "bg-blue-500 hover:bg-blue-600 text-white"
           }`}
         >
-          Next
+          <IoArrowForward/>
         </button>
       </div>
     </div>

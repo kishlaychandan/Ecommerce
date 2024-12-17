@@ -29,13 +29,11 @@ const Faq = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-cover bg-center flex items-center justify-center"
-    style={{
-      backgroundImage: isDarkMode ? "linear-gradient(to bottom, gray, black)" : "linear-gradient(to bottom left, white,#6037ac,#6037ac)",
-      }}>
+    <div className={`min-h-screen w-full bg-cover bg-center flex items-center justify-center ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}
+    >
         <ChatBots />
-      <div className={`shadow-2xl rounded-3xl w-full mx-4 max-w-4xl p-8 ${isDarkMode ? "text-white bg-gray-800" : "text-blue-600 bg-white"}`}>
-        <h1 className="text-4xl font-extrabold text-center  mb-6">FREQUENTLY ASKED QUESTIONS</h1>
+      <div className={`shadow-2xl rounded-3xl w-full mx-4 max-w-4xl p-8 ${isDarkMode ? "text-white bg-gray-900" : "text-teal-500 bg-white"}`}>
+        <h1 className="text-4xl font-bold text-center  mb-6">FREQUENTLY ASKED QUESTIONS</h1>
         <ul className="space-y-4">
           {faqs.map((faq, index) => (
             <li key={faq._id} className="border-b last:border-b-0">
@@ -51,7 +49,7 @@ const Faq = () => {
                 )}
               </div>
               {openIndex === index && (
-                <p className="p-4  rounded-lg">{faq.answer}</p>
+                <p className={`p-4  rounded-lg text-blue-600`}>{faq.answer}</p>
               )}
             </li>
           ))}
