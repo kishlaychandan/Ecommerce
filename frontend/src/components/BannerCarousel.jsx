@@ -20,32 +20,33 @@ const BannerCarousel = () => {
   }, [banners.length]);
 
   return (
-    <div className="relative w-full h-[35vh] sm:h-[45vh] md:h-[55vh] lg:h-[65vh] overflow-hidden shadow-xl">
+    <div className="relative w-full flex justify-center">
+      <div className="relative w-full md:w-[90%] h-[35vh] sm:h-[45vh] md:h-[55vh] lg:h-[65vh] overflow-hidden shadow-xl">
       {/* Carousel Image */}
       <img
         src={banners[currentSlide]}
         alt={`Banner ${currentSlide + 1}`}
-        className="w-full h-full  transition-all duration-700 ease-in-out transform hover:scale-105"
+        className="w-full h-full object-fit  transition-all duration-700 ease-in-out transform hover:scale-105"
       />
 
       {/* Left Arrow */}
       <button
-        className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 border border-gray-300 p-2 md:p-4 rounded-full shadow-md hover:bg-gray-200 transition duration-300"
+        className="absolute right-14 md:right-20 bottom-2  bg-white text-gray-800 border border-gray-300 p-2 md:p-4 rounded-full shadow-md hover:bg-gray-200 transition duration-300"
         onClick={() =>
           setCurrentSlide(currentSlide === 0 ? banners.length - 1 : currentSlide - 1)
         }
       >
-        <IoIosArrowBack className="w-6 h-6 md:w-8 md:h-8" />
+        <IoIosArrowBack className="w-6 h-6 md:w-7 md:h-7" />
       </button>
 
       {/* Right Arrow */}
       <button
-        className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white text-gray-800 border border-gray-300 p-2 md:p-4 rounded-full shadow-md hover:bg-gray-200 transition duration-300"
+        className="absolute right-2 bottom-2  bg-white text-gray-800 border border-gray-300 p-2 md:p-4 rounded-full shadow-md hover:bg-gray-200 transition duration-300"
         onClick={() =>
           setCurrentSlide(currentSlide === banners.length - 1 ? 0 : currentSlide + 1)
         }
       >
-        <IoIosArrowForward className="w-6 h-6 md:w-8 md:h-8" />
+        <IoIosArrowForward className="w-6 h-6 md:w-7 md:h-7" />
       </button>
 
       {/* Dots */}
@@ -70,6 +71,7 @@ const BannerCarousel = () => {
           HYKI Magic Floor Cleaner.
         </p>
       </div>
+    </div>
     </div>
   );
 };
