@@ -47,7 +47,7 @@ function About() {
               src={about}
               alt="HYKI"
               className={`rounded-lg shadow-lg w-full object-cover h-96 ${
-                isDarkMode ? "filter grayscale" : ""
+                isDarkMode ? "invert grayscale" : ""
               }`}
             />
           </div>

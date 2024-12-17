@@ -83,11 +83,11 @@ const Faq = () => {
               </li>
             ))}
           </ul>
-          <div className="absolute bottom-[-7rem] left-[-9rem] transform rotate-12">
+          <div className="absolute top-[-25%] left-[-15%] transform rotate-[-40deg]">
             <img
               src={faq}
               alt="FAQ Animation"
-              className={`w-40 h-40 md:w-48 md:h-48 drop-shadow-2xl rounded-3xl ${
+              className={`w-40 h-40 md:w-48 md:h-48 drop-shadow-2xl rounded-full ${
                 isDarkMode ? "invert animate-pulse" : ""
               }`}
             />
