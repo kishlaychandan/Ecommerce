@@ -29,6 +29,7 @@ function About() {
         isDarkMode ? "bg-gray-800 text-gray-200" : "bg-gray-50 text-gray-800"
       }`}
     >
+      <ChatBots />
       <div className="container mx-auto py-16 px-6 md:px-12 lg:px-24">
         {/* Main Heading */}
         <h1

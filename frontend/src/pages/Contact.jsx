@@ -4,6 +4,8 @@ import ChatBots from "../components/ChatBot/ChatBots";
 import { ThemeContext } from "../ThemeContext";
 import { useContext } from "react";
 import s2 from "../assets/s2.jpg";
+import dove from "../assets/dove.gif";
+import Enquiry from "../../public/Enquiry.mp4";
 const Contact = () => {
   const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
   const [formData, setFormData] = useState({
@@ -65,6 +67,7 @@ const Contact = () => {
           isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
         }`}
       >
+        <ChatBots />
         {/* Google Map Section */}
         <div
           className={`w-full max-w-6xl mb-8 rounded-lg shadow-lg overflow-hidden ${
@@ -80,7 +83,6 @@ const Contact = () => {
             loading="lazy"
             className={`${isDarkMode ? "filter grayscale" : ""}`}
           ></iframe>
-          
         </div>
 
         {/* Contact Details and Form Section */}
@@ -115,21 +117,25 @@ const Contact = () => {
             <p>
               ✉️ <strong>Email:</strong>{" "}
               <a
-                href="mailto:kamakhyaenterprises.srg @gmail.com"
+                href="mailto:kamakhyaenterprises.srg@gmail.com"
                 className={`${
                   isDarkMode
                     ? "text-blue-400 hover:text-blue-300"
                     : "text-blue-600 hover:text-blue-500"
                 }`}
               >
-                info@example.com
+                kamakhyaenterprises.srg@gmail.com
               </a>
             </p>
             <p>
               🕒 <strong>Office Hours:</strong> Mon-Fri, 9AM - 5PM
             </p>
 
-            <img src={s2} className={`${isDarkMode ? "filter grayscale" : ""}`} alt="" />
+            <img
+              src={s2}
+              className={`${isDarkMode ? "filter grayscale" : ""}`}
+              alt=""
+            />
           </div>
 
           {/* Right - Enquiry Form */}
@@ -141,23 +147,25 @@ const Contact = () => {
                 : "text-gray-800 bg-gray-100 border border-gray-300"
             }`}
           >
-            <h2
-              className={`text-2xl font-semibold ${
-                isDarkMode ? "text-teal-300" : "text-teal-600"
-              }`}
-            >
-              Enquiry Here
-            </h2>
-            {submitted && (
-              <p className="text-green-400 text-base text-center">
-                Thank you for your message!
-              </p>
-            )}
-            {loading && (
-              <p className="text-yellow-400 text-base text-center">
-                Sending...
-              </p>
-            )}
+            <div className="flex items-center flex-wrap gap-4 justify-center md:justify-start">
+              <h2
+                className={`text-2xl font-semibold ${
+                  isDarkMode ? "text-teal-300" : "text-teal-600"
+                }`}
+              >
+                Enquiry Here
+              </h2>
+              <video
+                src={Enquiry}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-20 rounded-full"
+                style={{ display: "block", pointerEvents: "none" }}
+              ></video>
+            </div>
+
             <div className="flex flex-col">
               <label htmlFor="name" className="mb-1 font-medium">
                 Name:
@@ -227,6 +235,22 @@ const Contact = () => {
             >
               Send Message
             </button>
+            {loading && (
+              <div className="flex justify-center items-center">
+                <img
+                  src={dove}
+                  alt="Loading..."
+                  className="w-12 h-12 rounded-full"
+                />
+              </div>
+            )}
+            {submitted && (
+              <p className="text-green-400 text-base text-center">
+                Thank you for your message!
+              </p>
+            )}
+
+            {/* <div className="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> */}
           </form>
         </div>
       </div>

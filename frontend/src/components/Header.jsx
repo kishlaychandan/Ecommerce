@@ -92,18 +92,6 @@ function Header() {
           </li>
           <li>
             <Link
-              to="/faq"
-              className={`${
-                isActive("/faq")
-                  ? "text-yellow-300 underline decoration-dotted"
-                  : ""
-              } hover:text-yellow-300 font-bold`}
-            >
-              FAQ
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/contact"
               className={`${
                 isActive("/contact")
@@ -112,6 +100,18 @@ function Header() {
               } hover:text-yellow-300 font-bold`}
             >
               CONTACT US
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/faq"
+              className={`${
+                isActive("/faq")
+                  ? "text-yellow-300 underline decoration-dotted"
+                  : ""
+              } hover:text-yellow-300 font-bold`}
+            >
+              FAQ
             </Link>
           </li>
         </ul>
