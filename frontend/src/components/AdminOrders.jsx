@@ -133,14 +133,19 @@ console.log("response", response);
             <p>Total Amount: ₹{order.totalAmount.toFixed(2)}</p>
             <p>Placed On: {new Date(order.createdAt).toLocaleString()}</p>
             <h3 className="mt-3 font-semibold">Products:</h3>
-            <ul className="list-disc list-inside ml-4">
-              {order.products.map((item) => (
-                <li key={item.productId._id}>
-                  {item.productId.name} - Quantity: {item.quantity} - Price: ₹
-                  {item.price.toFixed(2)}
-                </li>
-              ))}
-            </ul>
+            {order && order.products ? (
+  <ul className="list-disc list-inside ml-4">
+    {order.products.map((item) => (
+      <li key={item.productId?._id}>
+        {item.productId ? item.productId.name : 'Product not found'} - Quantity: {item.quantity} - Price: ₹
+        {item.price.toFixed(2)}
+      </li>
+    ))}
+  </ul>
+) : (
+  <p>No order found</p> // Fallback message if no products or order data is found
+)}
+
             <h3 className="mt-3 font-semibold">Shipping Details:</h3>
             {order.shippingDetails ? (
               <>
