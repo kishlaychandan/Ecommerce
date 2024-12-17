@@ -4,6 +4,7 @@ import ChatBots from "../components/ChatBot/ChatBots";
 import { useContext } from "react";
 import { ThemeContext } from "../ThemeContext";
 import about from "../../public/about.avif";
+import professionalWomen from "../../public/professionalWomen.jpg"
 
 function About() {
   const [aboutData, setAboutData] = useState("");
@@ -118,7 +119,7 @@ function About() {
         {/* Values Section */}
         <div
           className={`mt-16 py-12 rounded-lg shadow-md ${
-            isDarkMode ? "bg-gray-700 text-gray-300" : "bg-teal-600 text-white"
+            isDarkMode ? "bg-gray-700 text-gray-300" : "bg-teal-800 text-white"
             // isDarkMode ? "bg-gray-700 text-gray-300" : "bg-white text-gray-600"
           }`}
         >
@@ -180,8 +181,7 @@ function About() {
               {
                 name: "Sarah Brown",
                 role: "Chief Marketing Officer",
-                img:
-                  "https://www.shutterstock.com/image-vector/person-gray-photo-placeholder-woman-600nw-1241538838.jpg",
+                img: professionalWomen,
               },
             ].map((member) => (
               <div key={member.name} className="text-center">

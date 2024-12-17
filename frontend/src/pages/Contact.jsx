@@ -3,6 +3,7 @@ import emailjs from "emailjs-com";
 import ChatBots from "../components/ChatBot/ChatBots";
 import { ThemeContext } from "../ThemeContext";
 import { useContext } from "react";
+import s2 from "../assets/s2.jpg";
 const Contact = () => {
   const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
   const [formData, setFormData] = useState({
@@ -85,7 +86,7 @@ const Contact = () => {
         {/* Contact Details and Form Section */}
         <div
           className={`w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 rounded-lg ${
-            isDarkMode ? "bg-gray-800" : "bg-gray-100"
+            isDarkMode ? "bg-gray-900" : "bg-gray-100"
           }`}
         >
           {/* Left - Contact Info */}
@@ -127,6 +128,8 @@ const Contact = () => {
             <p>
               🕒 <strong>Office Hours:</strong> Mon-Fri, 9AM - 5PM
             </p>
+
+            <img src={s2} className={`${isDarkMode ? "filter grayscale" : ""}`} alt="" />
           </div>
 
           {/* Right - Enquiry Form */}
