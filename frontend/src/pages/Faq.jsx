@@ -38,19 +38,40 @@ const Faq = () => {
       <div className="flex items-center justify-center w-full max-w-6xl mx-auto p-6">
         {/* FAQ Section */}
         <div
-          className={`shadow-2xl relative rounded-3xl w-full md:w-2/3 p-6 md:p-8 ${
+          className={`flex flex-col gap-6 shadow-2xl relative rounded-3xl w-full md:w-2/3 p-6 md:p-8 ${
             isDarkMode
               ? "text-white bg-[#0b1315] border border-gray-800"
               : "text-gray-800 bg-[#f7eff5]"
           }`}
         >
-          <h1
-            className={`text-3xl font-bold text-center mb-8 ${
-              isDarkMode ? "text-teal-300" : "text-teal-600"
-            }`}
-          >
-            Frequently Asked Questions
-          </h1>
+          <div className="w-full flex justify-center">
+            <img
+              src={faq}
+              alt="FAQ Animation"
+              className={`w-35 h-35 md:w-40 md:h-40 drop-shadow-2xl rounded-full ${
+                isDarkMode ? "invert" : ""
+              }`}
+              style={{
+                animation: "scaleAnimation 3s ease-in-out infinite",
+              }}
+            />
+
+            <style>
+              {`
+              @keyframes scaleAnimation {
+                0% {
+                  transform: scale(1);
+                }
+                50% {
+                  transform: scale(1.14);
+                }
+                100% {
+                  transform: scale(1);
+                }
+              }
+            `}
+            </style>
+          </div>
           <ul className="space-y-6">
             {faqs.map((faq, index) => (
               <li
@@ -83,15 +104,6 @@ const Faq = () => {
               </li>
             ))}
           </ul>
-          <div className="absolute top-[-25%] left-[-15%] transform rotate-[-40deg]">
-            <img
-              src={faq}
-              alt="FAQ Animation"
-              className={`w-40 h-40 md:w-48 md:h-48 drop-shadow-2xl rounded-full ${
-                isDarkMode ? "invert " : ""
-              }`}
-            />
-          </div>
         </div>
       </div>
 
