@@ -88,7 +88,7 @@ const Faq = () => {
               src={faq}
               alt="FAQ Animation"
               className={`w-40 h-40 md:w-48 md:h-48 drop-shadow-2xl rounded-full ${
-                isDarkMode ? "invert animate-pulse" : ""
+                isDarkMode ? "invert " : ""
               }`}
             />
           </div>

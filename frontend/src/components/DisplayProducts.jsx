@@ -2,24 +2,20 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
 import { FaStar } from "react-icons/fa6"; // Import FaStar icon
-import { IoArrowForward } from "react-icons/io5";
-import { IoArrowBack } from "react-icons/io5";
+import { IoArrowForward, IoArrowBack } from "react-icons/io5";
+
 function DisplayProducts({ products }) {
   const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
 
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const productsPerPage = 4; // Number of products per page
-
-  // Calculate the total number of pages
   const totalPages = Math.ceil(products.length / productsPerPage);
 
-  // Get current products for the active page
   const currentProducts = products.slice(
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage
   );
 
-  // Pagination logic to determine page numbers range
   const getPageNumbers = () => {
     let startPage, endPage;
     if (totalPages <= 3) {
@@ -31,25 +27,23 @@ function DisplayProducts({ products }) {
       if (currentPage === 1) endPage = 3;
       else if (currentPage === totalPages) startPage = totalPages - 2;
     }
-    return [...Array(endPage - startPage + 1).keys()].map(i => startPage + i);
+    return [...Array(endPage - startPage + 1).keys()].map((i) => startPage + i);
   };
 
-  // Function to handle page change
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
-  // Function to render stars based on ratings
   const renderStars = (rating) => {
-    const starsCount = Math.round(rating); // Round the rating to the nearest whole number
+    const starsCount = Math.round(rating);
     return (
-      <div className="flex space-x-1">
+      <div className="flex">
         {[...Array(5)].map((_, index) => (
           <FaStar
             key={index}
-            className={`text-${index < starsCount ? 'yellow' : 'gray'}-500`}
+            className={`${
+              index < starsCount ? "text-orange-500" : "text-gray-500"
+            }`}
           />
         ))}
       </div>
@@ -57,85 +51,74 @@ function DisplayProducts({ products }) {
   };
 
   return (
-    <div className="flex flex-col items-center p-2 gap-10">
-      {/* Products display */}
-      <div className="flex justify-center flex-wrap gap-6">
-        {currentProducts.map((product) => (
-          <div
-            key={product._id}
-            className={` card w-64 min-h-[450px] rounded-lg shadow-lg overflow-hidden transition-transform transform flex-col items-center justify-between ${
-              isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-            } border ${isDarkMode ? "border-gray-700" : "border-white"}`}
-          >
-            <Link to={`/products/${product._id}`} className="w-full">
-              <img
-                src={product.url ? product.url : "https://placehold.co/200x200"}
-                alt={product.name}
-                className="w-full h-1/2 object-cover transition duration-300 ease-in-out transform hover:scale-110"
-              />
-            </Link>
-            <div className="p-3 w-full h-1/2 flex flex-col justify-between ">
-              <h3
-                className={`text-lg font-bold mb-1 transition duration-200 ${
-                  isDarkMode ? "text-yellow-300" : "text-blue-600"
-                }`}
-              >
-                {product.name}
-              </h3>
-              {/* <p
-                className={`italic ${
-                  isDarkMode ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                Category: <span className="font-medium">{product.category}</span>
-              </p> */}
-              {/* <p
-                className={`italic ${
-                  isDarkMode ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                Brand: <span className="font-medium">{product.brand}</span>
-              </p> */}
-              <p className="font-medium flex items-center gap-2"><span>{renderStars(product.totalRatings)}</span></p> {/* Display stars here */}
-              <p
-                className={`italic ${
-                  isDarkMode ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                In Stock:{" "}
-                <span
-                  className={`font-medium ${
-                    product.inStock ? "text-green-500" : "text-red-500"
-                  }`}
-                >
-                  {product.inStock ? " Yes" : " No"}
-                </span>
-              </p>
-              <p
-                className={`text-xl font-bold ${
-                  isDarkMode ? "text-yellow-300" : "text-blue-800"
-                }`}
-              >
-                {`₹${product.price.toFixed(2)}`}
-              </p>
-              <div className="flex items-center justify-center mt-4">
+    <div className="flex flex-col items-center gap-10 p-4">
+      {/* Products Grid */}
+      <div className="w-full flex flex-wrap justify-center gap-4">
+        {currentProducts.map((product) => {
+          const discountPercentage = Math.floor(Math.random() * 41) + 10; // Random 10-50%
+          const originalPrice = Math.round(
+            product.price + (product.price * discountPercentage) / 100
+          );
+
+          return (
+            <div
+              key={product._id}
+              className={`card h-[400px] max-w-64 flex flex-col rounded-lg overflow-hidden transition-transform transform ${
+                isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+              }`}
+            >
               <Link
-                  to={`/products/${product._id}`}
-                  className={`py-1 px-3 border border-blue-700 rounded-lg transition duration-300 ease-in-out text-md font-medium ${
-                    isDarkMode
-                      ? "bg-white text-slate-900 hover:bg-yellow-200 hover:text-slate-900 hover:border-yellow-200"
-                      : "bg-blue-700 text-white hover:bg-white hover:text-blue-700 hover:border-blue-700"
+                to={`/products/${product._id}`}
+                className="relative flex flex-col h-full"
+              >
+                {/* Product Image */}
+                <div className="h-2/3 relative w-full overflow-hidden bg-gray-100">
+                  <img
+                    src={product.url || "https://placehold.co/200x200"}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition duration-300 hover:scale-110"
+                  />
+                </div>
+
+                {/* Product Details */}
+                <div
+                  className={`h-1/4 w-full p-4 flex-grow flex flex-col ${
+                    isDarkMode ? "bg-gray-700" : "bg-white"
                   }`}
                 >
-                  View Product
-                </Link>
-              </div>
+                  <h3
+                    className={`text-lg font-semibold mb-1 truncate ${
+                      isDarkMode ? "text-white" : "text-teal-600"
+                    }`}
+                  >
+                    {product.name}
+                  </h3>
+                  <div className="absolute top-2 right-2 p-1 rounded-md bg-gray-100">
+                    {renderStars(product.totalRatings)}
+                  </div>
+                  <p
+                    className={`mt-2 font-semibold flex justify-between ${
+                      isDarkMode ? "text-white" : "text-teal-600"
+                    }`}
+                  >
+                    <p>
+                      Rs. {product.price}
+                      <span className="line-through text-md ml-3 text-gray-500">
+                        Rs. {originalPrice}
+                      </span>
+                    </p>
+                    <span className="text-red-500 text-sm">
+                      ({discountPercentage}% off)
+                    </span>
+                  </p>
+                </div>
+              </Link>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Pagination controls */}
+      {/* Pagination */}
       <div className="flex items-center space-x-2">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -143,23 +126,22 @@ function DisplayProducts({ products }) {
           className={`py-2 px-3 rounded ${
             currentPage === 1
               ? "cursor-not-allowed bg-gray-300"
-              : "bg-blue-500 hover:bg-blue-600 text-white"
+              : "bg-blue-800 hover:bg-blue-600 text-white"
           }`}
         >
-          <IoArrowBack/>
+          <IoArrowBack />
         </button>
 
-        {/* Page numbers */}
         {getPageNumbers().map((pageNumber) => (
           <button
             key={pageNumber}
             onClick={() => handlePageChange(pageNumber)}
             className={`py-1 px-3 rounded ${
               pageNumber === currentPage
-                ? "bg-blue-600 text-white"
+                ? "bg-blue-300 text-white hover:bg-blue-600 "
                 : isDarkMode
                 ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                : "bg-gray-200 hover:bg-gray-300"
+                : "bg-gray-200  hover:bg-blue-300"
             }`}
           >
             {pageNumber}
@@ -172,10 +154,10 @@ function DisplayProducts({ products }) {
           className={`py-2 px-3 rounded ${
             currentPage === totalPages
               ? "cursor-not-allowed bg-gray-300"
-              : "bg-blue-500 hover:bg-blue-600 text-white"
+              : "bg-blue-800 hover:bg-blue-600 text-white"
           }`}
         >
-          <IoArrowForward/>
+          <IoArrowForward />
         </button>
       </div>
     </div>
