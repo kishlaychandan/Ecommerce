@@ -50,6 +50,7 @@ function Header() {
   const isActive = (path) => location.pathname === path;
 
   return (
+    <>
     <header
       className={`z-50 sticky top-0 p-5 w-full py-5 flex items-center justify-between ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-[#6037ac] text-[#db7b40]"
@@ -169,12 +170,6 @@ function Header() {
               <Link to="/orders">ORDERS</Link>
             </li>
           )}
-
-          {/* {!isUserLoggedIn && (
-            <li>
-              <Link to="/register">REGISTER</Link>
-            </li>
-          )} */}
           <li>
             {isUserLoggedIn ? (
               <button onClick={logout}><CiLogout className="text-2xl" /></button>
@@ -396,6 +391,10 @@ function Header() {
         </nav>
       )}
     </header>
+    <div className="header2">
+      
+    </div>
+    </>
   );
 }
 
