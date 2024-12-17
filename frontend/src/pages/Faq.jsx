@@ -48,7 +48,7 @@ const Faq = () => {
             <img
               src={faq}
               alt="FAQ Animation"
-              className={`w-35 h-35 md:w-40 md:h-40 drop-shadow-2xl rounded-full ${
+              className={`w-32 h-32 md:w-40 md:h-40 drop-shadow-2xl rounded-full ${
                 isDarkMode ? "invert" : ""
               }`}
               style={{
