@@ -26,7 +26,7 @@ const BannerCarousel = () => {
       <img
         src={banners[currentSlide]}
         alt={`Banner ${currentSlide + 1}`}
-        className="w-full h-full object-fit  transition-all duration-700 ease-in-out transform hover:scale-105"
+        className="w-full h-full object-fit "
       />
 
       {/* Left Arrow */}
