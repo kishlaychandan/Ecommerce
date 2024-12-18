@@ -7,10 +7,8 @@ const categories = [
   { name: 'Floor Cleaner', value: 'floorcleaner' },
   { name: 'Room Freshener', value: 'roomfreshener' },
   { name: 'Dishwashing', value: 'dishwashing' },
-  { name: 'Bathroom Cleaning', value: 'bathroom-cleaning' },
-  { name: 'Glass Cleaner', value: 'glass-cleaner' },
-  { name: 'Air Purifier', value: 'air-purifier' },
-  { name: 'Others', value: 'others' },
+  { name: 'Bathroom Cleaning', value: 'bathroomcleaning' },
+  { name: 'Hand Wash', value: 'handwash' },
 ];
 
 const ShopNav = () => {
