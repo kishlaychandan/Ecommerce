@@ -4,6 +4,7 @@ import { useCategories } from "../CategoriesContext.jsx";
 import { ThemeContext } from "../ThemeContext.jsx";
 // Directly structured categories array
 const categories = [
+  { name: 'All', value: 'all' },
   { name: 'Floor Cleaner', value: 'floorcleaner' },
   { name: 'Room Freshener', value: 'roomfreshener' },
   { name: 'Dishwashing', value: 'dishwashing' },

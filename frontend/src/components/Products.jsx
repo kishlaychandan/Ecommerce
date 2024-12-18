@@ -35,6 +35,26 @@ function Products({ page }) {
   // Fetch products when the category from context changes
   useEffect(() => {
     async function fetchProductsByCategory() {
+      if(category=="all"){
+        try{
+          const response = await axios.get(`/product/getproduct`);
+          if (response.data.products.length === 0) {
+            // If no products match the category, show a message or reset the filtered products
+            setFilteredProducts([]);
+            setError("No products found for this category.");
+          } else {
+            setFilteredProducts(response.data.products);
+            setError(null); // Clear any previous errors
+          }
+          return;
+        }
+        catch(e){
+          console.log(e.message);
+          setError("Failed to load products for the selected category.");
+          setFilteredProducts([]); // Reset to empty if there's an error
+          return;
+        }
+      }
       if (category) {
         try {
           // Fetch products for the selected category
