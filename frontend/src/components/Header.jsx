@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 import axios from "../axiosConfig";
@@ -9,6 +9,7 @@ import { CiLight } from "react-icons/ci";
 import logo from "../assets/logo.png";
 import KAMAKHYA from "../assets/KAMAKHYA.png";
 import HYKI from "../assets/HYKI.png";
+import BlackLogo from "../assets/BlackLogo.png";
 import { useCart } from "../CartContext";
 import { FaSun } from "react-icons/fa";
 import { CiSun } from "react-icons/ci";
@@ -16,12 +17,18 @@ import { IoSunny } from "react-icons/io5";
 import { RiSunLine } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
+import ShopNav from "./ShopNav.jsx";
+import { useCategories } from "../CategoriesContext.jsx";
 
 function Header() {
   const { cart, setCart, fetchCartAndWishlist } = useCart();
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+  const { setSearchTerm } = useCategories();
+  const [searchTermState, setSearchTermState] = useState(""); // State for search input
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(""); // State for debounced search term
+  const [scrolling, setScrolling] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation(); // To get the current route path
+  const location = useLocation(); 
   const {
     isUserLoggedIn,
     setIsUserLoggedin,
@@ -30,6 +37,7 @@ function Header() {
   } = useContext(userContext);
   const [isOpen, setIsOpen] = useState(false); // State for hamburger menu
   const [open, setOpen] = useState(false);
+  const isShopPage = location.pathname === "/shop";
 
   async function logout() {
     try {
@@ -46,77 +54,121 @@ function Header() {
     }
   }
 
+  useEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 30) {
+          setScrolling(true);
+        } else {
+          setScrolling(false);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTermState);
+    }, 1000); // 500ms delay
+
+    return () => {
+      clearTimeout(timer); 
+    };
+  }, [searchTermState]);
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      setSearchTerm(debouncedSearchTerm); // Trigger setSearchTerm when debouncedSearchTerm changes
+    }
+  }, [debouncedSearchTerm, setSearchTerm]);
+
   // Function to check if a link is active
   const isActive = (path) => location.pathname === path;
 
   return (
-    <>
     <header
-      className={`z-50 sticky top-0 p-5 w-full py-5 flex items-center justify-between ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-[#6037ac] text-[#db7b40]"
-      }`}
+      className={`z-50 sticky top-0 p-5 w-full py-3 flex items-center justify-between transition-all duration-3000 ease-in-out ${
+        isDarkMode ? "" : "bg-gray-100 text-[#db7b40]"
+      }
+      ${scrolling ? (isDarkMode? "bg-gray-500 text-white py-6":"bg-slate-300 py-6") : (isDarkMode ? "bg-slate-500" : "bg-slate-200 ")}
+      `}
     >
       {/* Left Side Logo */}
       <h1 className="max-w-[20vw] overflow-hidden">
         <Link to="/">
-          <img src={HYKI} alt="" className="h-10 w-full" />{" "}
+          <img src={isDarkMode ? logo : logo} alt="" className={`h-12 w-full ${isDarkMode ? "invert" : ""} hover:transform hover:scale-105`} />
         </Link>
       </h1>
 
-      {/* Desktop Navigation - Center */}
-      <nav className="hidden md:flex flex-grow justify-center">
-        <ul className="flex items-center gap-8">
-          <li>
-            <Link
-              to="/shop"
-              className={`${
-                isActive("/shop")
-                  ? "text-yellow-300 underline decoration-dotted"
-                  : ""
-              } hover:text-yellow-300 font-bold`}
-            >
-              SHOP
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/about"
-              className={`${
-                isActive("/about")
-                  ? "text-yellow-300 underline decoration-dotted"
-                  : ""
-              } hover:text-yellow-300 font-bold`}
-            >
-              ABOUT US
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/contact"
-              className={`${
-                isActive("/contact")
-                  ? "text-yellow-300 underline decoration-dotted"
-                  : ""
-              } hover:text-yellow-300 font-bold`}
-            >
-              CONTACT US
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/faq"
-              className={`${
-                isActive("/faq")
-                  ? "text-yellow-300 underline decoration-dotted"
-                  : ""
-              } hover:text-yellow-300 font-bold`}
-            >
-              FAQ
-            </Link>
-          </li>
-        </ul>
-      </nav>
-
+       {/* Center Section */}
+       {isShopPage ? (
+        // Search bar for Shop page
+        <div className="flex-grow flex justify-center">
+          <input
+            onChange={(e) => setSearchTermState(e.target.value)}
+            type="text"
+            placeholder="Search for products..."
+            className={`w-2/4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 hidden lg:block ${isDarkMode ? " text-black" : "bg-gray-100 text-[#db7b40]"}`}
+          />
+        </div>
+      ) : (
+        // Navigation options for other pages
+        <nav className="hidden md:flex flex-grow justify-center">
+          <ul className="flex items-center gap-8">
+            <li>
+              <Link
+                to="/shop"
+                className={`${
+                  isActive("/shop")
+                    ? "text-blue-500 underline decoration-dotted"
+                    : ""
+                } hover:text-sky-500 font-bold`}
+              >
+                SHOP
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/about"
+                className={`${
+                  isActive("/about")
+                    ? "text-sky-500 underline decoration-dotted"
+                    : ""
+                } hover:text-sky-500 font-bold`}
+              >
+                ABOUT US
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/faq"
+                className={`${
+                  isActive("/faq")
+                    ? "text-sky-500 underline decoration-dotted"
+                    : ""
+                } hover:text-sky-500 font-bold`}
+              >
+                FAQ
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contact"
+                className={`${
+                  isActive("/contact")
+                    ? "text-sky-500 underline decoration-dotted"
+                    : ""
+                } hover:text-sky-500 font-bold`}
+              >
+                CONTACT US
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      )}
       {/* Right Side - Cart, Wishlist, Register, Login/Logout */}
       <div className=" md:flex items-center gap-6 justify-center">
         <div className="flex list-none  items-center gap-6 justify-center">
@@ -176,10 +228,10 @@ function Header() {
             ) : (
               <div className="dropdown-container">
       <div className="dropdown-toggle" onClick={() => setOpen(!open)}>
-        <FaUserCircle className="animate-spin" style={{ fontSize: "2rem", cursor: "pointer"}} />
+        <FaUserCircle className="" style={{ fontSize: "2rem", cursor: "pointer"}} />
       </div>
       {open && (
-        <div className="dropdown-menu absolute p-1 translate-x-[-2rem] translate-y-[0.5rem] border shadow-md rounded-md">
+        <div className={`dropdown-menu absolute p-1 translate-x-[-2rem] translate-y-[0.5rem] border shadow-md rounded-md ${isDarkMode?"bg-slate-900 text-white":"bg-white text-slate-900"}`}>
         <Link
           to="/login"
           className={`dropdown-item p-2 block mt-1 rounded text-center ${
@@ -298,53 +350,6 @@ function Header() {
                 FAQ
               </Link>
             </li>
-            {/* <li
-              className="py-2 transition-all duration-700"
-              onClick={() => setIsOpen(false)}
-            >
-              <Link
-                to="/cart"
-                className={`${
-                  isActive("/cart")
-                    ? "text-yellow-300 underline decoration-dotted"
-                    : ""
-                }`}
-              >
-                <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
-              </Link>
-            </li>
-            <li
-              className="py-2 transition-all duration-700"
-              onClick={() => setIsOpen(false)}
-            >
-              <Link
-                to="/wishlist"
-                className={`${
-                  isActive("/wishlist")
-                    ? "text-yellow-300 underline decoration-dotted"
-                    : ""
-                }`}
-              >
-                WISHLIST
-              </Link>
-            </li> */}
-            {/* {!isUserLoggedIn && (
-              <li
-                className="py-2 transition-all duration-700"
-                onClick={() => setIsOpen(false)}
-              >
-                <Link
-                  to="/register"
-                  className={`${
-                    isActive("/register")
-                      ? "text-yellow-300 underline decoration-dotted"
-                      : ""
-                  }`}
-                >
-                  REGISTER
-                </Link>
-              </li>
-            )} */}
             <li
               className="py-2 transition-all duration-700"
               onClick={() => setIsOpen(false)}
@@ -391,10 +396,6 @@ function Header() {
         </nav>
       )}
     </header>
-    <div className="header2">
-      
-    </div>
-    </>
   );
 }
 

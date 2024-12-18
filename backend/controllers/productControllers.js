@@ -111,6 +111,8 @@ export async function getAllProducts(req, res) {
 
 
 export async function getSingleProduct(req, res) {
+    console.log("get single product ###############################################################################");
+    
     const { id } = req.params;
     console.log("id", id);
     

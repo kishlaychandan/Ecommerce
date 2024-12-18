@@ -55,7 +55,8 @@ function DisplayProducts({ products }) {
       {/* Products Grid */}
       <div className="w-full flex flex-wrap justify-center gap-4">
         {currentProducts.map((product) => {
-          const discountPercentage = 15; // Random 10-50%
+          let discountPercentage = 10; // Random 10-50%
+          if(product.price>200) discountPercentage=15
           const originalPrice = Math.round(
             product.price + (product.price * discountPercentage) / 100
           );
@@ -101,12 +102,10 @@ function DisplayProducts({ products }) {
                       isDarkMode ? "text-white" : "text-teal-600"
                     }`}
                   >
-                    <p>
                       Rs. {product.price}
                       <span className="line-through text-md ml-3 text-gray-500">
                         Rs. {originalPrice}
                       </span>
-                    </p>
                     <span className="text-red-500 text-sm">
                       ({discountPercentage}% off)
                     </span>
