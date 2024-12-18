@@ -150,14 +150,14 @@ function Products({ page }) {
       {page === "shop" ? <Sidebar onApplyFilters={applyFilters} /> : ""}
 
       <div className="w-full flex justify-center items-center">
-        <div className="w-full flex justify-center flex-wrap">
+        <div className="w-full h-full flex justify-center flex-wrap">
           {page === "home" ? <BannerCarousel /> : ""}
           {error ? (
             <p className="text-red-500"> {error} </p>
           ) : filteredProducts.length > 0 ? (
             <section
               id="products"
-              className="w-full py-4 px-12 flex flex-wrap gap-4 justify-center"
+              className="w-full h-full p-4 flex flex-wrap gap-4 justify-center"
             >
               <DisplayProducts products={filteredProducts} />
             </section>

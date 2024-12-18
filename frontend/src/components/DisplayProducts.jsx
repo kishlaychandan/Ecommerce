@@ -51,11 +51,11 @@ function DisplayProducts({ products }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 p-4">
+    <div className="flex flex-col items-center justify-start w-full gap-10 p-4">
       {/* Products Grid */}
       <div className="w-full flex flex-wrap justify-center gap-4">
         {currentProducts.map((product) => {
-          const discountPercentage = Math.floor(Math.random() * 41) + 10; // Random 10-50%
+          const discountPercentage = 15; // Random 10-50%
           const originalPrice = Math.round(
             product.price + (product.price * discountPercentage) / 100
           );
