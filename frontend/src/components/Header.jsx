@@ -93,7 +93,7 @@ function Header() {
       className={`z-50 sticky top-0 p-5 w-full py-3 flex items-center justify-between transition-all duration-3000 ease-in-out ${
         isDarkMode ? "" : "bg-gray-100 text-[#db7b40]"
       }
-      ${scrolling ? (isDarkMode? "bg-gray-500 text-white py-6":"bg-slate-300 py-6") : (isDarkMode ? "bg-slate-500" : "bg-slate-200 ")}
+      ${scrolling ? (isDarkMode? "bg-gray-500 text-white py-6":"bg-slate-300 py-6") : (isDarkMode ? "bg-slate-500 text-white" : "bg-slate-200 ")}
       `}
     >
       {/* Left Side Logo */}
