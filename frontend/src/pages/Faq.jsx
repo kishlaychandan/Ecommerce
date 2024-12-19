@@ -31,7 +31,7 @@ const Faq = () => {
   return (
     <div
       className={`min-h-screen w-full bg-cover bg-center flex items-center justify-center relative ${
-        isDarkMode ? "bg-gray-900" : "bg-gray-100"
+        isDarkMode ? "bg-gray-900" : "bg-gray-50"
       }`}
     >
       <ChatBots />

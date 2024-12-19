@@ -64,7 +64,7 @@ const Contact = () => {
     <>
       <div
         className={`relative flex flex-col items-center justify-center w-full min-h-screen p-6 bg-cover bg-center ${
-          isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+          isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-black"
         }`}
       >
         <ChatBots />
