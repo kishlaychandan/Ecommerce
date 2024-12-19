@@ -85,6 +85,13 @@ function Header() {
     }
   }, [debouncedSearchTerm, setSearchTerm]);
 
+  const scrollToProducts = () => {
+    window.scrollTo({
+      top: 0, // Scroll to the top
+      behavior: "smooth", // Smooth scrolling animation
+    });
+  };
+
   // Function to check if a link is active
   const isActive = (path) => location.pathname === path;
 
@@ -98,7 +105,7 @@ function Header() {
     >
       {/* Left Side Logo */}
       <h1 className="max-w-[20vw] overflow-hidden">
-        <Link to="/">
+        <Link to="/" onClick={scrollToProducts}>
           <img src={isDarkMode ? logo : logo} alt="" className={`h-12 w-full ${isDarkMode ? "" : ""} hover:transform hover:scale-105`} />
         </Link>
       </h1>
@@ -121,6 +128,7 @@ function Header() {
             <li>
               <Link
                 to="/shop"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/shop")
                     ? "text-blue-500 underline decoration-dotted"
@@ -133,6 +141,7 @@ function Header() {
             <li>
               <Link
                 to="/about"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/about")
                     ? "text-sky-500 underline decoration-dotted"
@@ -145,6 +154,7 @@ function Header() {
             <li>
               <Link
                 to="/faq"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/faq")
                     ? "text-sky-500 underline decoration-dotted"
@@ -157,6 +167,7 @@ function Header() {
             <li>
               <Link
                 to="/contact"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/contact")
                     ? "text-sky-500 underline decoration-dotted"
@@ -174,6 +185,7 @@ function Header() {
         <div className="flex list-none  items-center gap-6 justify-center">
           <li>
             <Link to="/wishlist">
+            
               <FaHeart style={{ fontSize: "1.3rem" }} />
             </Link>
           </li>
@@ -296,6 +308,7 @@ function Header() {
             >
               <Link
                 to="/shop"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/shop")
                     ? "text-yellow-300 underline decoration-dotted"
@@ -311,6 +324,7 @@ function Header() {
             >
               <Link
                 to="/contact"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/contact")
                     ? "text-yellow-300 underline decoration-dotted"
@@ -326,6 +340,7 @@ function Header() {
             >
               <Link
                 to="/about"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/about")
                     ? "text-yellow-300 underline decoration-dotted"
@@ -341,6 +356,7 @@ function Header() {
             >
               <Link
                 to="/faq"
+                onClick={scrollToProducts}
                 className={`${
                   isActive("/faq")
                     ? "text-yellow-300 underline decoration-dotted"
