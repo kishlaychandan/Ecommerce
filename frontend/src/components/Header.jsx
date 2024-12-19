@@ -384,6 +384,7 @@ function Header() {
               ) : (
                 <Link
                   to="/login"
+                  onClick={scrollToProducts}
                   className={`${
                     isActive("/login")
                       ? "text-yellow-300 underline decoration-dotted"
@@ -398,6 +399,7 @@ function Header() {
               <li className="py-2" onClick={() => setIsOpen(false)}>
                 <Link
                   to="/admin"
+                  onClick={scrollToProducts}
                   className={`${
                     isActive("/admin")
                       ? "text-yellow-300 underline decoration-dotted"
