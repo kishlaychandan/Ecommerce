@@ -99,7 +99,7 @@ function Header() {
       {/* Left Side Logo */}
       <h1 className="max-w-[20vw] overflow-hidden">
         <Link to="/">
-          <img src={isDarkMode ? logo : logo} alt="" className={`h-12 w-full ${isDarkMode ? "invert" : ""} hover:transform hover:scale-105`} />
+          <img src={isDarkMode ? logo : logo} alt="" className={`h-12 w-full ${isDarkMode ? "" : ""} hover:transform hover:scale-105`} />
         </Link>
       </h1>
 

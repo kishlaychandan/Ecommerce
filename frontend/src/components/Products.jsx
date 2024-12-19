@@ -156,7 +156,9 @@ function Products({ page }) {
             <section
               id="products"
               className="w-full h-full p-4 flex flex-wrap gap-4 justify-center"
-            >
+            > 
+              {page==="home" 
+              }
               <DisplayProducts products={filteredProducts} />
             </section>
           ) : (
