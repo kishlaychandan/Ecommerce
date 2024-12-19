@@ -69,7 +69,7 @@ function Footer() {
               <ul className="space-y-2">
                 <li>
                   <Link
-                    to="#"
+                    to="/faq"
                     className="hover:text-gray-300 transition duration-200"
                   >
                     Help & FAQs
@@ -108,13 +108,13 @@ function Footer() {
             <h2 className="text-lg font-semibold mb-4">Contact Us</h2>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <span className="font-bold">Email:</span> support@kamakhya.com
+                <span className="font-bold">Email:</span> kamakhyaenterprises.srg@gmail.com
               </li>
               <li>
-                <span className="font-bold">Phone:</span> +123 456 7890
+                <span className="font-bold">Phone:</span> +917026202925
               </li>
               <li>
-                <span className="font-bold">Location:</span> Kalkere, Bengaluru, Karnataka, India
+                <span className="font-bold">Location:</span> Kalkere, Bengaluru, Karnataka, India, 560083
               </li>
             </ul>
           </div>
