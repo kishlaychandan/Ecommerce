@@ -20,7 +20,7 @@ const BannerCarousel = () => {
   }, [banners.length]);
 
   return (
-    <div className="relative w-full flex justify-center">
+    <div className="relative w-full flex justify-center mt-2">
       <div className="relative w-full md:w-[90%] h-[35vh] sm:h-[45vh] md:h-[55vh] lg:h-[65vh] overflow-hidden shadow-xl">
       {/* Carousel Image */}
       <img
