@@ -60,8 +60,9 @@ export async function getAllProducts(req, res) {
 
     // Filtering by category
     if (req.query.category) {
-        query.category = req.query.category;
+        query.category = { $regex: `^.*${req.query.category}.*$`, $options: 'i' }; // Match substring and case-insensitive
     }
+    
 
     if (req.query.rating) {
         const ratingValue = Number(req.query.rating); // Ensure it's a number
