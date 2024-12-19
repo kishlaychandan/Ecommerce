@@ -90,7 +90,7 @@ function Products({ page }) {
     };
   
     // Trigger scroll whenever categry change
-    if(category!==""){
+    if(category!=="" && page=="home"){
       scrollToProducts();
     }
   }, [category]); 
