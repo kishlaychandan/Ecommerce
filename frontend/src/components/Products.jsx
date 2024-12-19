@@ -141,17 +141,54 @@ function Products({ page }) {
 
   return (
     <div
-      className={`w-full flex ${
+      className={`w-full flex min-h-screen ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
       } overflow-x-hidden`}
     >
       {page === "shop" ? <Sidebar onApplyFilters={applyFilters} /> : ""}
 
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-start">
         <div className="w-full flex justify-center flex-wrap">
           {page === "home" ? <BannerCarousel /> : ""}
           {error ? (
-            <p className="text-red-500"> {error} </p>
+            <section 
+            className="bg-red-50 border-l-4 border-red-500 text-red-800 px-6 py-4 rounded-md mt-8 shadow-md flex items-start space-x-4" 
+            role="alert" 
+            aria-live="assertive"
+          >
+            {/* Icon */}
+            <svg 
+              className="h-6 w-6 flex-shrink-0 text-red-500 mt-1" 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              aria-hidden="true"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M18.364 5.636a9 9 0 11-12.728 12.728 9 9 0 0112.728-12.728zm-5.657 8.486v2m0-8v2m0 4h.01"
+              />
+            </svg>
+        
+            {/* Error Message */}
+            <div className="flex-1">
+              <p className="text-sm font-semibold">{error}</p>
+              <p className="text-sm mt-1">Please resolve the issue and try again.</p>
+            </div>
+        
+            {/* Dismiss Button */}
+            <button 
+              type="button" 
+              className="text-red-500 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 rounded-md"
+              onClick={() => setCategory("all")} // Example function to clear error
+              aria-label="Dismiss error message"
+            >
+              ✕
+            </button>
+          </section>
           ) : filteredProducts.length > 0 ? (
             <section
               id="products"
@@ -159,7 +196,7 @@ function Products({ page }) {
             > 
               {page==="home" ?
                 <div className="w-full flex justify-center items-center">
-                <h2 className={`text-3xl py-8 font-bold ${
+                <h2 className={`text-3xl py-10 font-bold ${
                   isDarkMode ? "text-white" : "text-black"
                 }`}>
                 Our Latest Product
