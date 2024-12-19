@@ -157,7 +157,14 @@ function Products({ page }) {
               id="products"
               className="w-full h-full p-4 flex flex-wrap gap-4 justify-center"
             > 
-              {page==="home" 
+              {page==="home" ?
+                <div className="w-full flex justify-center items-center">
+                <h2 className={`text-3xl py-8 font-bold ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}>
+                Our Latest Product
+                </h2>
+              </div>  :""
               }
               <DisplayProducts products={filteredProducts} />
             </section>
