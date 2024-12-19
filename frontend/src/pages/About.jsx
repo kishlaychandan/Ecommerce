@@ -26,7 +26,7 @@ function About() {
   return (
     <div
       className={`${
-        isDarkMode ? "bg-gray-800 text-gray-200" : "bg-gray-50 text-gray-800"
+        isDarkMode ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-800"
       }`}
     >
       <ChatBots />
