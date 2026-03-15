@@ -8,10 +8,10 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- Load Razorpay checkout script before the app so window.Razorpay is available when needed -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+    <script type="module" src="/src/main.jsx" defer></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 
   </body>
 </html>
