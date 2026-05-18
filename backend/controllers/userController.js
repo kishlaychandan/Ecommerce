@@ -149,8 +149,7 @@ export async function forgetPassword(req, res) {
       return res.status(400).json({ message: "User not found" });
     } else console.log("user found");
 
-    console.log(process.env.EMAIL);
-    console.log(process.env.EMAIL_PASSWORD);
+    // Email credentials should not be logged
 
     const otp = generateSixDigitRandomNumber();
     await sendMail(

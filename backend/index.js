@@ -74,7 +74,6 @@ async function createDefaultAdmin() {
             role: "admin",
         });
         console.log(`Default admin created: ${adminEmail}`);
-        console.log(`Admin password: ${adminPassword}`);
     } else {
         console.log("Admin user already exists.");
     }
