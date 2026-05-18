@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import "dotenv/config"
 import mongoose from "mongoose"
+import bcrypt from "bcrypt"
 import ecoRoutes from "./routes/ecomRoutes.js"
 import productRouter from "./routes/productRoutes.js"
 import couponRouter from "./routes/couponRouter.js"
@@ -13,6 +14,7 @@ import expressRateLimit from "express-rate-limit"
 import aboutRouter from "./routes/aboutRouter.js"
 import faqRouter from "./routes/faqRoutes.js"
 import OrderRouter from "./routes/orderRouter.js"
+import { userModel } from "./models/userModels.js"
 
 const PORT=process.env.PORT || 3000;
 const app=express()
@@ -56,10 +58,33 @@ app.use("/api/about",aboutRouter)
 app.use('/api/faqs', faqRouter);
 app.use('/api/orders', OrderRouter)
 app.use('/api/coupons',couponRouter)
+
+async function createDefaultAdmin() {
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
+    const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+
+    const existingAdmin = await userModel.findOne({ role: "admin" });
+    if (!existingAdmin) {
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
+        await userModel.create({
+            firstName: "Admin",
+            lastName: "User",
+            email: adminEmail,
+            password: hashedPassword,
+            role: "admin",
+        });
+        console.log(`Default admin created: ${adminEmail}`);
+        console.log(`Admin password: ${adminPassword}`);
+    } else {
+        console.log("Admin user already exists.");
+    }
+}
+
 try {
     // MongoDB URI with localhost (creates the DB automatically when data is inserted)
     // await mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce")
     await mongoose.connect(process.env.MONGO_URI);
+    await createDefaultAdmin();
     app.listen(PORT,()=>console.log(`Server running on port ${PORT}`))
 }
 catch(err){
