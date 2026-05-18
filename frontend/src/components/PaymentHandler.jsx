@@ -420,7 +420,7 @@ const PaymentHandler = ({ total, onSuccess }) => {
     }
 
     const options = {
-      key: "rzp_test_rZUOMEi4ogeBfp", // Replace with your Razorpay key
+      key: import.meta.env.VITE_RAZORPAY_KEY || "rzp_test_default",
       amount: Math.round(discountedPrice * 100), // Razorpay expects amount in paise
       currency: "INR",
       name: "Kishlay Shop",
