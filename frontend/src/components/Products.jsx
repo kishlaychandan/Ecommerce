@@ -12,6 +12,7 @@ function Products({ page }) {
   const [products, setProducts] = useState([]); // Original products
   const [filteredProducts, setFilteredProducts] = useState([]); // Filtered products
   const { searchTerm, category, setCategory } = useCategories(); // Get category from CategoriesContext
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   console.log("isDarkMode", isDarkMode);
@@ -19,14 +20,19 @@ function Products({ page }) {
   // Fetch all products when the component mounts
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       try {
         const response = await axios.get("/product/getproduct");
         console.log(response.data);
         setProducts(response.data.products);
         setFilteredProducts(response.data.products); // Initialize filteredProducts
+        setError(null);
       } catch (err) {
         console.error("Error fetching products:", err);
         setError("Failed to load products.");
+        setFilteredProducts([]);
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
@@ -35,47 +41,30 @@ function Products({ page }) {
   // Fetch products when the category from context changes
   useEffect(() => {
     async function fetchProductsByCategory() {
-      if (category == "all") {
-        try {
+      setLoading(true);
+      try {
+        if (category == "all") {
           const response = await axios.get(`/product/getproduct`);
-          if (response.data.products.length === 0) {
-            // If no products match the category, show a message or reset the filtered products
-            setFilteredProducts([]);
-            setError("No products found for this category.");
-          } else {
-            setFilteredProducts(response.data.products);
-            setError(null); // Clear any previous errors
-          }
-          return;
-        } catch (e) {
-          console.log(e.message);
-          setError("Failed to load products for the selected category.");
-          setFilteredProducts([]); // Reset to empty if there's an error
+          setFilteredProducts(response.data.products);
+          setError(null);
           return;
         }
-      }
-      if (category) {
-        try {
-          // Fetch products for the selected category
+        if (category) {
           const response = await axios.get(
             `/product/getproduct?category=${category}`
           );
-          if (response.data.products.length === 0) {
-            // If no products match the category, show a message or reset the filtered products
-            setFilteredProducts([]);
-            setError("No products found for this category.");
-          } else {
-            setFilteredProducts(response.data.products);
-            setError(null); // Clear any previous errors
-          }
-        } catch (err) {
-          console.error("Error fetching category products:", err);
-          setError("Failed to load products for the selected category.");
-          setFilteredProducts([]); // Reset to empty if there's an error
+          setFilteredProducts(response.data.products);
+          setError(null);
+        } else {
+          // Reset to original products if no category is selected
+          setFilteredProducts(products);
         }
-      } else {
-        // Reset to original products if no category is selected
-        setFilteredProducts(products);
+      } catch (err) {
+        console.error("Error fetching category products:", err);
+        setError("Failed to load products for the selected category.");
+        setFilteredProducts([]); // Reset to empty if there's an error
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -98,22 +87,20 @@ function Products({ page }) {
   useEffect(() => {
     async function fetchSearchTerm() {
       if (searchTerm) {
+        setLoading(true);
         try {
           setCategory("");
           const response = await axios.get(
             `/product/getproduct?name=${searchTerm}`
           );
-          if (response.data.products.length === 0) {
-            setFilteredProducts([]);
-            setError("No products found for this category.");
-          } else {
-            setFilteredProducts(response.data.products);
-            setError(null);
-          }
+          setFilteredProducts(response.data.products);
+          setError(null);
         } catch (err) {
           console.error("Error fetching search products:", err);
           setError("Failed to load products for the selected category.");
           setFilteredProducts([]);
+        } finally {
+          setLoading(false);
         }
       } else {
         setFilteredProducts(products);
@@ -206,6 +193,18 @@ function Products({ page }) {
                 ✕
               </button>
             </section>
+          ) : loading ? (
+            <>
+              <div className="w-full flex flex-col justify-center items-center">
+                <div className="w-full animate-spin flex items-center justify-center">
+                  <MdOutlineRotateRight
+                    size={45}
+                    style={{ color: "blue", paddingTop: "1px" }}
+                  />
+                </div>
+                <p className="text-orange-600">Loading products...</p>
+              </div>
+            </>
           ) : filteredProducts.length > 0 ? (
             <section
               id="products"
@@ -228,14 +227,13 @@ function Products({ page }) {
             </section>
           ) : (
             <>
-              <div className="w-full flex flex-col justify-center items-center">
-                <div className="w-full animate-spin flex items-center justify-center">
-                  <MdOutlineRotateRight
-                    size={45}
-                    style={{ color: "blue", paddingTop: "1px" }}
-                  />
-                </div>
-                <p className="text-orange-600">Loading products...</p>
+              <div className="w-full flex flex-col justify-center items-center py-20">
+                <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">
+                  No products available.
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                  Try changing the category or search term.
+                </p>
               </div>
             </>
           )}

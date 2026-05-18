@@ -333,6 +333,8 @@ const PaymentHandler = ({ total, onSuccess }) => {
   const [discountedPrice, setDiscountedPrice] = useState(total);
   const [publicCoupons, setPublicCoupons] = useState([]);
   const [appliedCoupon, setAppliedCoupon] = useState("");
+  const [razorpayReady, setRazorpayReady] = useState(false);
+  const [razorpayError, setRazorpayError] = useState("");
   const [shippingDetails, setShippingDetails] = useState({
     address: "",
     city: "",
@@ -341,6 +343,37 @@ const PaymentHandler = ({ total, onSuccess }) => {
   });
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (window.Razorpay) {
+        setRazorpayReady(true);
+      } else {
+        const existingScript = document.querySelector(
+          'script[src="https://checkout.razorpay.com/v1/checkout.js"]'
+        );
+        if (!existingScript) {
+          const script = document.createElement("script");
+          script.src = "https://checkout.razorpay.com/v1/checkout.js";
+          script.async = true;
+          script.onload = () => {
+            setRazorpayReady(true);
+            console.log("Razorpay checkout SDK loaded.");
+          };
+          script.onerror = () => {
+            setRazorpayError("Failed to load Razorpay checkout SDK.");
+            console.error("Failed to load Razorpay checkout SDK.");
+          };
+          document.body.appendChild(script);
+        } else {
+          existingScript.addEventListener("load", () => {
+            setRazorpayReady(true);
+          });
+          existingScript.addEventListener("error", () => {
+            setRazorpayError("Failed to load Razorpay checkout SDK.");
+          });
+        }
+      }
+    }
+
     const fetchPublicCoupons = async () => {
       try {
         const response = await axios.get("/coupons/public");
@@ -379,9 +412,16 @@ const PaymentHandler = ({ total, onSuccess }) => {
       return;
     }
 
+    if (typeof window === "undefined" || !window.Razorpay) {
+      alert(
+        "Payment provider is unavailable right now. Please refresh the page or try again later."
+      );
+      return;
+    }
+
     const options = {
       key: "rzp_test_rZUOMEi4ogeBfp", // Replace with your Razorpay key
-      amount: discountedPrice * 100, // Razorpay expects amount in paise
+      amount: Math.round(discountedPrice * 100), // Razorpay expects amount in paise
       currency: "INR",
       name: "Kishlay Shop",
       description: "Order Payment",
@@ -410,8 +450,16 @@ const PaymentHandler = ({ total, onSuccess }) => {
       },
     };
 
-    const razorpay = new window.Razorpay(options);
-    razorpay.open();
+    try {
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Unable to launch Razorpay checkout:", error);
+      alert(
+        "Payment could not be processed at this time. Please try again later."
+      );
+      setRazorpayError("Razorpay payment flow failed to initialize.");
+    }
   };
 
   const createOrder = async (paymentId) => {
@@ -545,13 +593,23 @@ const PaymentHandler = ({ total, onSuccess }) => {
         </p>
       </div>
 
+      {razorpayError && (
+        <p className={`mt-4 text-sm ${isDarkMode ? "text-red-300" : "text-red-600"}`}>
+          {razorpayError}
+        </p>
+      )}
       <button
         onClick={handlePayment}
+        disabled={!razorpayReady}
         className={`btn btn-primary p-2 rounded-lg mt-4 w-full ${
-          isDarkMode ? "bg-green-700" : "bg-green-600"
+          !razorpayReady
+            ? "bg-gray-400 cursor-not-allowed"
+            : isDarkMode
+            ? "bg-green-700"
+            : "bg-green-600"
         } text-white`}
       >
-        Proceed to Payment
+        {razorpayReady ? "Proceed to Payment" : "Payment unavailable"}
       </button>
     </div>
   );
