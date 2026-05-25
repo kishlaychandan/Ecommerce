@@ -1,4 +1,5 @@
 import productModel from "../models/productModels.js";
+import cloudinary from "cloudinary";
 import { uploadToCloudinary } from "../services/cloudinaryUpload.js";
 import dotenv from "dotenv";
 import { userModel } from "../models/userModels.js";

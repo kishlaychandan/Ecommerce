@@ -5,15 +5,13 @@ ENV PORT=3000
 
 WORKDIR /app
 
-RUN chown node:node /app
-
-USER node
-
-COPY --chown=node:node package*.json ./
+COPY package*.json ./
 
 RUN npm ci --omit=dev
 
-COPY --chown=node:node . .
+COPY . .
+
+USER node
 
 EXPOSE 3000
 

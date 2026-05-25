@@ -1,7 +1,6 @@
 // CartContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "./axiosConfig";
-import { responseArray } from "./utils/apiResponse";
 
 const CartContext = createContext();
 
@@ -26,8 +25,8 @@ export const CartProvider = ({ children }) => {
             ]);
             // console.log("cart", cartResponse.data.products);
             
-            setCart(responseArray(cartResponse, "products"));
-            setWishlist(responseArray(wishlistResponse, "wishlist"));
+            setCart(cartResponse.data.products);
+            setWishlist(wishlistResponse.data.wishlist);
         } catch (error) {
             console.error("Error fetching cart and wishlist:", error);
         }

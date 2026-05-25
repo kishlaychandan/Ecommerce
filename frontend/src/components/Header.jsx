@@ -22,7 +22,6 @@ import { useCategories } from "../CategoriesContext.jsx";
 
 function Header() {
   const { cart, setCart, fetchCartAndWishlist } = useCart();
-  const cartCount = Array.isArray(cart) ? cart.length : 0;
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const { setSearchTerm } = useCategories();
   const [searchTermState, setSearchTermState] = useState(""); // State for search input
@@ -193,9 +192,9 @@ function Header() {
           <li>
             <Link to="/cart" className="flex items-center gap-1 relative">
               <FaCartArrowDown style={{ fontSize: "1.5rem" }} />
-              {cartCount > 0 && (
+              {cart.length > 0 && (
                 <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold rounded-full px-1">
-                  {cartCount}
+                  {cart.length}
                 </span>
               )}
             </Link>

@@ -6,15 +6,13 @@ ENV PORT=5173
 
 WORKDIR /app
 
-RUN chown node:node /app
-
-USER node
-
-COPY --chown=node:node package*.json ./
+COPY package*.json ./
 
 RUN npm ci
 
-COPY --chown=node:node . .
+COPY . .
+
+USER node
 
 EXPOSE 5173
 

@@ -12,7 +12,7 @@ function Review({ productId, user }) {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await axios.get(`/product/review/${productId}`);
+        const res = await axios.get(`/api/review/${productId}`);
         setReviews(res.data.reviews || []); // Ensure that reviews is always an array
       } catch (err) {
         console.error("Error fetching reviews", err);
@@ -37,7 +37,7 @@ function Review({ productId, user }) {
       const data = { userId: user._id, rating, comment };
 
       // API call to create a review
-      const res = await axios.post(`/product/review/${productId}`, data, config);
+      const res = await axios.post(`/api/review/${productId}`, data, config);
       setReviews((prevReviews) => [res.data.review, ...prevReviews]);
       setComment("");
       setRating(1); // Reset the rating to 1 after submission
@@ -59,7 +59,7 @@ function Review({ productId, user }) {
       };
 
       // API call to delete review
-      await axios.delete(`/product/reviews/${reviewId}`, config);
+      await axios.delete(`/api/review/${reviewId}`, config);
       setReviews((prevReviews) => prevReviews.filter((review) => review._id !== reviewId));
     } catch (err) {
       console.error("Error deleting review", err);
