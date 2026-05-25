@@ -15,8 +15,6 @@ RUN npm ci --omit=dev
 
 COPY --chown=node:node . .
 
-RUN mkdir -p uploads
-
 EXPOSE 3000
 
 CMD ["node", "index.js"]
