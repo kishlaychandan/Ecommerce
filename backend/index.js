@@ -41,6 +41,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
+
+app.get("/api/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        service: "ecommerce-backend",
+    });
+});
+
 app.use(limiter)
 
 app.use("/api/check", authRouter);
