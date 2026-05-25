@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "../../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../AuthContext";
+import { responseArray } from "../../../../utils/apiResponse";
 
 function Dashboard() {
   const { setIsAdminLoggedIn } = useAuth();
@@ -20,15 +21,15 @@ function Dashboard() {
     try {
       // Fetching total listings (products)
       const productsResponse = await axios.get("/product/getproduct");
-      setTotalListings(productsResponse.data.products.length);
+      setTotalListings(responseArray(productsResponse, "products").length);
 
       // Fetching total users
       const userresponse = await axios.get("/user");
-      setTotalUsers(userresponse.data.users.length); // Assuming the response contains a list of users
+      setTotalUsers(responseArray(userresponse, "users").length); // Assuming the response contains a list of users
 
       // Fetching total orders
       const orderresponse = await axios.get("/orders/all");
-      setTotalOrders(orderresponse.data.length);
+      setTotalOrders(Array.isArray(orderresponse.data) ? orderresponse.data.length : 0);
 
     } catch (err) {
       console.log("Error fetching dashboard data:", err.message);

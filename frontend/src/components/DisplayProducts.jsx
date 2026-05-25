@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
 import { FaStar } from "react-icons/fa6"; // Import FaStar icon
 import { IoArrowForward, IoArrowBack } from "react-icons/io5";
+import { asArray } from "../utils/apiResponse";
 
 function DisplayProducts({ products }) {
   const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
+  const safeProducts = asArray(products);
 
   const [currentPage, setCurrentPage] = useState(1); // State for current page
   const productsPerPage = 4; // Number of products per page
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const totalPages = Math.ceil(safeProducts.length / productsPerPage);
 
-  const currentProducts = products.slice(
+  const currentProducts = safeProducts.slice(
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage
   );

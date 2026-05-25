@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../../axiosConfig'; 
 import { useParams } from 'react-router-dom';
+import { responseArray } from '../../../utils/apiResponse';
 
 const EditReview = () => {
   const [products, setProducts] = useState([]); 
@@ -14,7 +15,7 @@ const EditReview = () => {
         try {
             const response = await axios.get("/product/getproduct");
             console.log(response.data);
-            setProducts(response.data.products);
+            setProducts(responseArray(response, "products"));
         } catch (err) {
             console.error("Error fetching products:", err);
         }
@@ -29,7 +30,7 @@ const EditReview = () => {
     try {
         setReviews([]); // Clear the reviews array before fetching
         const response = await axios.get(`/product/review/${productId}`);
-        setReviews(response.data.reviews);
+        setReviews(responseArray(response, "reviews"));
     } catch (error) {
         console.log("Error fetching reviews:", error);
     }

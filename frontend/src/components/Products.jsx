@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import { ThemeContext } from "../ThemeContext"; // Import ThemeContext
 import { useCategories } from "../CategoriesContext.jsx"; // Import CategoriesContext
 import { MdOutlineRotateRight } from "react-icons/md";
+import { responseArray } from "../utils/apiResponse";
 
 function Products({ page }) {
   const { isDarkMode } = useContext(ThemeContext); // Get isDarkMode from context
@@ -23,9 +24,10 @@ function Products({ page }) {
       setLoading(true);
       try {
         const response = await axios.get("/product/getproduct");
+        const nextProducts = responseArray(response, "products");
         console.log(response.data);
-        setProducts(response.data.products);
-        setFilteredProducts(response.data.products); // Initialize filteredProducts
+        setProducts(nextProducts);
+        setFilteredProducts(nextProducts); // Initialize filteredProducts
         setError(null);
       } catch (err) {
         console.error("Error fetching products:", err);
@@ -45,7 +47,7 @@ function Products({ page }) {
       try {
         if (category == "all") {
           const response = await axios.get(`/product/getproduct`);
-          setFilteredProducts(response.data.products);
+          setFilteredProducts(responseArray(response, "products"));
           setError(null);
           return;
         }
@@ -53,7 +55,7 @@ function Products({ page }) {
           const response = await axios.get(
             `/product/getproduct?category=${category}`
           );
-          setFilteredProducts(response.data.products);
+          setFilteredProducts(responseArray(response, "products"));
           setError(null);
         } else {
           // Reset to original products if no category is selected
@@ -93,7 +95,7 @@ function Products({ page }) {
           const response = await axios.get(
             `/product/getproduct?name=${searchTerm}`
           );
-          setFilteredProducts(response.data.products);
+          setFilteredProducts(responseArray(response, "products"));
           setError(null);
         } catch (err) {
           console.error("Error fetching search products:", err);
@@ -134,7 +136,7 @@ function Products({ page }) {
       if (sortBy) query += `sortBy=${sortBy}&sort=${sort}`;
 
       const response = await axios.get(query);
-      setFilteredProducts(response.data.products);
+      setFilteredProducts(responseArray(response, "products"));
     } catch (err) {
       console.error("Error filtering products:", err);
       setError("Failed to filter products.");
